@@ -21,15 +21,21 @@ void Log::update() {
 			position = Point2D(-150.0f, position.getY());
 		}
 }
-bool Log::checkCollision(const SDL_FRect& other) const {
-		SDL_FRect mine = { position.getX(), position.getY(), (float)texture->getFrameWidth(), (float)texture->getFrameHeight() };
+Collision Log::checkCollision(const SDL_FRect& other) const {
+	SDL_FRect mine = { position.getX(), position.getY(), 
+		(float)texture->getFrameWidth(), (float)texture->getFrameHeight() };
 
-		bool collisionX = mine.x < other.x
-			+ other.w && mine.x + mine.w > other.x;
-		bool collisionY = mine.y < other.y
-			+ other.h && mine.y + mine.h > other.y;
+	bool collisionX = mine.x < other.x
+		+ other.w && mine.x + mine.w > other.x;
+	bool collisionY = mine.y < other.y
+		+ other.h && mine.y + mine.h > other.y;
 
-		return collisionX && collisionY;
+	if(collisionX && collisionY) {
+		return Collision(CollisionType::LOG);
+	}
+	else {
+		return Collision(CollisionType::NONE);
+	}
 }
 
 

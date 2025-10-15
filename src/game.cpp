@@ -11,6 +11,7 @@
 #include "Vehicle.h"
 #include "Log.h"
 #include "Frog.h"
+#include "Collision.h"
 
 using namespace std;
 
@@ -124,8 +125,12 @@ Game::update()
 		(float)frog->getTexture()->getFrameHeight()
 	};
 	//comprobamos colisiones llamando a checkCollision, tengo un console.log para comprobar
-	if (checkCollision(frogRect))
-		std::cout << "frog ha colisionado \n";
+	if (checkCollision(frogRect).type==CollisionType::VEHICLE)
+		std::cout << "frog ha colisionado con un vehículo \n";
+	else if (checkCollision(frogRect).type == CollisionType::LOG)
+		std::cout << "frog está sobre un tronco \n";
+
+
 }
 
 void
@@ -166,38 +171,34 @@ Game::handleEvents()
 /// </summary>
 /// <param name="rect">Rectángulo generado por el sprite de la rana</param>
 /// <returns></returns>
-bool 
+Collision
 Game::checkCollision(const SDL_FRect& rect) const
 {
 	//se comprueba la colisión con cada vehículo actualizando su estado
 	//y llamando al método que comprueba si colisiona con el rectángulo dado
 	for (auto v : vehicles) {
-		v->update();
-
-		if (v->checkCollision(rect)) {
-			return true;
-			std::cout << "Frog colisiona con vehiculo" << std::endl;
+		if(v->checkCollision(rect).type == CollisionType::VEHICLE) {
+			return Collision(CollisionType::VEHICLE); 
 		}
 	}
 	
 	//se comprueba si la rana está sobre un tronco utilizando un booleano auxiliar
 	//de la misma manera que se hace con los vehículos
-	bool onLog = false;
 	for (auto l : logs) {
-		if(l->checkCollision(rect)) {
-			onLog = true;		
+		if(l->checkCollision(rect).type == CollisionType::LOG) {
+			return Collision(CollisionType::LOG, l->checkCollision(rect).logSpeed);
 		}
 	}
 
 	//se comprueba si la rana ha caído al río comparando su posición con la de comienzo
 	//del mismo y si no está sobre un tronco
-	if (frog->getPosition().getY() < RIVER_LOW && !onLog) {
+	if (frog->getPosition().getY() < RIVER_LOW) {
 		std::cout << "¡La rana cayó al río!" << std::endl;
-		return true; 
+		return Collision(CollisionType::NONE);
 	}
 
 	// TODO: cambiar el tipo de retorno a Collision e implementar
-	return false;
+	return Collision(CollisionType::NONE);
 }
 
 /// <summary>

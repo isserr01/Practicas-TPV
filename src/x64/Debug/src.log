@@ -1,6 +1,20 @@
-﻿  Frog.cpp
+﻿  Collision.cpp
+  game.cpp
   Log.cpp
   Vehicle.cpp
-  game.cpp
-  main.cpp
-  src.vcxproj -> C:\Users\Isa\Documents\GitHub\P1-TPV1\bin\srcDebug.exe
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(12,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "game.cpp")
+      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(12,8):
+      vea la declaración de 'Collision'
+  
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(12,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "Vehicle.cpp")
+      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(12,8):
+      vea la declaración de 'Collision'
+  
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(12,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "Log.cpp")
+      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(12,8):
+      vea la declaración de 'Collision'
+  
+  src.vcxproj -> C:\Users\Isa\Documents\GitHub\Practica-TPV1\bin\srcDebug.exe

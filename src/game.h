@@ -11,6 +11,7 @@ class Texture;
 class Vehicle;
 class Log;
 class Frog;
+class Collision;
 
 /**
  * Clase principal del juego.
@@ -66,7 +67,7 @@ public:
 	void run();
 
 	// Comprueba si hay algún objeto colocado en ese rectángulo
-	bool checkCollision(const SDL_FRect& rect) const;
+	Collision checkCollision(const SDL_FRect& rect) const;
 
 	void loadMap(const std::string& filename);
 };

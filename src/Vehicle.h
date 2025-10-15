@@ -4,6 +4,7 @@
 #include "vector2D.h"
 #include "texture.h"
 #include <SDL3/SDL.h>
+#include "Collision.h"	
 
 class Game;
 using Point2D = Vector2D<float>;
@@ -25,6 +26,6 @@ public:
 	//método de actualización de posición
 	void update();
 	//método para comprobar colisiones con un rectángulo dado
-	bool checkCollision(const SDL_FRect& other) const;
+	Collision checkCollision(const SDL_FRect& other) const;
 };
 #endif // VEHICLE_H
