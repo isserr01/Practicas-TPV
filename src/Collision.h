@@ -2,21 +2,25 @@
 #define COLLISION_H
 
 #include "Vector2D.h"
-enum class CollisionType
-{
-	NONE,
-	VEHICLE,
-	LOG,
-};
-
 struct Collision {
-	CollisionType type;
-	Vector2D<float> logSpeed; 
+	enum Type
+	{
+		NONE,
+		ENEMY,
+		PLATFORM,
+	};
 
-	Collision(CollisionType t = CollisionType::NONE, Vector2D<float> speed = Vector2D<float>(0,0))
-		: type(t), logSpeed(speed) {
+	Vector2D<float> speed; 
+	Type type;
+
+	Collision(Type t, Vector2D<float> speed = Vector2D<float>(0,0))
+		: type(t), speed(speed) {
+	}
+	Collision()
+		: type(NONE), speed(Vector2D<float>(0, 0)) {
 	}
 
 };;
+
 
 #endif // COLLISION_H

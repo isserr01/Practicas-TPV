@@ -117,20 +117,6 @@ Game::update()
 	for (auto l : logs) l->update();
 	if (frog) frog->update();
 
-	//generamos el rectángulo de la rana para comprobar colisiones
-	SDL_FRect frogRect{
-		frog->getPosition().getX(),
-		frog->getPosition().getY(),
-		(float)frog->getTexture()->getFrameWidth(),
-		(float)frog->getTexture()->getFrameHeight()
-	};
-	//comprobamos colisiones llamando a checkCollision, tengo un console.log para comprobar
-	if (checkCollision(frogRect).type==CollisionType::VEHICLE)
-		std::cout << "frog ha colisionado con un vehículo \n";
-	else if (checkCollision(frogRect).type == CollisionType::LOG)
-		std::cout << "frog está sobre un tronco \n";
-
-
 }
 
 void
@@ -159,8 +145,6 @@ Game::handleEvents()
 			//se delegan los eventos a la rana para comprobar el input
 			//para el movimiento
 			frog->HandleEvents(event);
-			//se compara la colisión de la rana con otros objetos
-				
 		}		
 		
 	}
@@ -174,31 +158,23 @@ Game::handleEvents()
 Collision
 Game::checkCollision(const SDL_FRect& rect) const
 {
-	//se comprueba la colisión con cada vehículo actualizando su estado
-	//y llamando al método que comprueba si colisiona con el rectángulo dado
-	for (auto v : vehicles) {
-		if(v->checkCollision(rect).type == CollisionType::VEHICLE) {
-			return Collision(CollisionType::VEHICLE); 
+	Collision col;
+
+	for (auto v : vehicles) {	
+		col = v->checkCollision(rect);
+		if(col.type != Collision::NONE && col.type == Collision::ENEMY) {
+			
+			return col;
 		}
-	}
-	
-	//se comprueba si la rana está sobre un tronco utilizando un booleano auxiliar
-	//de la misma manera que se hace con los vehículos
+	}	
 	for (auto l : logs) {
-		if(l->checkCollision(rect).type == CollisionType::LOG) {
-			return Collision(CollisionType::LOG, l->checkCollision(rect).logSpeed);
+		col = l->checkCollision(rect);
+		if(col.type != Collision::NONE && col.type == Collision::PLATFORM) {
+		
+			return col;
 		}
 	}
-
-	//se comprueba si la rana ha caído al río comparando su posición con la de comienzo
-	//del mismo y si no está sobre un tronco
-	if (frog->getPosition().getY() < RIVER_LOW) {
-		std::cout << "¡La rana cayó al río!" << std::endl;
-		return Collision(CollisionType::NONE);
-	}
-
-	// TODO: cambiar el tipo de retorno a Collision e implementar
-	return Collision(CollisionType::NONE);
+	return col;
 }
 
 /// <summary>

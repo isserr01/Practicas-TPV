@@ -18,24 +18,18 @@ void Log::render() const {
 void Log::update() {
 		position = position + speed;
 		if (position.getX() > Game::WINDOW_WIDTH) {
-			position = Point2D(-150.0f, position.getY());
+			position = Point2D(-150.0f - (float)texture->getFrameWidth(), position.getY());
 		}
 }
-Collision Log::checkCollision(const SDL_FRect& other) const {
-	SDL_FRect mine = { position.getX(), position.getY(), 
+Collision Log::checkCollision(const SDL_FRect& other) const {	
+	SDL_FRect rect = { position.getX(), position.getY(), 
 		(float)texture->getFrameWidth(), (float)texture->getFrameHeight() };
 
-	bool collisionX = mine.x < other.x
-		+ other.w && mine.x + mine.w > other.x;
-	bool collisionY = mine.y < other.y
-		+ other.h && mine.y + mine.h > other.y;
-
-	if(collisionX && collisionY) {
-		return Collision(CollisionType::LOG);
+	if(SDL_HasRectIntersectionFloat(&rect, &other)) {
+		return Collision(Collision::PLATFORM, speed);
 	}
-	else {
-		return Collision(CollisionType::NONE);
-	}
+	return Collision(Collision::NONE);
+	
 }
 
 

@@ -4,6 +4,7 @@
 #include "vector2D.h"
 #include "texture.h"
 #include <SDL3/SDL.h>
+#include "Collision.h"
 
 class Game;
 using Point2D = Vector2D<float>;
@@ -24,8 +25,7 @@ public:
 	void render() const;
 	void update();
 	void HandleEvents(const SDL_Event& event);
-	const Vector2D<float>& getPosition() const { return position; }
-	Texture* getTexture() const { return texture; }
+
 
 };
 #endif // FROG_H

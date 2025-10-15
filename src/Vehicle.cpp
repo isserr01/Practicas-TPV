@@ -23,27 +23,22 @@ void Vehicle::render() const {
 void Vehicle::update() {
 	position = position + speed;
 	if (position.getX() > Game::WINDOW_WIDTH) {
-		position = Point2D(-150.0f, position.getY());
+		position = Point2D(0 - (float)texture->getFrameWidth()/2, position.getY());
 	}
-	else if (position.getX() + texture->getFrameWidth() < -150.0f) {
-		position = Point2D(Game::WINDOW_WIDTH + 150.0f, position.getY());
+	else if (position.getX() + texture->getFrameWidth() < -150) {
+		position = Point2D(Game::WINDOW_WIDTH, position.getY());
 	}
 }
 
 Collision Vehicle::checkCollision(const SDL_FRect& other) const {
-	SDL_FRect mine = { position.getX(), position.getY(), (float)texture->getFrameWidth(), (float)texture->getFrameHeight() };
+	SDL_FRect rect = { position.getX(), position.getY(),
+	(float)texture->getFrameWidth(), (float)texture->getFrameHeight() };
 
-	bool collisionX = mine.x < other.x
-		+ other.w && mine.x + mine.w > other.x;
-	bool collisionY = mine.y < other.y
-		+ other.h && mine.y + mine.h > other.y;
+	if (SDL_HasRectIntersectionFloat(&rect, &other)) {
+		return Collision(Collision::ENEMY);
+	}
+	return Collision(Collision::NONE);
 
-	if(collisionX && collisionY) {
-		return Collision(CollisionType::VEHICLE);
-	}
-	else {
-		return Collision(CollisionType::NONE);
-	}
 }
 
 
