@@ -10,6 +10,11 @@ Log::Log(Game* game, const Point2D& position, const Vector2D<float>& speed, int 
 	else if (type == 1) texture = game->getTexture(Game::LOG2);
 
 }
+
+Log::~Log()
+{
+	
+}
 void Log::render() const {
 		int width = texture->getFrameWidth();
 		int height = texture->getFrameHeight();

@@ -15,6 +15,11 @@ Vehicle::Vehicle(Game* game, const Point2D& position, const Vector2D<float>& spe
 
 
 }
+
+Vehicle::~Vehicle()
+{
+	
+}
 void Vehicle::render() const {
 	int width = texture->getFrameWidth();
 	int height = texture->getFrameHeight();

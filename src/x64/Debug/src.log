@@ -1,12 +1,6 @@
-﻿  Log.cpp
-  Vehicle.cpp
+﻿  Frog.cpp
 C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
-  (compilando archivo de origen "Vehicle.cpp")
-      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
-      vea la declaración de 'Collision'
-  
-C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
-  (compilando archivo de origen "Log.cpp")
+  (compilando archivo de origen "Frog.cpp")
       C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
       vea la declaración de 'Collision'
   

@@ -21,6 +21,7 @@ class Vehicle
 public:
 	//constructora
 	Vehicle(Game* game, const Point2D& position, const Vector2D<float>& speed, int type);
+	~Vehicle();
 	//método de renderizado
 	void render() const;
 	//método de actualización de posición

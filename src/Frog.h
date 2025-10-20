@@ -21,7 +21,7 @@ class Frog
 
 public:
 	Frog(Game* game, const Point2D& position, const Vector2D<float>& speed, int lives);
-	
+	~Frog();
 	void render() const;
 	void update();
 	void HandleEvents(const SDL_Event& event);

@@ -69,6 +69,9 @@ Game::Game()
 
 	//llamamos al método de cargar el mapa
 	loadMap(MAP_FILE);
+	if(!MAP_FILE) {
+		cout << "No se pudo cargar el mapa" ;
+	}
 
 	// Configura que se pueden utilizar capas translúcidas
 	// SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
@@ -128,8 +131,9 @@ Game::run()
 		update();
 		render();	
 
-		SDL_Delay(16);
+		SDL_Delay(FRAME_RATE);
 	}
+	
 }
 
 void
@@ -178,7 +182,7 @@ Game::checkCollision(const SDL_FRect& rect) const
 }
 
 /// <summary>
-/// Método auxiliar para cargar el mapa desde un archivo de texto
+/// Método para cargar el mapa desde un archivo de texto
 /// </summary>
 /// <param name="filename">Ruta del .txt del mapa</param>
 void Game::loadMap(const std::string& filename)
@@ -186,7 +190,7 @@ void Game::loadMap(const std::string& filename)
 	std::ifstream f(filename);
 	//lanzamos excepción si no se encuentra el archivo
 	if (!f) {
-		std::cerr << "No se pudo abrir el mapa" << std::endl;
+		cout << "No se pudo abrir el mapa" << endl;
 	}
 
 	//leemos char a char
@@ -195,16 +199,15 @@ void Game::loadMap(const std::string& filename)
 		//casuística para cada tipo de objeto
 		//ignorar comentarios
 		if (id == '#') {
-			f.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // ignore rest of line
-			continue;
+			f.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
 		}
 		//variables auxiliares para leer la posición de los objetos
 		float x, y;
 		//caso de la rana
 		if (id == 'F') {
+			//llamada al constructor
 			int lives;
 			f >> x >> y >> lives;
-			//llamada al constructor
 			frog = new Frog(this, Point2D(x, y), Vector2D<float>(32.0f, 32.0f),lives);
 		}
 		//caso de los vehículos
@@ -225,9 +228,9 @@ void Game::loadMap(const std::string& filename)
 			Log* l = new Log(this, Point2D(x, y), Vector2D<float>(vx/20, 0.0f),type);
 			logs.push_back(l);
 		}
-		//excepción para id desconocidos
+		//excepción si el identificador no existe
 		else {
-			std::cerr << "ID de objeto desconocido: " << id << std::endl;
+			cout << "ID de objeto desconocido: " << id << std::endl;
 		}
 
 	}

@@ -17,7 +17,7 @@ class Log
 
 public:
 	Log(Game* game, const Point2D& position, const Vector2D<float>& speed,int type);
-	
+	~Log();
 	void render() const;
 	void update();
 	Collision checkCollision(const SDL_FRect& other) const;

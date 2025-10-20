@@ -9,9 +9,11 @@
 
 int main(int argc, char* argv[])
 {
-	Game().run();
+	Game* game = new Game();
+	game->run();
 
 	// TODO: manejar excepciones
-
+	delete game;
 	return 0;
+	
 }

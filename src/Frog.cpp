@@ -12,6 +12,12 @@ Frog::Frog(Game* game, const Point2D& position, const Vector2D<float>& speed, in
 	, lives(lives)
 {
 }
+
+Frog::~Frog()
+{
+
+}
+
 void Frog::render() const {
 	int width = texture->getFrameWidth();
 	int height = texture->getFrameHeight();
@@ -42,6 +48,7 @@ void Frog::render() const {
 	texture->renderFrame(
 		SDL_FRect{ position.getX(), position.getY() ,(float)width,(float)height }, 0, currentFrame, angle, nullptr, flip);
 }
+
 void Frog::update() {
 	if (moving) {
 		position = Point2D(position.getX() + moveDir.getX() * speed.getX(),
@@ -65,6 +72,7 @@ void Frog::update() {
 	}
 	
 }
+
 void Frog::HandleEvents(const SDL_Event& event) {
 	if (event.type == SDL_EVENT_KEY_DOWN && event.key.repeat == 0) {
 		if (event.key.key == SDLK_UP) {
