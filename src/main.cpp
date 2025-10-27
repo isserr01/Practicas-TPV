@@ -14,6 +14,7 @@ int main(int argc, char* argv[])
 
 	// TODO: manejar excepciones
 	delete game;
+	
 	return 0;
 	
 }

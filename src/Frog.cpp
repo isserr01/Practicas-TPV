@@ -29,7 +29,7 @@ void Frog::render() const {
 	double angle = 0;
 	SDL_FlipMode flip = SDL_FLIP_NONE;
 	if (moveDir.getX() < 0) {
-		angle = 90;
+		angle = 270;
 		flip = SDL_FLIP_HORIZONTAL;
 	}
 	else if (moveDir.getX() > 0) {
@@ -62,10 +62,11 @@ void Frog::update() {
 	(float)texture->getFrameWidth(),
 	(float)texture->getFrameHeight()
 	});
-
+	
 	if (col.type == Collision::ENEMY) {
 		std::cout << "Colisión con enemigo" << std::endl;
 		lives--;
+		resetPosition();
 	}
 	else if (col.type == Collision::PLATFORM) {		
 		position = position + col.speed;
@@ -94,7 +95,23 @@ void Frog::HandleEvents(const SDL_Event& event) {
 
 	}
 }
+bool Frog::isAtHome(SDL_FRect& home) {
 
+	SDL_FRect rect = { position.getX(),position.getY(),(float)texture->getFrameWidth(),(float)texture->getFrameHeight() };
+	if (SDL_HasRectIntersectionFloat(&rect, &home)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+void Frog::resetPosition() {
+	position = Point2D((Game::WINDOW_WIDTH - texture->getFrameWidth()) / 2.0f,
+		Game::WINDOW_HEIGHT - texture->getFrameHeight() - 10.0f);
+}
+int Frog::getLives() {
+	return lives;
+}
 
 
 

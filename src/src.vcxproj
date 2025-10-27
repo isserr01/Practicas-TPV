@@ -97,19 +97,26 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Frog.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="HomedFrog.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="Vehicle.cpp" />
+    <ClCompile Include="wasp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Frog.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="HomedFrog.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="vector2D.h" />
     <ClInclude Include="Vehicle.h" />
+    <ClInclude Include="wasp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

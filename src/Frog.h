@@ -25,7 +25,9 @@ public:
 	void render() const;
 	void update();
 	void HandleEvents(const SDL_Event& event);
-
+	bool isAtHome(SDL_FRect& home);
+	void resetPosition();
+	int getLives() ;
 
 };
 #endif // FROG_H

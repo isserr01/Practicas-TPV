@@ -1,7 +1,7 @@
 ﻿  Frog.cpp
-C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+C:\Users\blanc\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
   (compilando archivo de origen "Frog.cpp")
-      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
+      C:\Users\blanc\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
       vea la declaración de 'Collision'
   
-  src.vcxproj -> C:\Users\Isa\Documents\GitHub\Practica-TPV1\bin\srcDebug.exe
+  src.vcxproj -> C:\Users\blanc\Documents\GitHub\Practica-TPV1\bin\srcDebug.exe
