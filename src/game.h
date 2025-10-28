@@ -30,6 +30,14 @@ public:
 	static constexpr int WINDOW_HEIGHT = 484;
 	// Extremo inferior del río
 	static constexpr int RIVER_LOW = 210;
+	//extremos invisibles
+	static constexpr float SIDE_LIMIT = 150.0f;
+	//posiciones de las casas
+	static constexpr float HOME_Y = 20;
+	static constexpr float HOME_RECT[8] = { 15.0f,111.0f,207.0f,304.0f,400.0f,110.0f,207.0f,304.0f };
+	static constexpr float HOME_RECT_X = 10;
+
+
 
 	enum TextureName
 	{
@@ -80,7 +88,9 @@ public:
 	void loadMap(const std::string& filename);
 	//generador de numeros aleatorios
 	int getRandomRange(int min, int max);
-	void CheckHomeCollision();
+	//comprueba si la rana ha llegado a casa
+	bool CheckHomeCollision();
+	//comprueba si se han completado todas las casas
 	bool completeHome();
 };
 

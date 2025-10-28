@@ -4,7 +4,7 @@
 #include "game.h"
 #include "vector2D.h"
 #include "texture.h"
-#include "collision.h"
+#include "Collision.h"
 class game;
 using Point2D = Vector2D <float>;
 
@@ -19,5 +19,5 @@ public:
 	void render() const;
 
 };
-#endif HOMED_FROG_H
+#endif //HOMED_FROG_H
 

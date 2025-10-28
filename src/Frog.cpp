@@ -1,16 +1,23 @@
-#include "Frog.h"
+﻿#include "Frog.h"
+#include "iostream"
+#include <fstream>
 
 
-
-Frog::Frog(Game* game, const Point2D& position, const Vector2D<float>& speed, int lives)
-	: game(game)
-	, texture(game->getTexture(Game::FROG))
-	, position(position)
-	, speed(speed)
-	, currentFrame(0)
-	, moving(false)
-	, lives(lives)
+Frog::Frog(Game* game, std::istream& in)
+	: game(game),
+	currentFrame(INITIAL_FRAME),
+	moving(false)
 {
+	float x, y;
+
+	if (in >> x >> y >> lives)
+	{
+		position = Point2D(x, y);
+		speed = Vector2D<float>(FROG_SPEED, FROG_SPEED);
+
+	}
+
+	texture = game->getTexture(Game::FROG);
 }
 
 Frog::~Frog()
@@ -26,6 +33,7 @@ void Frog::render() const {
 		{ position.getX(), position.getY() 
 		,(float)width,(float)height }, 0, currentFrame);
 
+	//se gira la rana según la dirección de movimiento
 	double angle = 0;
 	SDL_FlipMode flip = SDL_FLIP_NONE;
 	if (moveDir.getX() < 0) {
@@ -50,6 +58,9 @@ void Frog::render() const {
 }
 
 void Frog::update() {
+
+	//actualización de la posición según la dirección de movimiento
+	//utilizo un booleano para que la rana se mueva solo una casilla por pulsación
 	if (moving) {
 		position = Point2D(position.getX() + moveDir.getX() * speed.getX(),
 			position.getY() + moveDir.getY() * speed.getY());
@@ -57,24 +68,43 @@ void Frog::update() {
 	moving = false;
 	currentFrame = 0;	
  
+	//comprobación de colisiones
 	Collision col = game->checkCollision(SDL_FRect{
 	position.getX(),position.getY(),
 	(float)texture->getFrameWidth(),
 	(float)texture->getFrameHeight()
 	});
 	
+	//si es un enemigo, restamos una vida y reseteamos posición
 	if (col.type == Collision::ENEMY) {
-		std::cout << "Colisi�n con enemigo" << std::endl;
+		std::cout << "Colisión con enemigo" << std::endl;
 		lives--;
 		resetPosition();
 	}
+	//si es una plataforma, la rana se mueve con ella
 	else if (col.type == Collision::PLATFORM) {		
-		position = position + col.speed;
+		position = position + col.speed * Game::FRAME_RATE * 0.001;
+	}
+	//si no hay colisión y está en el río, pierde una vida
+	else if (col.type== Collision::NONE) {
+		if (position.getY() < Game::RIVER_LOW && !game->CheckHomeCollision()) {
+			std::cout << "Cayó al agua" << std::endl;
+			lives--;
+			resetPosition();
+		}
+	}
+	//si sale de los límites de la ventana, pierde una vida
+	if (position.getX() + texture->getFrameWidth() < 0 || position.getX() + texture->getFrameWidth() > Game::WINDOW_WIDTH ||
+		position.getY() < 0 || position.getY() + texture->getFrameHeight() > Game::WINDOW_HEIGHT) {
+		std::cout << "Fuera de los límites" << std::endl;
+		lives--;
+		resetPosition();
 	}
 	
 }
 
 void Frog::HandleEvents(const SDL_Event& event) {
+	//comprobación de las teclas de dirección
 	if (event.type == SDL_EVENT_KEY_DOWN && event.key.repeat == 0) {
 		if (event.key.key == SDLK_UP) {
 			moveDir = Vector2D<float>(0, -1);
@@ -95,7 +125,7 @@ void Frog::HandleEvents(const SDL_Event& event) {
 
 	}
 }
-bool Frog::isAtHome(SDL_FRect& home) {
+bool Frog::isAtHome(const SDL_FRect& home) {
 
 	SDL_FRect rect = { position.getX(),position.getY(),(float)texture->getFrameWidth(),(float)texture->getFrameHeight() };
 	if (SDL_HasRectIntersectionFloat(&rect, &home)) {
@@ -109,7 +139,7 @@ void Frog::resetPosition() {
 	position = Point2D((Game::WINDOW_WIDTH - texture->getFrameWidth()) / 2.0f,
 		Game::WINDOW_HEIGHT - texture->getFrameHeight() - 10.0f);
 }
-int Frog::getLives() {
+int Frog::getLives() const {
 	return lives;
 }
 

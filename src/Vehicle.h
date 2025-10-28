@@ -1,10 +1,14 @@
-#ifndef VEHICLE_H
+ï»¿#ifndef VEHICLE_H
 #define VEHICLE_H
 #include "game.h"
 #include "vector2D.h"
 #include "texture.h"
 #include <SDL3/SDL.h>
 #include "Collision.h"	
+#include <istream>
+
+constexpr float VEHICLE_SPEED_FACTOR = 0.001f;
+
 
 class Game;
 using Point2D = Vector2D<float>;
@@ -14,19 +18,16 @@ class Vehicle
 	Texture* texture;
 	Point2D position;
 	Vector2D<float> speed;
-	//añado un atributo auxiliar para poder llamar a la constructora y que se 
-	//construyan automáticamente al leer el mapa
-	int type;
 
 public:
 	//constructora
-	Vehicle(Game* game, const Point2D& position, const Vector2D<float>& speed, int type);
+	Vehicle(Game* game, std::istream& in);
 	~Vehicle();
-	//método de renderizado
+	//mÃ©todo de renderizado
 	void render() const;
-	//método de actualización de posición
+	//mÃ©todo de actualizaciÃ³n de posiciÃ³n
 	void update();
-	//método para comprobar colisiones con un rectángulo dado
+	//mÃ©todo para comprobar colisiones con un rectÃ¡ngulo dado
 	Collision checkCollision(const SDL_FRect& other) const;
 };
 #endif // VEHICLE_H

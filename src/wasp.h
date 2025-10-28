@@ -4,9 +4,11 @@
 #include "game.h"
 #include "vector2D.h"
 #include "texture.h"
-#include "collision.h"
+#include "Collision.h"
 class game;
 using Point2D= Vector2D <float>;
+
+constexpr int WASP_SPAWN = 25;
 
 class wasp
 {
@@ -19,10 +21,10 @@ class wasp
 
 public:
 	wasp(Game* game, Texture* textura, Point2D posicion);
-	bool isAlive();
+	bool isAlive() const;
 	void spawn();
 	void render() const;
 	void update();
 	Collision checkCollision(const SDL_FRect& other) const;
 };
-#endif WASP_H
+#endif //WASP_H

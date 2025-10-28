@@ -6,15 +6,26 @@
 //
 
 #include "game.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 int main(int argc, char* argv[])
 {
-	Game* game = new Game();
-	game->run();
+	try {
+		Game* game = new Game();
+		game->run();
 
-	// TODO: manejar excepciones
-	delete game;
-	
+		// TODO: manejar excepciones
+		delete game;
+
+	}
+	catch (const string& e) {
+		cerr << "Error: " << e << endl;
+		return 1;
+	}
+
 	return 0;
 	
 }

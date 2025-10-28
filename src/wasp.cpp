@@ -1,5 +1,6 @@
 #include "wasp.h"
 #include "game.h"
+
 wasp::wasp(Game* game, Texture* textura, Point2D posicion) : game(game), textura(textura), posicion(posicion){}
 
 void wasp:: render() const {
@@ -18,16 +19,16 @@ void wasp::spawn() {
 	positionAle= game->getRandomRange(0,4);
 	alive = true;
 	if (positionAle == 0) {
-		posicion = { 20,25 };
+		posicion = { 20,WASP_SPAWN };
 	}
 	else if (positionAle == 1) {
-		posicion = { 116,25 };
+		posicion = { 116,WASP_SPAWN };
 	}
 	else if (positionAle == 2) {
-		posicion = { 212,25 };
+		posicion = { 212,WASP_SPAWN };
 	}
 	else if (positionAle == 3) {
-		posicion = { 309,25 };
+		posicion = { 309,WASP_SPAWN };
 	}
 	else {
 		posicion = { 405,25 };
@@ -51,6 +52,6 @@ Collision wasp::checkCollision(const SDL_FRect& other) const {
 		return Collision(Collision::NONE);
 	}
 }
-bool  wasp::isAlive() {
+bool wasp::isAlive() const{
 	return alive;
 }

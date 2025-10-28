@@ -1,8 +1,9 @@
-#ifndef COLLISION_H
+﻿#ifndef COLLISION_H
 #define COLLISION_H
 
-#include "Vector2D.h"
+#include "vector2D.h"
 struct Collision {
+	//tipo de colisión
 	enum Type
 	{
 		NONE,
@@ -10,9 +11,12 @@ struct Collision {
 		PLATFORM,
 	};
 
+	//velocidad (para las plataformas)
 	Vector2D<float> speed; 
+	//tipo de colisión basada en el enum
 	Type type;
 
+	//constructores
 	Collision(Type t, Vector2D<float> speed = Vector2D<float>(0,0))
 		: type(t), speed(speed) {
 	}

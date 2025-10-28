@@ -70,13 +70,19 @@ Game::Game()
 	// Carga las texturas al inicio
 	for (size_t i = 0; i < textures.size(); i++) {
 		auto [name, nrows, ncols] = textureList[i];
-		textures[i] = new Texture(renderer, (string(imgBase) + name).c_str(), nrows, ncols);
+		try {
+			textures[i] = new Texture(renderer, (string(imgBase) + name).c_str(), nrows, ncols);
+		}
+		catch(const string& e) {
+			throw string("No se pudo cargar la textura ") + name + ": " + e;
+		}
 	}
 
 	//llamamos al método de cargar el mapa
 	loadMap(MAP_FILE);
-	if(!MAP_FILE) {
-		cout << "No se pudo cargar el mapa" ;
+
+	if(MAP_FILE == nullptr) {
+		throw string("No se pudo cargar el mapa ") + MAP_FILE;
 	}
 
 	avispa = new wasp(this, textures[WASP], Point2D(0, 0));
@@ -110,10 +116,10 @@ Game::render() const
 	SDL_RenderClear(renderer);
 	//renderizado del fondo
 	textures[BACKGROUND]->render();
+
 	//renderizado de los troncos, los coches y la rana llamando a sus métodos de render
 
 	if (avispa) avispa->render();
-	
 
 	for (auto l : logs) {
 		l->render();
@@ -139,8 +145,8 @@ Game::update()
 	if (avispa) avispa->update();
 	if (frog) frog->update();
 	
-	int haySpawn=getRandomRange(0, 10);
-	if (haySpawn == 3 && !avispa->isAlive()) {
+	int haySpawn = getRandomRange(0, 10);
+	if (haySpawn == 3 && !avispa->isAlive() && !baseOcupada[haySpawn]) {
 		avispa->spawn();
 	}
 	CheckHomeCollision();
@@ -150,6 +156,7 @@ Game::update()
 int Game::getRandomRange(int min, int max) {
 	return uniform_int_distribution<int>(min, max)(randomGenerator);
 }
+
 void
 Game::run()
 {
@@ -176,8 +183,15 @@ Game::handleEvents()
 		else if (frog) {
 			//se delegan los eventos a la rana para comprobar el input
 			//para el movimiento
-			frog->HandleEvents(event);
-		}		
+			if (event.type == SDL_EVENT_KEY_DOWN && event.key.repeat == 0) {
+				if (event.key.key == SDLK_UP || event.key.key == SDLK_DOWN 
+					|| event.key.key == SDLK_LEFT || event.key.key == SDLK_RIGHT)
+				{
+					frog->HandleEvents(event);
+				}
+			}	
+		}
+
 	}
 }
 
@@ -224,7 +238,7 @@ void Game::loadMap(const std::string& filename)
 	std::ifstream f(filename);
 	//lanzamos excepción si no se encuentra el archivo
 	if (!f) {
-		cout << "No se pudo abrir el mapa" << endl;
+		throw string("No se pudo abrir el mapa" + filename);
 	}
 
 	//leemos char a char
@@ -234,32 +248,23 @@ void Game::loadMap(const std::string& filename)
 		//ignorar comentarios
 		if (id == '#') {
 			f.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			continue;
 		}
-		//variables auxiliares para leer la posición de los objetos
-		float x, y;
 		//caso de la rana
 		if (id == 'F') {
 			//llamada al constructor
-			int lives;
-			f >> x >> y >> lives;
-			frog = new Frog(this, Point2D(x, y), Vector2D<float>(32.0f, 32.0f), lives);
+			frog = new Frog(this, f);
 		}
 		//caso de los vehículos
 		else if (id == 'V') {
-			float vx;
-			int type;
-			f >> x >> y >> vx >> type;
 			//llamada al constructor y añadimos el elemento al array dinámico de vehículos
-			Vehicle* v = new Vehicle(this, Point2D(x, y), Vector2D<float>(vx / 20, 0.0f), type);
+			Vehicle* v = new Vehicle(this, f);
 			vehicles.push_back(v);
 		}
 		//caso de los troncos
 		else if (id == 'L') {
-			float vx;
-			int type;
-			f >> x >> y >> vx >> type;
 			//llamada al constructor y añadimos al array dinámico de troncos
-			Log* l = new Log(this, Point2D(x, y), Vector2D<float>(vx / 20, 0.0f), type);
+			Log* l = new Log(this, f);
 			logs.push_back(l);
 		}
 		//excepción si el identificador no existe
@@ -270,31 +275,32 @@ void Game::loadMap(const std::string& filename)
 	}
 
 }
-void Game::CheckHomeCollision() {
+bool Game::CheckHomeCollision() {
 
-	if (!frog) return;
-	std::vector<Point2D> homePositions = { { 15,20},
-		{ 111,20},
-		{ 207,20},
-		{ 304,20},
-		{ 400,20}
+	if (!frog) return false;
+	std::vector<Point2D> homePositions = { { HOME_RECT[0],HOME_Y},
+		{ HOME_RECT[1],HOME_Y},
+		{ HOME_RECT[2],HOME_Y},
+		{ HOME_RECT[3],HOME_Y},
+		{ HOME_RECT[4],HOME_Y}
 	};
-	std::vector<SDL_FRect> homeRect = { { 15,20,10,10 },
-		{ 110,20 ,10,10},
-		{ 207,20 ,10,10},
-		{ 304,20 ,10,10},
-		{ 400,20 ,10,10}
+	std::vector<SDL_FRect> homeRect = { 
+		{ HOME_RECT[0],HOME_Y,HOME_RECT_X,HOME_RECT_X},
+		{ HOME_RECT[5],HOME_Y ,HOME_RECT_X,HOME_RECT_X},
+		{ HOME_RECT[6],HOME_Y ,HOME_RECT_X,HOME_RECT_X},
+		{ HOME_RECT[7],HOME_Y ,HOME_RECT_X,HOME_RECT_X},
+		{ HOME_RECT[4],HOME_Y ,HOME_RECT_X,HOME_RECT_X}
 	};
 	for (int i = 0; i < homePositions.size(); i++) {
 		if (frog->isAtHome(homeRect[i]) && !baseOcupada[i]) {
 			homedFrogs.push_back(new HomedFrog(this, textures[FROG],homePositions[i]));
 			baseOcupada[i] = true;
+			return true;
 			frog->resetPosition();
 			break;
 		}
 	}
-	
-
+	return false;
 }
 bool Game::completeHome(){
 	int i = 0;

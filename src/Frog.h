@@ -1,10 +1,15 @@
-#ifndef FROG_H
+﻿#ifndef FROG_H
 #define FROG_H
 #include "game.h"
 #include "vector2D.h"
 #include "texture.h"
 #include <SDL3/SDL.h>
 #include "Collision.h"
+#include <istream>
+
+constexpr float FROG_SPEED = 32.0;
+constexpr int INITIAL_FRAME = 0;
+
 
 class Game;
 using Point2D = Vector2D<float>;
@@ -20,14 +25,21 @@ class Frog
 	int lives;
 
 public:
-	Frog(Game* game, const Point2D& position, const Vector2D<float>& speed, int lives);
+	//constructor y destructor
+	Frog(Game* game, std::istream& in);
 	~Frog();
+	//método de renderizado en pantalla
 	void render() const;
+	//actualización de la posición y estado de la rana
 	void update();
+	//manejo de eventos de teclado
 	void HandleEvents(const SDL_Event& event);
-	bool isAtHome(SDL_FRect& home);
+	//comprobar si está en casa
+	bool isAtHome(const SDL_FRect& home);
+	//manda a la rana a su posición inicial
 	void resetPosition();
-	int getLives() ;
+	//getter de vidas
+	int getLives() const;
 
 };
 #endif // FROG_H
