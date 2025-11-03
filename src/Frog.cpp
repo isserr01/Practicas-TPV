@@ -87,7 +87,7 @@ void Frog::update() {
 	}
 	//si no hay colisión y está en el río, pierde una vida
 	else if (col.type== Collision::NONE) {
-		if (position.getY() < Game::RIVER_LOW && !game->CheckHomeCollision()) {
+		if (position.getY() < Game::RIVER_LOW && position.getY() > 25.0f) {
 			std::cout << "Cayó al agua" << std::endl;
 			lives--;
 			resetPosition();

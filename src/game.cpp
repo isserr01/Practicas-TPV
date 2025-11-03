@@ -294,9 +294,9 @@ bool Game::CheckHomeCollision() {
 	for (int i = 0; i < homePositions.size(); i++) {
 		if (frog->isAtHome(homeRect[i]) && !baseOcupada[i]) {
 			homedFrogs.push_back(new HomedFrog(this, textures[FROG],homePositions[i]));
+			frog->resetPosition();
 			baseOcupada[i] = true;
 			return true;
-			frog->resetPosition();
 			break;
 		}
 	}
