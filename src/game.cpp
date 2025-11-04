@@ -45,7 +45,7 @@ constexpr array<TextureSpec, Game::NUM_TEXTURES> textureList{
 	{"log1.png"},
 	{"log2.png"},
 	{"wasp.png"},
-	{"turtle.png"}
+	{"turtle.png",1,7}
 };
 
 Game::Game()
@@ -134,6 +134,9 @@ Game::render() const
 	for(auto hr : homedFrogs) {
 		hr->render();
 	}
+	for (auto t : turtles) {
+		t->render();
+	}
 	
 	SDL_RenderPresent(renderer);
 }
@@ -144,6 +147,7 @@ Game::update()
 	//actualización de los objetos del juego llamando a sus métodos de update
 	for(auto v : vehicles) v->update();
 	for (auto l : logs) l->update();
+	for (auto t : turtles) t->update();
 	if (avispa) avispa->update();
 	if (frog) frog->update();
 	

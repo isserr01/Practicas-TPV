@@ -5,45 +5,64 @@ TurtleGroup::TurtleGroup(Game* game, std::istream& in)
 {
 	float x, y, s;
 	int t, n;
-	if (in >> n >>  y >> s >> t)
+	if (in >> x >> y >> s >> n >> t)
 	{
-		position = Point2D(Game::WINDOW_WIDTH, y);
+		position = Point2D(x, y);
 		speed = Vector2D<float>(s, 0.0f);
 
-		if (t == 1) isSubmersible = true;
-		else if (t == 0) isSubmersible = false;
+		
 
 		numTurtles = n;
+		isSubmersible = (t == 1);
 
 		texture = game->getTexture(Game::TURTLE);
 
 		dimY = texture->getFrameHeight();
-		dimX = texture->getFrameWidth();
+		dimX = texture->getFrameWidth() * numTurtles;
 
 	}
 
 	frameNumber = 0;
-	submergeTimer = 0.0f;
+	submergeTimer = 7.0f;
+	frameDuration = 1.0f;
 	submerged = false;
-	submergePeriod = 2.0f;
+	submergePeriod = 20.0f;
 
 }
 void TurtleGroup::update() {
 	
+
 	Crosser::update();
-	frameNumber = (frameNumber + 1 % 7);
+	
+	float delta = Game::FRAME_RATE;
+	submergeTimer += delta;
 
-	if (isSubmersible) {
-		float deltaS = Game::FRAME_RATE * 0.001f;
-		submergeTimer += deltaS;
-
-		if (submergeTimer >= submergePeriod)
-			submergeTimer = 0.0f;
-
-		submerged = (frameNumber >= 4);
+	if (submergeTimer >= frameDuration) {
+		frameNumber = (frameNumber + 1) % 7;
+		submergeTimer = 0.0f;
 	}
+			
+
+	if (isSubmersible) 
+		submerged = (frameNumber >= 4);
 	else submerged = false;
 
+}
+
+void TurtleGroup::render() const {
+
+	if (submerged) return;
+
+	for (int i = 0;i < numTurtles;++i) {
+		SDL_FRect dest{ position.getX() + i*texture->getFrameWidth(),
+		position.getY(),
+		(float)texture->getFrameWidth(),
+		(float)texture->getFrameHeight() };
+
+		texture->renderFrame(dest, 0, frameNumber);
+	}
+	
+	
 }
 
 Collision TurtleGroup::checkCollision(const SDL_FRect& other) {

@@ -11,11 +11,13 @@ class TurtleGroup : public Platform
 	bool submerged;
 	float submergeTimer;
 	float submergePeriod;
+	int frameDuration;
 
 public:
 	TurtleGroup(Game* game, std::istream& in);
 	void update() override;
 	Collision checkCollision(const SDL_FRect& other) override;
+	void render() const override;
 };
 
 #endif // TURTLEGROUP_H
