@@ -6,29 +6,20 @@
 #include <SDL3/SDL.h>
 #include "Collision.h"
 #include <istream>
-
-constexpr float LOG_SPEED_FACTOR = 0.001f;
+#include "Crosser.h"
+#include "GameObject.h"
+#include "Platform.h"
 
 
 class Game;
-using Point2D = Vector2D<float>;
-class Log
+
+class Log : public Platform
 {
-	Game* game;
-	Texture* texture;
-	Point2D position;
-	Vector2D<float> speed;
 
 public:
 	//constructora
 	Log(Game* game, std::istream& in);
-	~Log();
-	//método de renderizado
-	void render() const;
-	//método de actualización de posición
-	void update();
-	//método para comprobar colisiones con un rectángulo dado
-	Collision checkCollision(const SDL_FRect& other) const;
+	virtual ~Log() = default;
 
 };
 #endif // LOG_H

@@ -87,6 +87,7 @@ Game::Game()
 
 	avispa = new wasp(this, textures[WASP], Point2D(0, 0));
 	
+	
 	// Configura que se pueden utilizar capas translúcidas
 	// SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	
@@ -264,7 +265,7 @@ void Game::loadMap(const std::string& filename)
 		//caso de los troncos
 		else if (id == 'L') {
 			//llamada al constructor y añadimos al array dinámico de troncos
-			Log* l = new Log(this, f);
+			Log* l = new Log(this,f);
 			logs.push_back(l);
 		}
 		//excepción si el identificador no existe
