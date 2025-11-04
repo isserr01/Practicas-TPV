@@ -21,3 +21,7 @@ SDL_FRect SceneObject::getBoundingBox() const {
 	return rect;
 }
 
+Collision SceneObject::checkCollision(const SDL_FRect& rect)
+{
+	return Collision(Collision::NONE);
+}

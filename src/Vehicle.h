@@ -6,28 +6,19 @@
 #include <SDL3/SDL.h>
 #include "Collision.h"	
 #include <istream>
-
-constexpr float VEHICLE_SPEED_FACTOR = 0.001f;
+#include "Crosser.h"
 
 
 class Game;
 using Point2D = Vector2D<float>;
-class Vehicle
+class Vehicle : public Crosser
 {
-	Game* game;
-	Texture* texture;
-	Point2D position;
-	Vector2D<float> speed;
+
 
 public:
 	//constructora
 	Vehicle(Game* game, std::istream& in);
-	~Vehicle();
-	//método de renderizado
-	void render() const;
-	//método de actualización de posición
-	void update();
 	//método para comprobar colisiones con un rectángulo dado
-	Collision checkCollision(const SDL_FRect& other) const;
+	Collision checkCollision(const SDL_FRect& other) override;
 };
 #endif // VEHICLE_H

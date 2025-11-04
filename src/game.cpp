@@ -15,7 +15,7 @@
 #include "Frog.h"
 #include "Collision.h"
 #include "HomedFrog.h"
-
+#include "TurtleGroup.h"
 
 using namespace std;
 
@@ -44,7 +44,8 @@ constexpr array<TextureSpec, Game::NUM_TEXTURES> textureList{
 	{"car5.png"},
 	{"log1.png"},
 	{"log2.png"},
-	{"wasp.png"}
+	{"wasp.png"},
+	{"turtle.png"}
 };
 
 Game::Game()
@@ -268,6 +269,11 @@ void Game::loadMap(const std::string& filename)
 			Log* l = new Log(this,f);
 			logs.push_back(l);
 		}
+		else if (id == 'T') {
+			TurtleGroup* t = new TurtleGroup(this, f);
+			turtles.push_back(t);
+		}
+
 		//excepción si el identificador no existe
 		else {
 			cout << "ID de objeto desconocido: " << id << std::endl;

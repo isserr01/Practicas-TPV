@@ -15,6 +15,7 @@ class Frog;
 class Collision;
 class wasp;
 class HomedFrog;
+class TurtleGroup;
 
 /**
  * Clase principal del juego.
@@ -51,6 +52,7 @@ public:
 		LOG1,
 		LOG2,
 		WASP,
+		TURTLE,
 		NUM_TEXTURES
 	};
 	
@@ -63,6 +65,7 @@ private:
 	Frog* frog = nullptr;
 	std::vector<Log*> logs;
 	std::vector<Vehicle*> vehicles;
+	std::vector<TurtleGroup*> turtles;
 	wasp* avispa = nullptr;
 	std::mt19937_64 randomGenerator;
 	std::vector<HomedFrog*> homedFrogs;

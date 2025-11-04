@@ -4,9 +4,7 @@
 
 
 Frog::Frog(Game* game, std::istream& in)
-	: game(game),
-	currentFrame(INITIAL_FRAME),
-	moving(false)
+	: SceneObject(game)
 {
 	float x, y;
 
@@ -18,6 +16,8 @@ Frog::Frog(Game* game, std::istream& in)
 	}
 
 	texture = game->getTexture(Game::FROG);
+	dimX = texture->getFrameWidth();
+	dimY = texture->getFrameHeight();
 }
 
 Frog::~Frog()
@@ -26,12 +26,10 @@ Frog::~Frog()
 }
 
 void Frog::render() const {
-	int width = texture->getFrameWidth();
-	int height = texture->getFrameHeight();
 	texture->renderFrame(
 		SDL_FRect
 		{ position.getX(), position.getY() 
-		,(float)width,(float)height }, 0, currentFrame);
+		,(float)dimX,(float)dimY }, 0, currentFrame);
 
 	//se gira la rana según la dirección de movimiento
 	double angle = 0;
@@ -54,7 +52,7 @@ void Frog::render() const {
 	}
 
 	texture->renderFrame(
-		SDL_FRect{ position.getX(), position.getY() ,(float)width,(float)height }, 0, currentFrame, angle, nullptr, flip);
+		SDL_FRect{ position.getX(), position.getY() ,(float)dimX,(float)dimY }, 0, currentFrame, angle, nullptr, flip);
 }
 
 void Frog::update() {

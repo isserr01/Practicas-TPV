@@ -6,6 +6,7 @@
 #include <SDL3/SDL.h>
 #include "Collision.h"
 #include <istream>
+#include "SceneObject.h"
 
 constexpr float FROG_SPEED = 32.0;
 constexpr int INITIAL_FRAME = 0;
@@ -13,11 +14,9 @@ constexpr int INITIAL_FRAME = 0;
 
 class Game;
 using Point2D = Vector2D<float>;
-class Frog
+class Frog : public SceneObject
 {
-	Game* game;
-	Texture* texture;
-	Point2D position;
+
 	Vector2D<float> speed;
 	Vector2D<float> moveDir;
 	int currentFrame;
@@ -29,7 +28,7 @@ public:
 	Frog(Game* game, std::istream& in);
 	~Frog();
 	//método de renderizado en pantalla
-	void render() const;
+	void render() const override;
 	//actualización de la posición y estado de la rana
 	void update();
 	//manejo de eventos de teclado
