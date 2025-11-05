@@ -107,6 +107,8 @@ Game::~Game()
 	delete avispa;
 	for (auto hr : homedFrogs)
 		delete hr;
+	for (auto t : turtles)
+		delete t;
 	if (renderer) SDL_DestroyRenderer(renderer);
 	if (window)SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -129,15 +131,16 @@ Game::render() const
 	for(auto v : vehicles) {
 		v->render();
 	}
-	if (frog) frog->render();
-
+	
 	for(auto hr : homedFrogs) {
 		hr->render();
 	}
 	for (auto t : turtles) {
 		t->render();
 	}
-	
+	if (frog) frog->render();
+
+
 	SDL_RenderPresent(renderer);
 }
 
@@ -224,6 +227,13 @@ Game::checkCollision(const SDL_FRect& rect) const
 
 			return col;
 		}
+	}
+	for (auto t : turtles) {
+		col = t->checkCollision(rect);
+		if (col.type != Collision::NONE && col.type == Collision::PLATFORM) {
+			return col;
+		}
+			
 	}
 	if (avispa) {
 		col = avispa->checkCollision(rect);
