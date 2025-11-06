@@ -16,7 +16,7 @@ void wasp:: render() const {
 void wasp::spawn() {
 
 	durationAle=game->getRandomRange(50,100);
-	positionAle= game->getRandomRange(0,4);
+	
 	alive = true;
 	if (positionAle == 0) {
 		posicion = { 20,WASP_SPAWN };
@@ -54,4 +54,10 @@ Collision wasp::checkCollision(const SDL_FRect& other) const {
 }
 bool wasp::isAlive() const{
 	return alive;
+}
+int wasp::getPosition() const {
+	return positionAle;
+}
+void wasp::SetPosition(const int& index) {
+	positionAle = index;
 }

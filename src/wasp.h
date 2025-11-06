@@ -26,5 +26,7 @@ public:
 	void render() const;
 	void update();
 	Collision checkCollision(const SDL_FRect& other) const;
+	int getPosition() const;
+	void SetPosition(const int& index);
 };
 #endif //WASP_H

@@ -155,8 +155,12 @@ Game::update()
 	if (frog) frog->update();
 	
 	int haySpawn = getRandomRange(0, 10);
-	if (haySpawn == 3 && !avispa->isAlive() && !baseOcupada[haySpawn]) {
-		avispa->spawn();
+	if (haySpawn == 3 && !avispa->isAlive()) {
+		int pos = getRandomRange(0, 4);
+		avispa->SetPosition(pos);
+
+		if (!baseOcupada[avispa->getPosition()])
+			avispa->spawn();
 	}
 	CheckHomeCollision();
 	
