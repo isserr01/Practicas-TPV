@@ -22,6 +22,7 @@ class Frog : public SceneObject
 	int currentFrame;
 	bool moving;
 	int lives;
+	Point2D initialPosition;
 
 public:
 	//constructor y destructor

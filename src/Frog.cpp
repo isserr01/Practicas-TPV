@@ -7,17 +7,22 @@ Frog::Frog(Game* game, std::istream& in)
 	: SceneObject(game)
 {
 	float x, y;
+	try {
+		if (in >> x >> y >> lives)
+		{
+			initialPosition = Point2D(x, y);
+			position = initialPosition;
+			speed = Vector2D<float>(FROG_SPEED, FROG_SPEED);
 
-	if (in >> x >> y >> lives)
-	{
-		position = Point2D(x, y);
-		speed = Vector2D<float>(FROG_SPEED, FROG_SPEED);
+		}
 
+		texture = game->getTexture(Game::FROG);
+		dimX = texture->getFrameWidth();
+		dimY = texture->getFrameHeight();
 	}
-
-	texture = game->getTexture(Game::FROG);
-	dimX = texture->getFrameWidth();
-	dimY = texture->getFrameHeight();
+	catch(const std::string& e){
+		throw std::string("Error al cargar la rana desde el mapa") + e;
+	}
 }
 
 Frog::~Frog()
@@ -26,11 +31,7 @@ Frog::~Frog()
 }
 
 void Frog::render() const {
-	texture->renderFrame(
-		SDL_FRect
-		{ position.getX(), position.getY() 
-		,(float)dimX,(float)dimY }, 0, currentFrame);
-
+	
 	//se gira la rana según la dirección de movimiento
 	double angle = 0;
 	SDL_FlipMode flip = SDL_FLIP_NONE;
@@ -92,31 +93,32 @@ void Frog::update() {
 		}
 	}
 	//si sale de los límites de la ventana, pierde una vida
-	if (position.getX() + texture->getFrameWidth() < 0 || position.getX() + texture->getFrameWidth() > Game::WINDOW_WIDTH ||
-		position.getY() < 0 || position.getY() + texture->getFrameHeight() > Game::WINDOW_HEIGHT) {
+	if ((position.getX() + texture->getFrameWidth() < 0 || position.getX() + texture->getFrameWidth() > Game::WINDOW_WIDTH ||
+		position.getY() < 0 || position.getY() + texture->getFrameHeight() > Game::WINDOW_HEIGHT) && position.getY() < Game::RIVER_LOW) {
 		std::cout << "Fuera de los límites" << std::endl;
 		lives--;
 		resetPosition();
 	}
+	
 	
 }
 
 void Frog::HandleEvents(const SDL_Event& event) {
 	//comprobación de las teclas de dirección
 	if (event.type == SDL_EVENT_KEY_DOWN && event.key.repeat == 0) {
-		if (event.key.key == SDLK_UP) {
-			moveDir = Vector2D<float>(0, -1);
+		if (event.key.key == SDLK_UP && (position.getY() + texture->getFrameHeight() >0)) {
+			moveDir = Vector2D<float>(0, -1); 
 			moving = true;
 		}
-		else if (event.key.key == SDLK_DOWN) {
+		else if (event.key.key == SDLK_DOWN && (position.getY()+texture->getFrameHeight() < Game::WINDOW_HEIGHT)) {
 			moveDir = Vector2D<float>(0, 1);
 			moving = true;
 		}
-		else if (event.key.key == SDLK_LEFT) {
+		else if (event.key.key == SDLK_LEFT && (position.getX() + texture->getFrameWidth() > 0)) {
 			moveDir = Vector2D<float>(-1, 0);
 			moving = true;
 		}
-		else if (event.key.key == SDLK_RIGHT) {
+		else if (event.key.key == SDLK_RIGHT && (position.getX() + texture->getFrameWidth() < Game::WINDOW_WIDTH)) {
 			moveDir = Vector2D<float>(1, 0);
 			moving = true;
 		}
@@ -134,8 +136,7 @@ bool Frog::isAtHome(const SDL_FRect& home) {
 	}
 }
 void Frog::resetPosition() {
-	position = Point2D((Game::WINDOW_WIDTH - texture->getFrameWidth()) / 2.0f,
-		Game::WINDOW_HEIGHT - texture->getFrameHeight() - 10.0f);
+	position = initialPosition;
 }
 int Frog::getLives() const {
 	return lives;

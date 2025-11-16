@@ -53,7 +53,7 @@ void wasp::update() {
 
 Collision wasp::checkCollision(const SDL_FRect& other) {
 	SDL_FRect rect =  getBoundingBox();
-	if (SDL_HasRectIntersectionFloat(&rect, &other)) {
+	if (SDL_HasRectIntersectionFloat(&rect, &other) && alive) {
 		return Collision(Collision::ENEMY);
 	}
 	else {

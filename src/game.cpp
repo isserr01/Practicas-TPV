@@ -81,11 +81,6 @@ Game::Game()
 
 	//llamamos al método de cargar el mapa
 	loadMap(MAP_FILE);
-
-	if(MAP_FILE == nullptr) {
-		throw string("No se pudo cargar el mapa ") + MAP_FILE;
-	}
-
 	avispa = new wasp(this, textures[WASP], Point2D(0, 0));
 	
 	
@@ -97,17 +92,17 @@ Game::Game()
 Game::~Game()
 {
 	//liberamos memoria
-	for(auto tex : textures)
+	for(Texture* tex : textures)
 		delete tex;
-	for(auto v : vehicles)
+	for(Vehicle* v : vehicles)
 		delete v;
-	for (auto l : logs)
+	for (Log* l : logs)
 		delete l;
 	delete frog;
 	delete avispa;
-	for (auto hr : homedFrogs)
+	for (HomedFrog* hr : homedFrogs)
 		delete hr;
-	for (auto t : turtles)
+	for (TurtleGroup* t : turtles)
 		delete t;
 	if (renderer) SDL_DestroyRenderer(renderer);
 	if (window)SDL_DestroyWindow(window);
@@ -125,17 +120,17 @@ Game::render() const
 
 	if (avispa) avispa->render();
 
-	for (auto l : logs) {
+	for (Log* l : logs) {
 		l->render();
 	}
-	for(auto v : vehicles) {
+	for(Vehicle* v : vehicles) {
 		v->render();
 	}
 	
-	for(auto hr : homedFrogs) {
+	for(HomedFrog* hr : homedFrogs) {
 		hr->render();
 	}
-	for (auto t : turtles) {
+	for (TurtleGroup* t : turtles) {
 		t->render();
 	}
 	if (frog) frog->render();
@@ -148,9 +143,9 @@ void
 Game::update()
 {
 	//actualización de los objetos del juego llamando a sus métodos de update
-	for(auto v : vehicles) v->update();
-	for (auto l : logs) l->update();
-	for (auto t : turtles) t->update();
+	for(Vehicle* v : vehicles) v->update();
+	for (Log* l : logs) l->update();
+	for (TurtleGroup* t : turtles) t->update();
 	if (avispa) avispa->update();
 	if (frog) frog->update();
 	
@@ -218,21 +213,21 @@ Game::checkCollision(const SDL_FRect& rect) const
 {
 	Collision col;
 
-	for (auto v : vehicles) {
+	for (Vehicle* v : vehicles) {
 		col = v->checkCollision(rect);
 		if (col.type != Collision::NONE && col.type == Collision::ENEMY) {
 
 			return col;
 		}
 	}
-	for (auto l : logs) {
+	for (Log* l : logs) {
 		col = l->checkCollision(rect);
 		if (col.type != Collision::NONE && col.type == Collision::PLATFORM) {
 
 			return col;
 		}
 	}
-	for (auto t : turtles) {
+	for (TurtleGroup* t : turtles) {
 		col = t->checkCollision(rect);
 		if (col.type != Collision::NONE && col.type == Collision::PLATFORM) {
 			return col;

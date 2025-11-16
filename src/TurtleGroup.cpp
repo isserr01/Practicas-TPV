@@ -5,29 +5,34 @@ TurtleGroup::TurtleGroup(Game* game, std::istream& in)
 {
 	float x, y, s;
 	int t, n;
-	if (in >> x >> y >> s >> n >> t)
-	{
-		position = Point2D(x, y);
-		speed = Vector2D<float>(s, 0.0f);
 
-		
+	try {
+		if (in >> x >> y >> s >> n >> t)
+		{
+			position = Point2D(x, y);
+			speed = Vector2D<float>(s, 0.0f);
 
-		numTurtles = n;
-		isSubmersible = (t == 1);
 
-		texture = game->getTexture(Game::TURTLE);
 
-		dimY = texture->getFrameHeight();
-		dimX = texture->getFrameWidth() * numTurtles;
+			numTurtles = n;
+			isSubmersible = (t == 1);
 
+			texture = game->getTexture(Game::TURTLE);
+
+			dimY = texture->getFrameHeight();
+			dimX = texture->getFrameWidth() * numTurtles;
+
+		}
+
+		frameNumber = 0;
+		submergeTimer = 7.0f;
+		frameDuration = 1.0f;
+		submerged = false;
+		submergePeriod = 0.0f;
+	}	
+	catch (const std::string& e) {
+		throw std::string("Error al cargar las plataformas desde el mapa") + e;
 	}
-
-	frameNumber = 0;
-	submergeTimer = 7.0f;
-	frameDuration = 1.0f;
-	submerged = false;
-	submergePeriod = 0.0f;
-
 }
 void TurtleGroup::update() {
 	

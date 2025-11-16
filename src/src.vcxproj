@@ -95,22 +95,32 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Crosser.cpp" />
     <ClCompile Include="Frog.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="HomedFrog.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="texture.cpp" />
+    <ClCompile Include="TurtleGroup.cpp" />
     <ClCompile Include="Vehicle.cpp" />
     <ClCompile Include="wasp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Crosser.h" />
     <ClInclude Include="Frog.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="HomedFrog.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="Platform.h" />
+    <ClInclude Include="SceneObject.h" />
     <ClInclude Include="texture.h" />
+    <ClInclude Include="TurtleGroup.h" />
     <ClInclude Include="vector2D.h" />
     <ClInclude Include="Vehicle.h" />
     <ClInclude Include="wasp.h" />
