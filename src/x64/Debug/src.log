@@ -1,7 +1,75 @@
-﻿  Frog.cpp
-C:\Users\blanc\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
-  (compilando archivo de origen "Frog.cpp")
-      C:\Users\blanc\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
+﻿  Crosser.cpp
+  Frog.cpp
+  GameObject.cpp
+  Log.cpp
+  Platform.cpp
+  SceneObject.cpp
+  TurtleGroup.cpp
+  Vehicle.cpp
+  game.cpp
+  wasp.cpp
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "Vehicle.cpp")
+      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
       vea la declaración de 'Collision'
   
-  src.vcxproj -> C:\Users\blanc\Documents\GitHub\Practica-TPV1\bin\srcDebug.exe
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Vehicle.cpp(24,34): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "game.cpp")
+      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
+      vea la declaración de 'Collision'
+  
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Vehicle.cpp(25,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "wasp.cpp")
+      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
+      vea la declaración de 'Collision'
+  
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "Crosser.cpp")
+      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
+      vea la declaración de 'Collision'
+  
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Crosser.cpp(13,51): warning C4305: 'argumento': truncamiento de 'double' a 'T'
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Crosser.cpp(13,51): warning C4305:         with
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Crosser.cpp(13,51): warning C4305:         [
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Crosser.cpp(13,51): warning C4305:             T=float
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Crosser.cpp(13,51): warning C4305:         ]
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "SceneObject.cpp")
+      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
+      vea la declaración de 'Collision'
+  
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "TurtleGroup.cpp")
+      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
+      vea la declaración de 'Collision'
+  
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "Frog.cpp")
+      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
+      vea la declaración de 'Collision'
+  
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\TurtleGroup.cpp(20,34): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\TurtleGroup.cpp(21,36): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\TurtleGroup.cpp(26,19): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "Platform.cpp")
+      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
+      vea la declaración de 'Collision'
+  
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(20,32): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(21,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(85,56): warning C4305: 'argumento': truncamiento de 'double' a 'T'
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(85,56): warning C4305:         with
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(85,56): warning C4305:         [
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(85,56): warning C4305:             T=float
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(85,56): warning C4305:         ]
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "Log.cpp")
+      C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
+      vea la declaración de 'Collision'
+  
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Log.cpp(21,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Log.cpp(22,34): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+  src.vcxproj -> C:\Users\Isa\Documents\GitHub\Practica-TPV1\bin\srcDebug.exe

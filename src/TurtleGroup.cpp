@@ -12,8 +12,6 @@ TurtleGroup::TurtleGroup(Game* game, std::istream& in)
 			position = Point2D(x, y);
 			speed = Vector2D<float>(s, 0.0f);
 
-
-
 			numTurtles = n;
 			isSubmersible = (t == 1);
 
@@ -21,7 +19,6 @@ TurtleGroup::TurtleGroup(Game* game, std::istream& in)
 
 			dimY = texture->getFrameHeight();
 			dimX = texture->getFrameWidth() * numTurtles;
-
 		}
 
 		frameNumber = 0;

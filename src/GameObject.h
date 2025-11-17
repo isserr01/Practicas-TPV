@@ -1,4 +1,4 @@
-#ifndef GAMEOBJECT_H
+ï»¿#ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 #include "game.h"
 
@@ -12,9 +12,9 @@ protected:
 
 public:
 	virtual ~GameObject();
-	//método de renderizado en pantalla
+	//mÃ©todo de renderizado en pantalla
 	virtual void render() const = 0;
-	//actualización de la posición y estado
+	//actualizaciÃ³n de la posiciÃ³n y estado
 	virtual void update() = 0;
 
 };

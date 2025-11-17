@@ -1,12 +1,12 @@
-#include "Platform.h"
+Ôªø#include "Platform.h"
 
 
 Collision Platform::checkCollision(const SDL_FRect& other){
 
-	//rect·ngulo para comprobar colisiÛn
+	//rect√°ngulo para comprobar colisi√≥n
 	SDL_FRect rect = getBoundingBox();
 
-	//si hay colisiÛn, devuelve tipo plataforma y su velocidad
+	//si hay colisi√≥n, devuelve tipo plataforma y su velocidad
 	if (SDL_HasRectIntersectionFloat(&rect, &other)) {
 		return Collision(Collision::PLATFORM, speed);
 	}

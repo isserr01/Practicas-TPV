@@ -31,7 +31,7 @@ public:
 	//método de renderizado en pantalla
 	void render() const override;
 	//actualización de la posición y estado de la rana
-	void update();
+	void update() override;
 	//manejo de eventos de teclado
 	void HandleEvents(const SDL_Event& event);
 	//comprobar si está en casa
