@@ -106,7 +106,7 @@ void Frog::update() {
 void Frog::HandleEvents(const SDL_Event& event) {
 	//comprobación de las teclas de dirección
 	if (event.type == SDL_EVENT_KEY_DOWN && event.key.repeat == 0) {
-		if (event.key.key == SDLK_UP && (position.getY() + texture->getFrameHeight() >0)) {
+		if (event.key.key == SDLK_UP && (position.getY() + texture->getFrameHeight() > texture->getFrameWidth())) {
 			moveDir = Vector2D<float>(0, -1); 
 			moving = true;
 		}
@@ -114,7 +114,7 @@ void Frog::HandleEvents(const SDL_Event& event) {
 			moveDir = Vector2D<float>(0, 1);
 			moving = true;
 		}
-		else if (event.key.key == SDLK_LEFT && (position.getX() + texture->getFrameWidth() > 0)) {
+		else if (event.key.key == SDLK_LEFT && (position.getX() + texture->getFrameWidth() > texture->getFrameWidth())) {
 			moveDir = Vector2D<float>(-1, 0);
 			moving = true;
 		}

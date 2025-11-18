@@ -15,6 +15,7 @@ public:
 	SceneObject(Game* game);
 	virtual ~SceneObject() = default;
 	virtual void render() const override;
+	virtual	void update() = 0;
 	virtual Collision checkCollision(const SDL_FRect& rect);
 	
 

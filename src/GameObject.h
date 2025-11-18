@@ -1,6 +1,7 @@
 ﻿#ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 #include "game.h"
+#include "texture.h"
 
 
 class GameObject

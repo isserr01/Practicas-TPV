@@ -7,8 +7,10 @@
 #include <vector>
 #include "vector2D.h"
 #include <random>
+#include <list>
 // Declaraciones anticipadas
 class Texture;
+class SceneObject;
 class Vehicle;
 class Log;
 class Frog;
@@ -34,9 +36,12 @@ public:
 	//extremos invisibles
 	static constexpr float SIDE_LIMIT = 150.0f;
 	//posiciones de las casas
-	static constexpr float HOME_Y = 20;
-	static constexpr float HOME_RECT[8] = { 15.0f,111.0f,207.0f,304.0f,400.0f,110.0f,207.0f,304.0f };
-	static constexpr float HOME_RECT_X = 10;
+	static constexpr float HOME_Y = 20; //colocacion de Y (altura) igual en todas
+	static constexpr float HOME_X[5] = { 15,111,207,304,400 }; //colocacion de X (ancho) de cada casa
+	//posiciones de los rectángulos de colisión de las casas
+	static constexpr float HOME_RECT_X[5] = {20,116,212,309,405 };//colocacion de X (ancho) de cada rectangulo de colisión
+	static constexpr float HOME_RECT_Y = 15; //colocacion de Y (altura) de cada rectángulo de colisión
+	static constexpr float HOME_RECT_TAM = 10; //tamaño altura y ancho del rectángulo de colisión
 
 
 
@@ -63,17 +68,16 @@ private:
 	bool exit;
 	//atributos para los punteros del juego
 	Frog* frog = nullptr;
-	std::vector<Log*> logs;
-	std::vector<Vehicle*> vehicles;
-	std::vector<TurtleGroup*> turtles;
-	wasp* avispa = nullptr;
+	std::list<SceneObject*> Objects;
 	std::mt19937_64 randomGenerator;
-	std::vector<HomedFrog*> homedFrogs;
+	
 	//métodos privados de la clase
 	void render() const;
 	void update();
 	void handleEvents();
 	bool baseOcupada [5]= { false,false,false,false,false };
+	//reinicia el estado del juego
+	void reiniciarJuego();
 
 public:
 	Game();
@@ -95,6 +99,7 @@ public:
 	bool CheckHomeCollision();
 	//comprueba si se han completado todas las casas
 	bool completeHome();
+
 };
 
 inline Texture*

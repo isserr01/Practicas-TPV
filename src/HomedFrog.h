@@ -5,18 +5,21 @@
 #include "vector2D.h"
 #include "texture.h"
 #include "Collision.h"
-class game;
+#include "SceneObject.h"
+#include <istream>
+class Game;
 using Point2D = Vector2D <float>;
 
-class HomedFrog
+class HomedFrog : public SceneObject
 {
-	Game* game;
-	Texture* textura;
-	Point2D posicion;
+
 
 public:
-	HomedFrog(Game* game, Texture* textura, Point2D posicion);
-	void render() const;
+	//constructora
+	HomedFrog(Game* game,Point2D posicion);
+	void render() const override;
+	void update() override;
+	virtual ~HomedFrog();
 
 };
 #endif //HOMED_FROG_H

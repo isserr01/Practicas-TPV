@@ -3,6 +3,12 @@
 SceneObject::SceneObject(Game* game)
 	: GameObject(game)
 {
+	class Vehicle : public SceneObject{};
+	class Log : public SceneObject {};
+	class Frog : public SceneObject {};
+	class Wasp : public SceneObject {};
+	class TurtleGroup : public SceneObject {};
+	class homedFrog : public SceneObject {};
 }
 
 

@@ -1,46 +1,29 @@
 #include "wasp.h"
 #include "game.h"
 
-wasp::wasp(Game* game, Texture* textura, Point2D posicion) :
+wasp::wasp(Game* game, Point2D posicion) :
 	SceneObject(game)
 	
 {
-	texture = game->getTexture(Game::WASP);
-	this->position = posicion;
-}
-	
-	 
-
-void wasp:: render() const {
-	if (alive) {
-		int ancho = texture->getFrameWidth();
-		int alto = texture->getFrameHeight();
-
-		texture->render(SDL_FRect{ position.getX(),position.getY(),(float)ancho,(float)alto });
+	try {
+		alive = false;
+		durationAle = 0;
+		position = posicion;
+		texture = game->getTexture(Game::WASP);
+		dimX = texture->getFrameWidth();
+		dimY = texture->getFrameHeight();
+		}
+	catch (const std::string& e) {
+		throw std::string("Error al cargar la avispa") + e;
 	}
-	
 }
+	
 
 void wasp::spawn() {
 
 	durationAle=game->getRandomRange(50,100);
 	
 	alive = true;
-	if (positionAle == 0) {
-		position = { 20,WASP_SPAWN };
-	}
-	else if (positionAle == 1) {
-		position = { 116,WASP_SPAWN };
-	}
-	else if (positionAle == 2) {
-		position = { 212,WASP_SPAWN };
-	}
-	else if (positionAle == 3) {
-		position = { 309,WASP_SPAWN };
-	}
-	else {
-		position = { 405,25 };
-	}
 }
 void wasp::update() {
 	if (durationAle > 0) {
@@ -49,11 +32,12 @@ void wasp::update() {
 			alive = false;
 		}
 	}
+
 }
 
 Collision wasp::checkCollision(const SDL_FRect& other) {
 	SDL_FRect rect =  getBoundingBox();
-	if (SDL_HasRectIntersectionFloat(&rect, &other) && alive) {
+	if (SDL_HasRectIntersectionFloat(&rect, &other)) {
 		return Collision(Collision::ENEMY);
 	}
 	else {
@@ -68,4 +52,13 @@ int wasp::getPosition() const {
 }
 void wasp::SetPosition(const int& index) {
 	positionAle = index;
+
+	static const Point2D positions[5] = {
+		{20.0f, WASP_SPAWN},
+		{116.0f, WASP_SPAWN},
+		{212.0f, WASP_SPAWN},
+		{309.0f, WASP_SPAWN},
+		{405.0f, WASP_SPAWN}
+	};
+	position = positions[index];
 }

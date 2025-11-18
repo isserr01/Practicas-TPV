@@ -1,14 +1,30 @@
 #include "HomedFrog.h"
 #include "game.h"
-HomedFrog::HomedFrog(Game* game, Texture* textura, Point2D posicion) : game(game), textura(textura), posicion(posicion) {}
 
-void HomedFrog::render() const {
-	int ancho = textura->getFrameWidth();
-	int alto = textura->getFrameHeight();
+HomedFrog::HomedFrog(Game* game, Point2D posicion)
+	: SceneObject(game)
+{
+	try {
+		position = posicion;
+		texture = game->getTexture(Game::FROG);
+		dimX = texture->getFrameWidth();
+		dimY = texture->getFrameHeight();
+	}
+	catch (const std::string& e) {
+		throw std::string("Error al cargar la rana desde el mapa") + e;
+	}
+}
 
-	textura->renderFrame(SDL_FRect{ posicion.getX(), posicion.getY(),(float)ancho,(float)alto }, 0, 0);
+
+void HomedFrog::render() const  {
+
+	texture->renderFrame(SDL_FRect{ position.getX(), position.getY(),(float)dimX,(float)dimY }, 0, 0);
 
 }
+void HomedFrog::update() {
+	}
+
+HomedFrog::~HomedFrog() {}
 
 
 
