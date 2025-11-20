@@ -16,9 +16,10 @@ class wasp : public SceneObject
 	
 	int durationAle;
 	int positionAle;
+	bool alive = false;
 
 public:
-	bool alive = false;
+	
 	wasp(Game* game, Point2D posicion);
 	bool isAlive() const;
 	void spawn();

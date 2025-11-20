@@ -16,6 +16,7 @@
 #include "Collision.h"
 #include "HomedFrog.h"
 #include "TurtleGroup.h"
+#include "GameError.h"
 
 using namespace std;
 
@@ -61,12 +62,12 @@ Game::Game()
 	                          0);
 
 	if (window == nullptr)
-		throw "window: "s + SDL_GetError();
+		throw SDLError("Error al cargar ventana");
 
 	renderer = SDL_CreateRenderer(window, nullptr);
 
 	if (renderer == nullptr)
-		throw "renderer: "s + SDL_GetError();
+		throw SDLError("Error al cargar el renderizador");
 
 	// Carga las texturas al inicio
 	for (size_t i = 0; i < textures.size(); i++) {
@@ -74,8 +75,8 @@ Game::Game()
 		try {
 			textures[i] = new Texture(renderer, (string(imgBase) + name).c_str(), nrows, ncols);
 		}
-		catch(const string& e) {
-			throw string("No se pudo cargar la textura ") + name + ": " + e;
+		catch(const GameError& e) {
+			throw SDLError("Error al cargar la textura " + string(name));
 		}
 	}
 
@@ -154,8 +155,7 @@ Game::update()
 			Objects.push_back(nuevaAvispa);
 		}
 	}
-	//actualizamos la rana
-	if (frog) frog->update();
+	
 	
 	CheckHomeCollision();
 	
@@ -258,7 +258,7 @@ void Game::loadMap(const std::string& filename)
 	std::ifstream f(filename);
 	//lanzamos excepción si no se encuentra el archivo
 	if (!f) {
-		throw string("No se pudo abrir el mapa" + filename);
+		throw FileNotFoundError(filename);
 	}
 
 	//leemos char a char
@@ -295,7 +295,7 @@ void Game::loadMap(const std::string& filename)
 
 		//excepción si el identificador no existe
 		else {
-			cout << "ID de objeto desconocido: " << id << std::endl;
+			throw FileFormatError(filename,"Identificador de objeto desconocido"+id);
 		}
 
 	}
@@ -315,6 +315,7 @@ bool Game::CheckHomeCollision() {
 		{ HOME_RECT_X[2],HOME_RECT_Y  ,HOME_RECT_TAM,HOME_RECT_TAM},
 		{ HOME_RECT_X[3],HOME_RECT_Y  ,HOME_RECT_TAM,HOME_RECT_TAM},
 		{ HOME_RECT_X[4],HOME_RECT_Y  ,HOME_RECT_TAM,HOME_RECT_TAM} };
+
 	for (int i = 0; i < homePositions.size(); i++) {
 		if (frog->isAtHome(homeRect[i]) && !baseOcupada[i]) {
 			Objects.push_back(new HomedFrog(this, homePositions[i]));

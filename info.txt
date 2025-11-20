@@ -4,5 +4,4 @@ Blanca Navajas González
 
 Cosas que no funcionan o nos habría gustado mejorar:
 
-- El movimiento de la rana está capado por un atributo booleano auxiliar para que se mueva de casilla en casilla, seguro que hay otra manera mejor de hacerlo pero no conseguimos dar con ella.
-- Además, la rana no tiene animación.
+- La penúltima línea de troncos mueve mal a la rana por temas de cómo de grandes son los sprites (eso creemos).

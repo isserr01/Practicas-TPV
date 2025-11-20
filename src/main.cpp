@@ -8,23 +8,25 @@
 #include "game.h"
 #include <iostream>
 #include <string>
+#include "GameError.h"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
 	try {
-		Game* game = new Game();
-		game->run();
-
-		// TODO: manejar excepciones
-		delete game;
+		Game game;
+		game.run();
 
 	}
-	catch (const string& e) {
-		cerr << "Error: " << e << endl;
+	catch (const GameError& e) {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
+			"Error en el juego",
+			e.what(),
+			nullptr);
 		return 1;
 	}
+	
 
 	return 0;
 	
