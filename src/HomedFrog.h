@@ -16,7 +16,7 @@ class HomedFrog : public SceneObject
 
 public:
 	//constructora
-	HomedFrog(Game* game,Point2D posicion);
+	HomedFrog(GameState* state,Point2D posicion);
 	void render() const override;
 	void update() override;
 	virtual ~HomedFrog();

@@ -14,7 +14,7 @@ class TurtleGroup : public Platform
 	int frameDuration;
 
 public:
-	TurtleGroup(Game* game, std::istream& in);
+	TurtleGroup(GameState* state, std::istream& in);
 	void update() override;
 	Collision checkCollision(const SDL_FRect& other) override;
 	void render() const override;

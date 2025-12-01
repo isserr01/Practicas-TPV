@@ -2,8 +2,8 @@
 
 
 
-Vehicle::Vehicle(Game* game, std::istream& in)
-	: Crosser(game,Vector2D<float>(0,0),Point2D(0,0))
+Vehicle::Vehicle(GameState* state, std::istream& in)
+	: Crosser(state,Vector2D<float>(0,0),Point2D(0,0))
 {
 	float x, y, s;
 	int t;

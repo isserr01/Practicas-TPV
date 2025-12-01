@@ -10,7 +10,7 @@
 #include <istream>
 #include <vector>
 #include "vector2D.h"
-#include <random>
+
 // Declaraciones anticipadas
 
 class SceneObject;
@@ -26,7 +26,7 @@ private:
 	//atributos para los punteros del juego
 	Frog* frog = nullptr;
 	std::list<SceneObject*> Objects;
-	std::mt19937_64 randomGenerator;
+	
 	
 	bool baseOcupada[5] = { false,false,false,false,false };
 
@@ -36,15 +36,14 @@ public:
 	~PlayState();
 	void render() const;
 	void update();
-	void handleEvents();
+	void handleEvents(SDL_Event event);
 	std::list<SceneObject*> sceneObjects;
 
 	// Comprueba si hay algún objeto colocado en ese rectángulo
-	Collision checkCollision(const SDL_FRect& rect) const;
+	Collision checkCollision(const SDL_FRect& rect) const override;
 
 	void loadMap(const std::string& filename);
-	//generador de numeros aleatorios
-	int getRandomRange(int min, int max);
+	
 	//comprueba si la rana ha llegado a casa
 	bool CheckHomeCollision();
 	//comprueba si se han completado todas las casas

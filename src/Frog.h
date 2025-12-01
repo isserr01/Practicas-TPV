@@ -11,7 +11,7 @@
 constexpr float FROG_SPEED = 32.0;
 constexpr int INITIAL_FRAME = 0;
 
-
+class GameState;
 class Game;
 using Point2D = Vector2D<float>;
 class Frog : public SceneObject
@@ -26,7 +26,7 @@ class Frog : public SceneObject
 
 public:
 	//constructor y destructor
-	Frog(Game* game, std::istream& in);
+	Frog(GameState* state, std::istream& in);
 	~Frog();
 	//método de renderizado en pantalla
 	void render() const override;

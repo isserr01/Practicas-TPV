@@ -12,13 +12,14 @@
 
 
 class Game;
+class GameState;
 
 class Log : public Platform
 {
 
 public:
 	//constructora
-	Log(Game* game, std::istream& in);
+	Log(GameState* state, std::istream& in);
 	virtual ~Log() = default;
 
 };

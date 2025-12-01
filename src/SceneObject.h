@@ -12,7 +12,7 @@ class SceneObject : public GameObject
 {
 	
 public:
-	SceneObject(Game* game);
+	SceneObject(GameState* state);
 	virtual ~SceneObject() = default;
 	virtual void render() const override;
 	virtual	void update() override = 0;
@@ -25,6 +25,7 @@ protected:
 	float dimY;
 	float dimX;
 	SDL_FRect getBoundingBox() const;
+	Game* game;
 
 };
 

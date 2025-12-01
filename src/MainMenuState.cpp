@@ -11,11 +11,11 @@
 MainMenuState::MainMenuState(Game* game)
 	:GameState(game), selected(0), titleLabel(nullptr), mapLabel(nullptr), playButt(nullptr), exitButt(nullptr)
 {
-	loadMap();
-}
-void MainMenuState::handleEvent(const SDL_Event& event) {
-
-}
-void MainMenuState::update() {
+	Button* btn = new Button(this, game->getTexture(Game::BACKGROUND), 0, 0);
+	btn->connect([game]() {
+		game->pushState(new PlayState(game));
+		});
+	addObject(btn);
+	addEventListener(btn);
 
 }

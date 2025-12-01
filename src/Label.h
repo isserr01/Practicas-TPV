@@ -8,13 +8,14 @@ class Label : public GameObject
 {
 
 protected:
-	SDL_Rect rect;
+	float x, y;
 	Texture* texture;
 
 public:
-	Label(GameState* gameStat, Texture* texture, SDL_Rect rect);
-	virtual void render() const override;
-
+	Label(GameState* gameStat, Texture* texture, float x, float y);
+	virtual ~Label() = default ;
+	void render() const override;
+	virtual void update() override = 0;
 };
 
 #endif // LABEL_H

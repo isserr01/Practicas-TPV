@@ -1,8 +1,8 @@
 #include "wasp.h"
-#include "game.h"
 
-wasp::wasp(Game* game, Point2D posicion) :
-	SceneObject(game)
+
+wasp::wasp(GameState* state, Point2D posicion) :
+	SceneObject(state)
 	
 {
 	try {
@@ -21,7 +21,7 @@ wasp::wasp(Game* game, Point2D posicion) :
 
 void wasp::spawn() {
 
-	durationAle=game->getRandomRange(50,100);
+	durationAle = game->getRandomRange(50,100);
 	
 	alive = true;
 }

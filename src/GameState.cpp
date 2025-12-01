@@ -1,33 +1,31 @@
 #include "GameState.h"
+#include "GameObject.h"
+#include "EventHandler.h"
+#include "Game.h"
 
 GameState::GameState(Game* game) : game(game) {}
-GameState:: ~GameState() {
-	for (GameObject* obj : gameObjects)
-		delete obj;
+GameState::~GameState() {
+    for (auto o : gameObjects) delete o;
 }
-void GameState:: render() const {
-	for(GameObject* obj : gameObjects)
-		obj->render();
-}
+
+void GameState::addObject(GameObject* o) { gameObjects.push_back(o); }
+void GameState::addEventListener(EventHandler* h) { eventHandler.push_back(h); }
+void GameState::runLater(Callback& cb) { lateCallbacks.push_back(cb); }
+
 void GameState::update() {
-	for (GameObject* obj : gameObjects)
-		obj->update();
+    for (auto o : gameObjects) o->update();
+    for (auto& cb : lateCallbacks) cb();
+    lateCallbacks.clear();
 }
-void GameState::removeObject(GameObject* obj) {
-	gameObjects.remove(obj);
-	delete obj;
+
+void GameState::render() const {
+    for (auto o : gameObjects) o->render();
 }
-GameState::Anchor addObject(GameObject* obj) {
-	gameObjects.push_back(obj);
-	return gameObjects.end();
+
+void GameState::handleEvent(const SDL_Event& e) {
+    for (auto h : eventHandler) h->handleEvent(e);
 }
-void GameState::handleEvent(const SDL_Event& event) {
-	for (EventHandler* handler : eventHandler)
-		handler->handleEvent(event);
-}
-void GameState::addEventListener(EventHandler* handler) {
-	eventHandler.push_back(handler);
-}
-void GameState::runLater(Callback&& func) {
-	lateCallbacks.push_back(func);
+
+Collision GameState::checkCollision(const SDL_FRect& rect) const {
+    return Collision(Collision::NONE);
 }

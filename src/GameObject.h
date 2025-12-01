@@ -9,10 +9,10 @@ class GameObject
 {
 	
 protected:
-	GameState* gameState;
+	GameState* state;
 	
 public:
-	GameObject(GameState* gameState);
+	GameObject(GameState* state);
 	virtual ~GameObject();
 	//método de renderizado en pantalla
 	virtual void render() const = 0;

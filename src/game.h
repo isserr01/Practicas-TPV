@@ -1,15 +1,17 @@
+#ifndef GAME_H
 #define GAME_H
 
 #include <SDL3/SDL.h>
 #include <array>
 #include "gameStateMachine.h"
+#include <random>
 
 class Texture;
 
 /**
  * Clase principal del juego.
  */
-class Game : private GameStateMachine
+class Game : public GameStateMachine
 {
 
 public:
@@ -52,6 +54,7 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	std::array<Texture*, NUM_TEXTURES> textures;
 	bool exit = false;
+	std::mt19937_64 randomGenerator;
 
 public:
 	Game();
@@ -60,18 +63,20 @@ public:
 	using GameStateMachine::pushState;
 	using GameStateMachine::popState;
 	using GameStateMachine::replaceState;
+
 	// Obtiene una textura por su nombre
 	Texture* getTexture(TextureName name) const {
 		return textures[name];
 	}
 	SDL_Renderer* getRenderer() const { return renderer; }
+	//generador de numeros aleatorios
+	int getRandomRange(int min, int max);
 
 	// Ejecuta el bucle principal del juego
 	void run();
-	void update();
-	void render() const;
-	void handleEvents(SDL_Event& event);
 	void quit() {
 		exit = true;
 	}
 };
+
+#endif // GAME_H

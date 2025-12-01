@@ -1,8 +1,8 @@
 ﻿#include "Log.h"
 
 
-Log::Log(Game* game, std::istream& in)
-	: Platform(game, Vector2D<float>(0,0), Point2D(0,0))
+Log::Log(GameState* state, std::istream& in)
+	: Platform(state, Vector2D<float>(0,0), Point2D(0,0))
 {
 
 	float x, y, s;

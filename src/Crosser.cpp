@@ -1,8 +1,9 @@
 #include "Crosser.h"
 
 
-Crosser::Crosser(Game* game, Vector2D<float> s, Point2D position)
-	: SceneObject(game),
+
+Crosser::Crosser(GameState* state, Vector2D<float> s, Point2D position)
+	: SceneObject(state),
 		speed(s)
 {
 	this->position = position;

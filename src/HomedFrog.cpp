@@ -1,8 +1,8 @@
 #include "HomedFrog.h"
-#include "game.h"
 
-HomedFrog::HomedFrog(Game* game, Point2D posicion)
-	: SceneObject(game)
+
+HomedFrog::HomedFrog(GameState* state, Point2D posicion)
+	: SceneObject(state)
 {
 	try {
 		position = posicion;

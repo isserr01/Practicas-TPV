@@ -1,7 +1,7 @@
 #include "SceneObject.h"
 
-SceneObject::SceneObject(Game* game)
-	: GameObject(game)
+SceneObject::SceneObject(GameState* state)
+	: GameObject(state)
 {
 	
 	class Crosser : public SceneObject {};

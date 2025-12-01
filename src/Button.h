@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BUTTON_H
+#define BUTTON_H
 #include "Label.h"
 #include "EventHandler.h"
 #include <functional>
@@ -6,37 +7,19 @@ class Button : public Label, public EventHandler
 {
 public: 
 	using Callback = std::function<void()>;
+
 private:
-	SDL_FRect rect;
-	Callback onClick;
-	bool clicked = false;
-	public:
-	Button(GameState* gameStat, Texture* texture, SDL_FRect rect)
-		: Label(gameStat, texture, rect) 
-	{
-		gameStat->addEventListener(this);
-	}
+	Callback callback;
+
+public:
+
+	Button(GameState* gameStat, Texture* texture, float x, float y);
 	
-	// Método para manejar eventos de clic
-	bool isClicked(const SDL_Event& event) const {
-		if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-			int x = event.button.x;
-			int y = event.button.y;
-			SDL_FRect box = getBoundingBox();
-			if (x >= box.x && x <= box.x + box.w &&
-				y >= box.y && y <= box.y + box.h) {
-				return true;
-			}
-		}
-		return false;
-	}
-	void handleEvent(const SDL_Event& event) override {
-		if (isClicked(event)) {
-			clicked = true;
-			if (onClick) {
-				onClick();
-			}
-		}
-	}
+	void connect(Callback&& func);
+	void handleEvent(const SDL_Event& event) override;
+	void update() override;
+	
+	
 };
 
+#endif // BUTTON_H

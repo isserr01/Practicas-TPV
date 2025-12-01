@@ -6,7 +6,7 @@
 #include <iostream>
 #include "PlayState.h"
 #include "GameError.h"
-#include "GameError.h"
+#include "texture.h"
 
 
 using namespace std;
@@ -41,7 +41,8 @@ constexpr array<TextureSpec, Game::NUM_TEXTURES> textureList{
 };
 
 Game::Game()
-	: exit(false)
+	: exit(false),
+	randomGenerator(std::random_device{}())
 {
 	// Carga SDL y sus bibliotecas auxiliares
 	SDL_Init(SDL_INIT_VIDEO);
@@ -69,7 +70,7 @@ Game::Game()
 			throw SDLError("Error al cargar la textura " + string(name));
 		}
 	}
-	pushState(std::make_shared<PlayState>(this, MAP_FILE));
+	pushState(std::make_shared<PlayState>(this));
 }
 
 Game::~Game()
@@ -82,15 +83,8 @@ Game::~Game()
 	SDL_Quit();
 }
 
-void
-Game::render() const
-{
-	SDL_RenderClear(renderer);
-	//renderizado del fondo
-	GameStateMachine::render();
-
-	//renderizado de los troncos, los coches y la rana llamando a sus métodos de render
-	SDL_RenderPresent(renderer);
+int Game::getRandomRange(int min, int max) {
+	return uniform_int_distribution<int>(min, max)(randomGenerator);
 }
 
 
@@ -100,7 +94,7 @@ Game::run()
 	SDL_Event event;
 	while (!exit) {
 		while (SDL_PollEvent(&event)) {
-			handleEvents(event);
+			handleEvent(event);
 		}
 		
 		update();
@@ -111,11 +105,3 @@ Game::run()
 	
 }
 
-void Game::update()
-{
-	GameStateMachine::update();
-}
-void Game::handleEvents(SDL_Event& event)
-{
-	GameStateMachine::handleEvent(event);
-}

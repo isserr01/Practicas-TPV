@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MAINMENUSTATE_H
+#define MAINMENUSTATE_H
+
 #include "GameState.h"
 #include <vector>
 #include <string>
@@ -22,8 +24,8 @@ private:
 public:
 	MainMenuState(Game* game);
 
-	void handleEvent(const SDL_Event& event) ;
-	void update();
+
 
 };
+#endif // MAINMENUSTATE_H
 

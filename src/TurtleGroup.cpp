@@ -1,7 +1,7 @@
 #include "TurtleGroup.h"
 
-TurtleGroup::TurtleGroup(Game* game, std::istream& in)
-	: Platform(game, Vector2D<float>(0, 0), Point2D(0, 0))
+TurtleGroup::TurtleGroup(GameState* state, std::istream& in)
+	: Platform(state, Vector2D<float>(0, 0), Point2D(0, 0))
 {
 	float x, y, s;
 	int t, n;

@@ -9,14 +9,18 @@
 #include <iostream>
 #include <string>
 #include "GameError.h"
+#include "MainMenuState.h"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
 	try {
-		Game game;
-		game.run();
+
+		Game g;
+		g.pushState(new MainMenuState(&g));
+		g.run();
+		return 0;
 
 	}
 	catch (const GameError& e) {

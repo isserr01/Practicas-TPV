@@ -3,8 +3,8 @@
 #include <fstream>
 
 
-Frog::Frog(Game* game, std::istream& in)
-	: SceneObject(game)
+Frog::Frog(GameState* state, std::istream& in)
+	: SceneObject(state)
 {
 	float x, y;
 	try {
@@ -68,7 +68,7 @@ void Frog::update() {
 	currentFrame = 0;	
  
 	//comprobación de colisiones
-	Collision col = game->checkCollision(getBoundingBox());
+	Collision col = state->checkCollision(getBoundingBox());
 	
 	//si es un enemigo, restamos una vida y reseteamos posición
 	if (col.type == Collision::ENEMY) {

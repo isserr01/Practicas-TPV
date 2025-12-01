@@ -10,6 +10,7 @@
 
 
 class Game;
+class GameState;
 using Point2D = Vector2D<float>;
 class Vehicle : public Crosser
 {
@@ -17,7 +18,7 @@ class Vehicle : public Crosser
 
 public:
 	//constructora
-	Vehicle(Game* game, std::istream& in);
+	Vehicle(GameState* state, std::istream& in);
 	//método para comprobar colisiones con un rectángulo dado
 	Collision checkCollision(const SDL_FRect& other) override;
 };
