@@ -1,9 +1,631 @@
 ﻿  Button.cpp
+  Crosser.cpp
+  EndState.cpp
+  EventHandler.cpp
+  Frog.cpp
+  game.cpp
+  GameObject.cpp
+  GameState.cpp
+  gameStateMachine.cpp
+  HomedFrog.cpp
   Label.cpp
+  Log.cpp
+  main.cpp
   MainMenuState.cpp
-C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Button.cpp(5,61): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
-C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Button.cpp(5,45): warning C4244: 'argumento': conversión de 'const float' a 'int'; posible pérdida de datos
-Label.obj : error LNK2001: símbolo externo "public: virtual void __cdecl Label::update(void)" (?update@Label@@UEAAXXZ) sin resolver
-MainMenuState.obj : error LNK2001: símbolo externo "public: virtual void __cdecl GameState::render(void)const " (?render@GameState@@UEBAXXZ) sin resolver
-MainMenuState.obj : error LNK2001: símbolo externo "public: virtual void __cdecl MainMenuState::update(void)" (?update@MainMenuState@@UEAAXXZ) sin resolver
-C:\Users\Isa\Documents\GitHub\Practica-TPV1\bin\srcDebug.exe : fatal error LNK1120: 3 externos sin resolver
+  PauseState.cpp
+  Platform.cpp
+  PlayState.cpp
+  SceneObject.cpp
+  TurtleGroup.cpp
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,12): error C2065: 'EventHandler': identificador no declarado
+  (compilando archivo de origen "Platform.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,12): error C2065: 'EventHandler': identificador no declarado
+  (compilando archivo de origen "Button.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,25): error C2059: error de sintaxis: '>'
+  (compilando archivo de origen "Platform.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,25): error C2059: error de sintaxis: '>'
+  (compilando archivo de origen "Button.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(26,24): error C2061: error de sintaxis: identificador 'EventHandler'
+  (compilando archivo de origen "Platform.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(26,24): error C2061: error de sintaxis: identificador 'EventHandler'
+  (compilando archivo de origen "Button.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,12): error C2065: 'EventHandler': identificador no declarado
+  (compilando archivo de origen "GameObject.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,25): error C2059: error de sintaxis: '>'
+  (compilando archivo de origen "GameObject.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,12): error C2065: 'EventHandler': identificador no declarado
+  (compilando archivo de origen "Label.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,25): error C2059: error de sintaxis: '>'
+  (compilando archivo de origen "Label.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(26,24): error C2061: error de sintaxis: identificador 'EventHandler'
+  (compilando archivo de origen "GameObject.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(26,24): error C2061: error de sintaxis: identificador 'EventHandler'
+  (compilando archivo de origen "Label.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PauseState.h(12,7): error C3668: 'PauseState::update': el método con el especificador de invalidación 'override' no invalidó ningún método de clase base
+  (compilando archivo de origen "PauseState.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,12): error C2065: 'EventHandler': identificador no declarado
+  (compilando archivo de origen "Crosser.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,25): error C2059: error de sintaxis: '>'
+  (compilando archivo de origen "Crosser.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(26,24): error C2061: error de sintaxis: identificador 'EventHandler'
+  (compilando archivo de origen "Crosser.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.cpp(21,2): error C2065: 'gameObjects': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.cpp(22,9): error C2065: 'gameObjects': identificador no declarado
+  Vehicle.cpp
+  wasp.cpp
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(15,10): error C2665: 'Label::Label':ninguna función sobrecargada pudo convertir todos los tipos de argumento
+  (compilando archivo de origen "Button.cpp")
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Label.h(15,2):
+      puede ser 'Label::Label(GameState *,Texture *,SDL_Rect)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(15,10):
+          'Label::Label(GameState *,Texture *,SDL_Rect)': el argumento 3 no puede convertirse de 'SDL_FRect' a 'SDL_Rect'
+              C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(15,30):
+              No hay disponible ningún operador de conversión definido por el usuario que pueda realizar esta conversión, o bien no se puede llamar al operador
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(15,10):
+      al hacer coincidir la lista de argumentos '(GameState *, Texture *, SDL_FRect)'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(17,13): error C2660: 'GameState::addEventListener': la función no acepta 1 argumentos
+  (compilando archivo de origen "Button.cpp")
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(26,7):
+      vea la declaración de 'GameState::addEventListener'
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(17,13):
+      al hacer coincidir la lista de argumentos '(Button *)'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(23,10): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+  (compilando archivo de origen "Button.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(24,10): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+  (compilando archivo de origen "Button.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(25,20): error C3861: 'getBoundingBox': no se encontró el identificador
+  (compilando archivo de origen "Button.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.cpp(5,9): error C2084: la función 'Button::Button(GameState *,Texture *,SDL_FRect)' ya tiene un cuerpo
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(14,2):
+      vea la definición anterior de “Button::Button”
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.cpp(6,9): error C2665: 'Label::Label':ninguna función sobrecargada pudo convertir todos los tipos de argumento
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Label.h(15,2):
+      puede ser 'Label::Label(GameState *,Texture *,SDL_Rect)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.cpp(6,9):
+          'Label::Label(GameState *,Texture *,SDL_Rect)': el argumento 3 no puede convertirse de 'SDL_FRect' a 'SDL_Rect'
+              C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.cpp(6,30):
+              No hay disponible ningún operador de conversión definido por el usuario que pueda realizar esta conversión, o bien no se puede llamar al operador
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.cpp(6,9):
+      al hacer coincidir la lista de argumentos '(GameState *, Texture *, SDL_FRect)'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.cpp(10,2): error C2059: error de sintaxis: '}'
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.cpp(11,13): error C2660: 'GameState::addEventListener': la función no acepta 1 argumentos
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(26,7):
+      vea la declaración de 'GameState::addEventListener'
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.cpp(11,13):
+      al hacer coincidir la lista de argumentos '(Button *)'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(15,10): error C2665: 'Label::Label':ninguna función sobrecargada pudo convertir todos los tipos de argumento
+  (compilando archivo de origen "MainMenuState.cpp")
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Label.h(15,2):
+      puede ser 'Label::Label(GameState *,Texture *,SDL_Rect)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(15,10):
+          'Label::Label(GameState *,Texture *,SDL_Rect)': el argumento 3 no puede convertirse de 'SDL_FRect' a 'SDL_Rect'
+              C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(15,30):
+              No hay disponible ningún operador de conversión definido por el usuario que pueda realizar esta conversión, o bien no se puede llamar al operador
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(15,10):
+      al hacer coincidir la lista de argumentos '(GameState *, Texture *, SDL_FRect)'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(23,10): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+  (compilando archivo de origen "MainMenuState.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(24,10): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+  (compilando archivo de origen "MainMenuState.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Button.h(25,20): error C3861: 'getBoundingBox': no se encontró el identificador
+  (compilando archivo de origen "MainMenuState.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Crosser.cpp(13,38): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(5,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Crosser.cpp(13,38): error C2065: 'FRAME_RATE': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Crosser.cpp(16,30): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(5,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Crosser.cpp(16,30): error C2065: 'WINDOW_WIDTH': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Crosser.cpp(16,51): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(5,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Crosser.cpp(16,51): error C2065: 'SIDE_LIMIT': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Crosser.cpp(17,29): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(5,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Crosser.cpp(17,29): error C2065: 'SIDE_LIMIT': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Crosser.cpp(19,63): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(5,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Crosser.cpp(19,63): error C2065: 'SIDE_LIMIT': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Crosser.cpp(20,28): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(5,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Crosser.cpp(20,28): error C2065: 'WINDOW_WIDTH': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Frog.cpp(20,32): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Frog.cpp(21,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Frog.cpp(71,18): error C2065: 'game': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Frog.cpp(81,37): warning C4305: 'argumento': truncamiento de 'double' a 'T'
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Frog.cpp(81,37): warning C4305:         with
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Frog.cpp(81,37): warning C4305:         [
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Frog.cpp(81,37): warning C4305:             T=float
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Frog.cpp(81,37): warning C4305:         ]
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7): error C2011: 'Game': nueva definición del tipo 'class'
+  (compilando archivo de origen "HomedFrog.cpp")
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\HomedFrog.cpp(9,13): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\HomedFrog.cpp(9,36): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\HomedFrog.cpp(9,36): error C2065: 'FROG': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\HomedFrog.cpp(10,32): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\HomedFrog.cpp(11,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Log.cpp(21,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Log.cpp(22,34): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,12): error C2065: 'EventHandler': identificador no declarado
+  (compilando archivo de origen "SceneObject.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,25): error C2059: error de sintaxis: '>'
+  (compilando archivo de origen "SceneObject.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(26,24): error C2061: error de sintaxis: identificador 'EventHandler'
+  (compilando archivo de origen "SceneObject.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,12): error C2065: 'EventHandler': identificador no declarado
+  (compilando archivo de origen "TurtleGroup.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(14,25): error C2059: error de sintaxis: '>'
+  (compilando archivo de origen "TurtleGroup.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(26,24): error C2061: error de sintaxis: identificador 'EventHandler'
+  (compilando archivo de origen "TurtleGroup.cpp")
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.cpp(66,29): error C2027: uso del tipo 'Texture' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(7,7):
+      vea la declaración de 'Texture'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.cpp(79,3): warning C4150: eliminación de puntero a tipo 'Texture' incompleto; no se ha llamado a un destructor
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(7,7):
+      vea la declaración de 'Texture'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\SceneObject.cpp(4,14): error C2665: 'GameObject::GameObject':ninguna función sobrecargada pudo convertir todos los tipos de argumento
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameObject.h(22,1):
+      puede ser 'GameObject::GameObject(const GameObject &)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\SceneObject.cpp(4,14):
+          'GameObject::GameObject(const GameObject &)': el argumento 1 no puede convertirse de 'Game *' a 'const GameObject &'
+              C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\SceneObject.cpp(4,15):
+              Razón: no se puede realizar la conversión de 'Game *' a 'const GameObject'
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameObject.h(15,2):
+      o       'GameObject::GameObject(GameState *)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\SceneObject.cpp(4,14):
+          'GameObject::GameObject(GameState *)': el argumento 1 no puede convertirse de 'Game *' a 'GameState *'
+              C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\SceneObject.cpp(4,15):
+              Los tipos señalados no están relacionados; la conversión requiere reinterpret_cast, conversión de estilo de C o conversión de estilo de función entre paréntesis
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\SceneObject.cpp(4,14):
+      al hacer coincidir la lista de argumentos '(Game *)'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\TurtleGroup.cpp(18,14): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(5,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\TurtleGroup.cpp(18,37): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(5,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\TurtleGroup.cpp(18,37): error C2065: 'TURTLE': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\TurtleGroup.cpp(20,34): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\TurtleGroup.cpp(21,36): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\TurtleGroup.cpp(26,19): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\TurtleGroup.cpp(38,22): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\GameState.h(5,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\TurtleGroup.cpp(38,22): error C2065: 'FRAME_RATE': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7): error C2011: 'Game': nueva definición del tipo 'class'
+  (compilando archivo de origen "PlayState.cpp")
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Collision.h(5,8): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
+  (compilando archivo de origen "PlayState.cpp")
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Collision.h(5,8):
+      vea la declaración de 'Collision'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(84,32): error C2665: 'wasp::wasp':ninguna función sobrecargada pudo convertir todos los tipos de argumento
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\wasp.h(23,2):
+      puede ser 'wasp::wasp(Game *,Point2D)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(84,32):
+          'wasp::wasp(Game *,Point2D)': el argumento 1 no puede convertirse de 'PlayState *' a 'Game *'
+              C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(84,33):
+              Los tipos señalados no están relacionados; la conversión requiere reinterpret_cast, conversión de estilo de C o conversión de estilo de función entre paréntesis
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(84,32):
+      al hacer coincidir la lista de argumentos '(PlayState *, Point2D)'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(94,3): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,49): error C2676: '==' binario: 'SDL_KeyboardEvent' no define este operador o una conversión a un tipo aceptable para el operador predefinido
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stack(169,17):
+      puede ser 'bool std::operator ==(const std::stack<_Ty,_Container> &,const std::stack<_Ty,_Container> &)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::stack<_Ty,_Container> &,const std::stack<_Ty,_Container> &)": no se pudo deducir el argumento plantilla para "const std::stack<_Ty,_Container> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\deque(1793,17):
+      o       'bool std::operator ==(const std::deque<_Ty,_Alloc> &,const std::deque<_Ty,_Alloc> &)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::deque<_Ty,_Alloc> &,const std::deque<_Ty,_Alloc> &)": no se pudo deducir el argumento plantilla para "const std::deque<_Ty,_Alloc> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(2266,30):
+      o       'bool std::operator ==(const std::vector<_Ty,_Alloc> &,const std::vector<_Ty,_Alloc> &)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::vector<_Ty,_Alloc> &,const std::vector<_Ty,_Alloc> &)": no se pudo deducir el argumento plantilla para "const std::vector<_Ty,_Alloc> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3712,30):
+      o       'bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,std::nullptr_t) noexcept'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,std::nullptr_t) noexcept": no se pudo deducir el argumento plantilla para "const std::unique_ptr<_Ty,_Dx> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3666,30):
+      o       'bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,const std::unique_ptr<_Ty2,_Dx2> &)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,const std::unique_ptr<_Ty2,_Dx2> &)": no se pudo deducir el argumento plantilla para "const std::unique_ptr<_Ty,_Dx> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(1917,17):
+      o       'bool std::operator ==(const std::shared_ptr<_Ty> &,std::nullptr_t) noexcept'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::shared_ptr<_Ty> &,std::nullptr_t) noexcept": no se pudo deducir el argumento plantilla para "const std::shared_ptr<_Ty> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(1880,17):
+      o       'bool std::operator ==(const std::shared_ptr<_Ty> &,const std::shared_ptr<_Ty0> &) noexcept'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::shared_ptr<_Ty> &,const std::shared_ptr<_Ty0> &) noexcept": no se pudo deducir el argumento plantilla para "const std::shared_ptr<_Ty> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring(3263,30):
+      o       'bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const _Elem *const ) noexcept'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const _Elem *const ) noexcept": no se pudo deducir el argumento plantilla para "const std::basic_string<_Elem,_Traits,_Alloc> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring(3257,30):
+      o       'bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const std::basic_string<_Elem,_Traits,_Alloc> &) noexcept'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const std::basic_string<_Elem,_Traits,_Alloc> &) noexcept": no se pudo deducir el argumento plantilla para "const std::basic_string<_Elem,_Traits,_Alloc> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_string_view.hpp(1823,27):
+      o       'bool std::operator ==(const std::basic_string_view<_Elem,_Traits>,const type_identity<std::basic_string_view<_Elem,_Traits>>::type) noexcept'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::basic_string_view<_Elem,_Traits>,const type_identity<std::basic_string_view<_Elem,_Traits>>::type) noexcept": no se pudo deducir el argumento plantilla para "const std::basic_string_view<_Elem,_Traits>" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iterator(486,17):
+      o       'bool std::operator ==(const std::istreambuf_iterator<_Elem,_Traits> &,const std::istreambuf_iterator<_Elem,_Traits> &)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::istreambuf_iterator<_Elem,_Traits> &,const std::istreambuf_iterator<_Elem,_Traits> &)": no se pudo deducir el argumento plantilla para "const std::istreambuf_iterator<_Elem,_Traits> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iterator(304,17):
+      o       'bool std::operator ==(const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &,const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &) noexcept'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &,const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &) noexcept": no se pudo deducir el argumento plantilla para "const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\array(777,30):
+      o       'bool std::operator ==(const std::array<_Ty,_Size> &,const std::array<_Ty,_Size> &)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::array<_Ty,_Size> &,const std::array<_Ty,_Size> &)": no se pudo deducir el argumento plantilla para "const std::array<_Ty,_Size> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list(1890,17):
+      o       'bool std::operator ==(const std::list<_Ty,_Alloc> &,const std::list<_Ty,_Alloc> &)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::list<_Ty,_Alloc> &,const std::list<_Ty,_Alloc> &)": no se pudo deducir el argumento plantilla para "const std::list<_Ty,_Alloc> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xmemory(1050,30):
+      o       'bool std::operator ==(const std::allocator<_Ty> &,const std::allocator<_Other> &) noexcept'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::allocator<_Ty> &,const std::allocator<_Other> &) noexcept": no se pudo deducir el argumento plantilla para "const std::allocator<_Ty> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\tuple(844,27):
+      o       'bool std::operator ==(const std::tuple<_Types...> &,const std::tuple<_Types...> &)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::tuple<_Types...> &,const std::tuple<_Types...> &)": no se pudo deducir el argumento plantilla para "const std::tuple<_Types...> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xutility(4458,30):
+      o       'bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)": no se pudo deducir el argumento plantilla para "const std::move_iterator<_Iter> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xutility(1896,30):
+      o       'bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)": no se pudo deducir el argumento plantilla para "const std::reverse_iterator<_BidIt> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(503,27):
+      o       'bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Uty1,_Uty2> &)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Uty1,_Uty2> &)": no se pudo deducir el argumento plantilla para "const std::pair<_Ty1,_Ty2> &" de "SDL_KeyboardEvent"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(503,27):
+      o "bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Uty1,_Uty2> &)" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::pair<_Ty1,_Ty2> &,const std::pair<_Uty1,_Uty2> &)": no se pudo deducir el argumento plantilla para "const std::pair<_Ty1,_Ty2> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xutility(1896,30):
+      o "bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::reverse_iterator<_BidIt> &,const std::reverse_iterator<_BidIt2> &) noexcept(<expr>)": no se pudo deducir el argumento plantilla para "const std::reverse_iterator<_BidIt> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xutility(4458,30):
+      o "bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::move_iterator<_Iter> &,const std::move_iterator<_Iter2> &) noexcept(<expr>)": no se pudo deducir el argumento plantilla para "const std::move_iterator<_Iter> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\tuple(844,27):
+      o "bool std::operator ==(const std::tuple<_Types...> &,const std::tuple<_Types...> &)" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::tuple<_Types...> &,const std::tuple<_Types...> &)": no se pudo deducir el argumento plantilla para "const std::tuple<_Types...> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xmemory(1050,30):
+      o "bool std::operator ==(const std::allocator<_Ty> &,const std::allocator<_Other> &) noexcept" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::allocator<_Ty> &,const std::allocator<_Other> &) noexcept": no se pudo deducir el argumento plantilla para "const std::allocator<_Ty> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list(1890,17):
+      o "bool std::operator ==(const std::list<_Ty,_Alloc> &,const std::list<_Ty,_Alloc> &)" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::list<_Ty,_Alloc> &,const std::list<_Ty,_Alloc> &)": no se pudo deducir el argumento plantilla para "const std::list<_Ty,_Alloc> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\array(777,30):
+      o "bool std::operator ==(const std::array<_Ty,_Size> &,const std::array<_Ty,_Size> &)" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::array<_Ty,_Size> &,const std::array<_Ty,_Size> &)": no se pudo deducir el argumento plantilla para "const std::array<_Ty,_Size> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iterator(304,17):
+      o "bool std::operator ==(const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &,const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &) noexcept" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &,const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &) noexcept": no se pudo deducir el argumento plantilla para "const std::istream_iterator<_Ty,_Elem,_Traits,_Diff> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iterator(486,17):
+      o "bool std::operator ==(const std::istreambuf_iterator<_Elem,_Traits> &,const std::istreambuf_iterator<_Elem,_Traits> &)" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::istreambuf_iterator<_Elem,_Traits> &,const std::istreambuf_iterator<_Elem,_Traits> &)": no se pudo deducir el argumento plantilla para "const std::istreambuf_iterator<_Elem,_Traits> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_string_view.hpp(1823,27):
+      o "bool std::operator ==(const std::basic_string_view<_Elem,_Traits>,const type_identity<std::basic_string_view<_Elem,_Traits>>::type) noexcept" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::basic_string_view<_Elem,_Traits>,const type_identity<std::basic_string_view<_Elem,_Traits>>::type) noexcept": no se pudo deducir el argumento plantilla para "const std::basic_string_view<_Elem,_Traits>" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring(3257,30):
+      o "bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const std::basic_string<_Elem,_Traits,_Alloc> &) noexcept" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const std::basic_string<_Elem,_Traits,_Alloc> &) noexcept": no se pudo deducir el argumento plantilla para "const std::basic_string<_Elem,_Traits,_Alloc> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring(3263,30):
+      o "bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const _Elem *const ) noexcept" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::basic_string<_Elem,_Traits,_Alloc> &,const _Elem *const ) noexcept": no se pudo deducir el argumento plantilla para "const std::basic_string<_Elem,_Traits,_Alloc> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(1880,17):
+      o "bool std::operator ==(const std::shared_ptr<_Ty> &,const std::shared_ptr<_Ty0> &) noexcept" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::shared_ptr<_Ty> &,const std::shared_ptr<_Ty0> &) noexcept": no se pudo deducir el argumento plantilla para "const std::shared_ptr<_Ty> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(1917,17):
+      o "bool std::operator ==(const std::shared_ptr<_Ty> &,std::nullptr_t) noexcept" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::shared_ptr<_Ty> &,std::nullptr_t) noexcept": no se pudo deducir el argumento plantilla para "const std::shared_ptr<_Ty> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3666,30):
+      o "bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,const std::unique_ptr<_Ty2,_Dx2> &)" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,const std::unique_ptr<_Ty2,_Dx2> &)": no se pudo deducir el argumento plantilla para "const std::unique_ptr<_Ty,_Dx> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3712,30):
+      o "bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,std::nullptr_t) noexcept" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::unique_ptr<_Ty,_Dx> &,std::nullptr_t) noexcept": no se pudo deducir el argumento plantilla para "const std::unique_ptr<_Ty,_Dx> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(2266,30):
+      o "bool std::operator ==(const std::vector<_Ty,_Alloc> &,const std::vector<_Ty,_Alloc> &)" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::vector<_Ty,_Alloc> &,const std::vector<_Ty,_Alloc> &)": no se pudo deducir el argumento plantilla para "const std::vector<_Ty,_Alloc> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\deque(1793,17):
+      o "bool std::operator ==(const std::deque<_Ty,_Alloc> &,const std::deque<_Ty,_Alloc> &)" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::deque<_Ty,_Alloc> &,const std::deque<_Ty,_Alloc> &)": no se pudo deducir el argumento plantilla para "const std::deque<_Ty,_Alloc> &" de "unsigned int"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stack(169,17):
+      o "bool std::operator ==(const std::stack<_Ty,_Container> &,const std::stack<_Ty,_Container> &)" [expresión sintetizada "y == x"]
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(118,45):
+          "bool std::operator ==(const std::stack<_Ty,_Container> &,const std::stack<_Ty,_Container> &)": no se pudo deducir el argumento plantilla para "const std::stack<_Ty,_Container> &" de "unsigned int"
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(120,5): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(120,38): error C2065: 'PauseState': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(120,26): error C2672: 'std::make_shared': no se encontró una función sobrecargada que coincida
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(2968,44):
+      puede ser 'std::shared_ptr<_Ty> std::make_shared(const remove_extent<_Ty>::type &)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(120,38):
+          "std::make_shared": argumento plantilla no válido para "_Ty", tipo esperado
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(2959,44):
+      o       'std::shared_ptr<_Ty> std::make_shared(void)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(120,38):
+          "std::make_shared": argumento plantilla no válido para "_Ty", tipo esperado
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(2954,44):
+      o       'std::shared_ptr<_Ty> std::make_shared(const size_t,const remove_extent<_Ty>::type &)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(120,38):
+          "std::make_shared": argumento plantilla no válido para "_Ty", tipo esperado
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(2949,44):
+      o       'std::shared_ptr<_Ty> std::make_shared(const size_t)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(120,38):
+          "std::make_shared": argumento plantilla no válido para "_Ty", tipo esperado
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(2912,44):
+      o       'std::shared_ptr<_Ty> std::make_shared(_Types ...)'
+          C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(120,38):
+          "std::make_shared": argumento plantilla no válido para "_Ty", tipo esperado
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Vehicle.cpp(24,34): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\Vehicle.cpp(25,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(226,49): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(226,49): error C2065: 'HOME_X': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(226,65): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(226,65): error C2065: 'HOME_Y': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(227,11): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(227,11): error C2065: 'HOME_X': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(227,27): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(227,27): error C2065: 'HOME_Y': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(228,10): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(228,10): error C2065: 'HOME_X': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(228,26): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(228,26): error C2065: 'HOME_Y': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(229,11): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(229,11): error C2065: 'HOME_X': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(229,27): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(229,27): error C2065: 'HOME_Y': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(230,11): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(230,11): error C2065: 'HOME_X': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(230,27): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(230,27): error C2065: 'HOME_Y': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7): error C2011: 'Game': nueva definición del tipo 'class'
+  (compilando archivo de origen "wasp.cpp")
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\wasp.cpp(12,13): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\wasp.cpp(12,36): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\wasp.cpp(12,36): error C2065: 'WASP': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(232,45): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(232,45): error C2065: 'HOME_RECT_X': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\wasp.cpp(13,32): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(232,66): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(232,66): error C2065: 'HOME_RECT_Y': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\wasp.cpp(14,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(232,85): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(232,85): error C2065: 'HOME_RECT_TAM': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(232,105): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(232,105): error C2065: 'HOME_RECT_TAM': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(233,10): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(233,10): error C2065: 'HOME_RECT_X': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(233,31): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(233,31): error C2065: 'HOME_RECT_Y': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(233,51): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(233,51): error C2065: 'HOME_RECT_TAM': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(233,71): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(233,71): error C2065: 'HOME_RECT_TAM': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(234,10): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(234,10): error C2065: 'HOME_RECT_X': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(234,31): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(234,31): error C2065: 'HOME_RECT_Y': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(234,51): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(234,51): error C2065: 'HOME_RECT_TAM': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(234,71): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(234,71): error C2065: 'HOME_RECT_TAM': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(235,11): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\wasp.cpp(24,14): error C2027: uso del tipo 'game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\wasp.h(9,7):
+      vea la declaración de 'game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(235,11): error C2065: 'HOME_RECT_X': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(235,32): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(235,32): error C2065: 'HOME_RECT_Y': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(235,52): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(235,52): error C2065: 'HOME_RECT_TAM': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(235,72): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(235,72): error C2065: 'HOME_RECT_TAM': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(236,11): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(236,11): error C2065: 'HOME_RECT_X': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(236,32): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(236,32): error C2065: 'HOME_RECT_Y': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(236,52): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(236,52): error C2065: 'HOME_RECT_TAM': identificador no declarado
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(236,72): error C2027: uso del tipo 'Game' sin definir
+      C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\game.h(12,7):
+      vea la declaración de 'Game'
+  
+C:\Users\blanc\Downloads\Practica-TPV1\Practica-TPV1\src\PlayState.cpp(236,72): error C2065: 'HOME_RECT_TAM': identificador no declarado

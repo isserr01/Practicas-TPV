@@ -1,34 +1,42 @@
-#ifndef BUTTON_H
-#define BUTTON_H
-
+#pragma once
+#include "Label.h"
 #include "EventHandler.h"
-#include <SDL3/SDL.h>
 #include <functional>
-#include <utility>
-
-
-class Button : public EventHandler
+class Button : public Label, public EventHandler
 {
-	SDL_Renderer* renderer;
-	SDL_Rect rect;
-	SDL_Color color;
-	SDL_Color hoverColor;
-
-	bool hovered = false;
-	std::function<void()> onClick;
-
-public:
-
-	Button(SDL_Renderer* r, int x, int y, int w, int h, std::function<void()> click)
-		: renderer(r), rect{ x, y, w, h }, onClick(std::move(click))
+public: 
+	using Callback = std::function<void()>;
+private:
+	SDL_FRect rect;
+	Callback onClick;
+	bool clicked = false;
+	public:
+	Button(GameState* gameStat, Texture* texture, SDL_FRect rect)
+		: Label(gameStat, texture, rect) 
 	{
-		color = { 70, 130, 180, 255 };       
-		hoverColor = { 100, 149, 237, 255 };
-
+		gameStat->addEventListener(this);
 	}
-
-	void handleEvent(const SDL_Event& event) override;
-	void render() const;
+	
+	// Método para manejar eventos de clic
+	bool isClicked(const SDL_Event& event) const {
+		if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+			int x = event.button.x;
+			int y = event.button.y;
+			SDL_FRect box = getBoundingBox();
+			if (x >= box.x && x <= box.x + box.w &&
+				y >= box.y && y <= box.y + box.h) {
+				return true;
+			}
+		}
+		return false;
+	}
+	void handleEvent(const SDL_Event& event) override {
+		if (isClicked(event)) {
+			clicked = true;
+			if (onClick) {
+				onClick();
+			}
+		}
+	}
 };
 
-#endif // BUTTON_H

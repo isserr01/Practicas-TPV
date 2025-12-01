@@ -1,25 +1,29 @@
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#pragma once
 #include "GameObject.h"
-#include "EventHandler.h"
-#include "game.h"
 #include <list>
+#include <SDL3/SDL.h>
+class Game;
 
-class GameState
-{
-	Game* game;
-protected:
-	std::list<GameObject*> gameObjects;
-	std::list<EventHandler*> eventHandlers;
-	
-
+class GameState{
 public:
-	virtual void update() = 0;
-	virtual void render() const;
-	virtual void handleEvent(const SDL_Event& event) = 0;
-	void addObject(GameObject* obj);
-	void addEventListener(EventHandler* handler);
+	using Callback = std::is_function<void()>;
+	using Anchor = std::list<class GameObject*>::iterator;
+protected:
 
+	std::list<GameObject*> gameObjects;
+	std::list<EventHandler*> eventHandler;
+	std::list<Callback> lateCallbacks;
+	Game* game;
+public:
+	GameState(Game* game);
+	~GameState();
+	Game* getGame() { return game; }
+	void render() const;
+	void update();
+	void handleEvent(const SDL_Event& event);
+	void removeObject(GameObject* obj);
+	Anchor addObject(GameObject* obj);
+	void addEventListener(EventHandler* handler);
+	void runLater(Callback&& func);
 };
 
-#endif // GAMESTATE_H

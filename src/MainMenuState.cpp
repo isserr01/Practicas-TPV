@@ -1,33 +1,21 @@
 #include "MainMenuState.h"
+#include "Button.h"
+#include "Label.h"
+#include "game.h"
 #include "PlayState.h"
 
-MainMenuState::MainMenuState(GameStateMachine* g, SDL_Renderer* r)
-	: gsm(g), renderer(r)
-{
-	playButton = new Button(renderer, 200, 200, 200, 50, [this]() {
-		
-	});
-	exitButton = new Button(renderer, 150, 250, 150, 50, [this]() {
-		SDL_Event quit;
-		quit.type = SDL_EVENT_QUIT;
-		SDL_PushEvent(&quit);
-	});
-}
+#include <filesystem>
+#include <iostream>
+#include <fstream>
 
-MainMenuState::~MainMenuState()
+MainMenuState::MainMenuState(Game* game)
+	:GameState(game), selected(0), titleLabel(nullptr), mapLabel(nullptr), playButt(nullptr), exitButt(nullptr)
 {
-	delete playButton;
-	delete exitButton;
+	loadMap();
 }
+void MainMenuState::handleEvent(const SDL_Event& event) {
 
-void MainMenuState::render() const
-{
-	playButton->render();
-	exitButton->render();
 }
+void MainMenuState::update() {
 
-void MainMenuState::handleEvent(const SDL_Event& event)
-{
-	playButton->handleEvent(event);
-	exitButton->handleEvent(event);
 }

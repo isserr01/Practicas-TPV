@@ -1,16 +1,12 @@
 #include "Button.h"
+#include "GameState.h"
+#include <SDL3/SDL.h>
 
-void Button::handleEvent(const SDL_Event& event) {
-	if(event.type == SDL_EVENT_MOUSE_MOTION)
-		hovered = isMouseInside(rect, event.motion.x, event.motion.y);
-
-	else if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-		if (hovered && onClick)
-			onClick();
+Button::Button(GameState* gameState, Texture* texture, SDL_FRect rect)
+	: Label(gameState, texture, rect),onClick(onClick), clicked(false)
+{
+	if (texture) {
+		
 	}
-}
-void Button::render() const {
-	SDL_Color c = hovered ? hoverColor : color;
-	SDL_SetRenderDrawColor(renderer, c.r, c.g, c.b, c.a);
-	
+	gameState->addEventListener(this);
 }

@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Game* game) 
-	: game(game)
+GameObject::GameObject(GameState* game) 
+	: gameState(game)
 {
 	class SceneObject : public GameObject {};
 }

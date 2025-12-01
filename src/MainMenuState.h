@@ -1,24 +1,29 @@
-#ifndef MAINMENUSTATE_H
-#define MAINMENUSTATE_H
+#pragma once
 #include "GameState.h"
-#include "gameStateMachine.h"
-#include "Button.h"
-
+#include <vector>
+#include <string>
+#include <SDL3/SDL.h>
+class Button;
+class Label;
 class MainMenuState : public GameState
 {
-	GameStateMachine* gsm;
-	SDL_Renderer* renderer;
+private:
+	std::vector <std::string> mapList;
+	int selected = 0;
 
-	Button* playButton;
-	Button* exitButton;
+	Label* titleLabel = nullptr;
+	Label* mapLabel = nullptr;
+	Button* playButt = nullptr;
+	Button* exitButt = nullptr;
+
+	void loadMap();
+	void updateMapLabel();
 
 public:
-	MainMenuState(GameStateMachine* g, SDL_Renderer* r);
-	~MainMenuState();
-	void update() override;
-	void render() const override;
-	void handleEvent(const SDL_Event& event) override;
+	MainMenuState(Game* game);
+
+	void handleEvent(const SDL_Event& event) ;
+	void update();
 
 };
 
-#endif // MAINMENUSTATE_H

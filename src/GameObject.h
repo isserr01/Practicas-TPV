@@ -1,17 +1,18 @@
 ﻿#ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
-#include "game.h"
-#include "texture.h"
+#include "GameState.h"
+#include "EventHandler.h"
 
 
+class GameState;
 class GameObject
 {
 	
 protected:
-	Game* game;
-	GameObject(Game* game);
-
+	GameState* gameState;
+	
 public:
+	GameObject(GameState* gameState);
 	virtual ~GameObject();
 	//método de renderizado en pantalla
 	virtual void render() const = 0;
