@@ -2,7 +2,7 @@
 
 
 wasp::wasp(GameState* state, Point2D posicion) :
-	SceneObject(state)
+	SceneObject(state), game(state->getGame())
 	
 {
 	try {

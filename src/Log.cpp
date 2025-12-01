@@ -2,7 +2,7 @@
 
 
 Log::Log(GameState* state, std::istream& in)
-	: Platform(state, Vector2D<float>(0,0), Point2D(0,0))
+	: Platform(state, Vector2D<float>(0,0), Point2D(0,0)), game(state->getGame())
 {
 
 	float x, y, s;

@@ -21,14 +21,13 @@
 #include "PauseState.h"
 
 using namespace std;
+;
 
-constexpr const char* const MAP_FILE = "../assets/maps/default.txt";
-
-PlayState::PlayState(Game* game)
+PlayState::PlayState(Game* game, std::string& mapName)
 	: GameState (game)
 {
 	//llamamos al método de cargar el mapa
-	loadMap(MAP_FILE);
+	loadMap(MAP_FILE + mapName);
 }
 
 PlayState::~PlayState()
@@ -42,7 +41,7 @@ void
 PlayState::render() const
 {
 	//renderizado de los troncos, los coches y la rana llamando a sus métodos de render
-
+	game->getTexture(Game::BACKGROUND)->render();
 	for (SceneObject* obj : Objects) {
 		obj->render();
 	}

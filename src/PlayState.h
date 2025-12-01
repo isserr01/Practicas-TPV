@@ -18,6 +18,9 @@ class Frog;
 class Collision;
 
 
+//constantes
+constexpr const char* const MAP_FILE = "../assets/maps/";
+
 class PlayState : public  GameState
 {
 public:
@@ -32,7 +35,7 @@ private:
 
 
 public:
-	PlayState(Game* game);
+	PlayState(Game* game, std::string& mapName);
 	~PlayState();
 	void render() const;
 	void update();

@@ -10,3 +10,5 @@ void Label::render() const {
 	SDL_FRect rect{ x, y, (float)texture->getFrameWidth(), (float)texture->getFrameHeight() };
 	texture->render(rect);
 }
+
+void Label::update(){}

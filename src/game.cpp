@@ -6,6 +6,7 @@
 #include <iostream>
 #include "PlayState.h"
 #include "GameError.h"
+#include "MainMenuState.h"
 #include "texture.h"
 
 
@@ -13,7 +14,7 @@ using namespace std;
 
 // Constantes
 constexpr const char* const WINDOW_TITLE = "Frogger 3.0";
-constexpr const char* const MAP_FILE = "../assets/maps/default.txt";
+
 
 // Estructura para especificar las texturas que hay que
 // cargar y el tamaño de su matriz de frames
@@ -37,13 +38,24 @@ constexpr array<TextureSpec, Game::NUM_TEXTURES> textureList{
 	{"log1.png"},
 	{"log2.png"},
 	{"wasp.png"},
-	{"turtle.png",1,7}
+	{"turtle.png",1,7},
+	{"menuBackground.png"},
+	{"texts/ELIGE UN MAPA.png"},
+	{"texts/Avispado.png" },
+	{"texts/Original.png"},
+	{"texts/Practica1.png" },
+	{"texts/Trivial.png"},
+	{"texts/Veloz.png"}
+	
 };
 
 Game::Game()
-	: exit(false),
+	:
+	exit(false),
 	randomGenerator(std::random_device{}())
+	
 {
+
 	// Carga SDL y sus bibliotecas auxiliares
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -63,14 +75,15 @@ Game::Game()
 	// Carga las texturas al inicio
 	for (size_t i = 0; i < textures.size(); i++) {
 		auto [name, nrows, ncols] = textureList[i];
-		try {
-			textures[i] = new Texture(renderer, (string(imgBase) + name).c_str(), nrows, ncols);
-		}
-		catch(const GameError& e) {
-			throw SDLError("Error al cargar la textura " + string(name));
-		}
+		textures[i] = new Texture(renderer, (std::string(imgBase) + name).c_str(), nrows, ncols);
+		if (!textures[i])
+			throw GameError("Error al cargar textura: " + std::string(name));
 	}
-	pushState(std::make_shared<PlayState>(this));
+
+
+	auto mainMenu = std::make_shared<MainMenuState>(this);
+	pushState(mainMenu);
+	
 }
 
 Game::~Game()
@@ -91,17 +104,26 @@ int Game::getRandomRange(int min, int max) {
 void
 Game::run()
 {
+	
 	SDL_Event event;
 	while (!exit) {
+		uint32_t ini = SDL_GetTicks();
 		while (SDL_PollEvent(&event)) {
-			handleEvent(event);
+			if (event.type == SDL_EVENT_QUIT)
+				exit = true;
+			else handleEvent(event);
 		}
 		
 		update();
-		render();	
+		render();
 
-		SDL_Delay(FRAME_RATE);
+		//arreglo del framerate
+		uint32_t t = SDL_GetTicks() - ini;
+
+		if (t < FRAME_RATE)
+			SDL_Delay(FRAME_RATE - t);
 	}
 	
 }
+
 

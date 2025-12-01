@@ -12,6 +12,7 @@ class TurtleGroup : public Platform
 	float submergeTimer;
 	float submergePeriod;
 	int frameDuration;
+	Game* game;
 
 public:
 	TurtleGroup(GameState* state, std::istream& in);

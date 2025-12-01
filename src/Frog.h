@@ -23,6 +23,7 @@ class Frog : public SceneObject
 	bool moving;
 	int lives;
 	Point2D initialPosition;
+	Game* game;
 
 public:
 	//constructor y destructor

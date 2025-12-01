@@ -42,5 +42,25 @@ void Button::update()
 		? SDL_Color{ 255, 255, 0, 255 }  // Amarillo
 	: SDL_Color{ 255, 255, 255, 255 }; // Normal
 
+}
+
+void Button::render() const
+{
+	SDL_FRect rect{ x, y, texture->getFrameWidth(), texture->getFrameHeight() };
+
+	SDL_Color color = (mouseOver())
+		? SDL_Color{ 255, 255, 0, 255 }
+	: SDL_Color{ 255, 255, 255, 255 };
+
 	texture->render(rect, color);
+}
+
+bool Button::mouseOver() const
+{
+	float mouseX, mouseY;
+	SDL_GetMouseState(&mouseX, &mouseY);
+
+	SDL_FRect rect{ x, y, texture->getFrameWidth(), texture->getFrameHeight() };
+	return mouseX >= rect.x && mouseX <= rect.x + rect.w &&
+		mouseY >= rect.y && mouseY <= rect.y + rect.h;
 }

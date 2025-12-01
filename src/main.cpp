@@ -15,22 +15,26 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	try {
-
-		Game g;
-		g.pushState(new MainMenuState(&g));
-		g.run();
-		return 0;
-
-	}
-	catch (const GameError& e) {
-		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
-			"Error en el juego",
-			e.what(),
-			nullptr);
-		return 1;
-	}
-	
+    try {
+        Game g;
+    
+        g.run();
+        return 0;
+    }
+    catch (const GameError& e) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
+            "Error en el juego",
+            e.what(),
+            nullptr);
+        return 1;
+    }
+    catch (const std::exception& e) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
+            "Error en el juego",
+            e.what(),
+            nullptr);
+        return 1;
+    }
 
 	return 0;
 	

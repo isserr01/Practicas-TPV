@@ -15,7 +15,7 @@ using Point2D = Vector2D<float>;
 class Vehicle : public Crosser
 {
 
-
+	Game* game;
 public:
 	//constructora
 	Vehicle(GameState* state, std::istream& in);

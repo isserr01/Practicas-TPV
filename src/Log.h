@@ -16,6 +16,7 @@ class GameState;
 
 class Log : public Platform
 {
+	Game* game;
 
 public:
 	//constructora

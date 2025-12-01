@@ -15,7 +15,7 @@ public:
 	Label(GameState* gameStat, Texture* texture, float x, float y);
 	virtual ~Label() = default ;
 	void render() const override;
-	virtual void update() override = 0;
+	virtual void update() override;
 };
 
 #endif // LABEL_H

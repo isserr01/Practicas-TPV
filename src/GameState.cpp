@@ -2,10 +2,12 @@
 #include "GameObject.h"
 #include "EventHandler.h"
 #include "Game.h"
+#include <algorithm>
 
 GameState::GameState(Game* game) : game(game) {}
 GameState::~GameState() {
     for (auto o : gameObjects) delete o;
+    gameObjects.clear();
 }
 
 void GameState::addObject(GameObject* o) { gameObjects.push_back(o); }
@@ -28,4 +30,14 @@ void GameState::handleEvent(const SDL_Event& e) {
 
 Collision GameState::checkCollision(const SDL_FRect& rect) const {
     return Collision(Collision::NONE);
+}
+
+void GameState::removeObject(GameObject* obj)
+{
+    if (!obj) return;
+
+    auto it = std::find(gameObjects.begin(), gameObjects.end(), obj);
+    if (it != gameObjects.end()) {
+        gameObjects.erase(it);
+    }
 }

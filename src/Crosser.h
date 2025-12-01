@@ -12,6 +12,7 @@ class Crosser : public SceneObject
 {
 protected:
 	Vector2D<float> speed;
+	Game* game;
 
 public:
 	Crosser(GameState* state, Vector2D<float> s, Point2D position);

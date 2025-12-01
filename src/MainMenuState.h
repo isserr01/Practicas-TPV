@@ -5,25 +5,46 @@
 #include <vector>
 #include <string>
 #include <SDL3/SDL.h>
-class Button;
+#include "Button.h"
+#include "texture.h"
+#include "game.h"
+
+
 class Label;
+
 class MainMenuState : public GameState
 {
 private:
-	std::vector <std::string> mapList;
-	int selected = 0;
+	std::vector<Button*> buttons;
+	int index = -1;
+	Label* title;
 
-	Label* titleLabel = nullptr;
-	Label* mapLabel = nullptr;
-	Button* playButt = nullptr;
-	Button* exitButt = nullptr;
+	std::vector<Game::TextureName> buttonTextures{
+		Game::AVISPADO,
+		Game::ORIGINAL,
+		Game::PRACTICA1,
+		Game::TRIVIAL,
+		Game::VELOZ
+	};
 
-	void loadMap();
-	void updateMapLabel();
+	std::vector<std::string> mapName{
+		"Avispado.txt",
+		"Original.txt",
+		"Práctica 1.txt",
+		"Trivial.txt",
+		"Veloz.txt"
+	};
+	
+	void switchMap(int dir);
+	void createButtons();
 
 public:
 	MainMenuState(Game* game);
+	~MainMenuState();
 
+	void render() const override;
+	void update() override;
+	void handleEvent(const SDL_Event& event) override;
 
 
 };

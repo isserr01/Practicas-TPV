@@ -10,6 +10,7 @@ public:
 
 private:
 	Callback callback;
+	bool mouseOver() const;
 
 public:
 
@@ -18,6 +19,7 @@ public:
 	void connect(Callback&& func);
 	void handleEvent(const SDL_Event& event) override;
 	void update() override;
+	void render() const override;
 	
 	
 };

@@ -18,6 +18,7 @@ class wasp : public SceneObject
 	int durationAle;
 	int positionAle;
 	bool alive = false;
+	Game* game;
 
 public:
 	

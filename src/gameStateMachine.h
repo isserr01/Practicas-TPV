@@ -18,6 +18,7 @@ class GameStateMachine
 	std::stack<std::shared_ptr<GameState>> gameStates;
 
 public:
+	GameStateMachine() = default;
 	~GameStateMachine();
 
 	// Apila un nuevo estado, que se convierte en el estado actual,

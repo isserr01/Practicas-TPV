@@ -25,6 +25,7 @@ public:
 	void addEventListener(EventHandler* handler);
 	void runLater(Callback& func);
 	virtual Collision checkCollision(const SDL_FRect& rect) const;
+	Game* getGame() const { return game; }
 
 protected:
 

@@ -4,7 +4,7 @@
 
 
 Frog::Frog(GameState* state, std::istream& in)
-	: SceneObject(state)
+	: SceneObject(state), game(state->getGame())
 {
 	float x, y;
 	try {
