@@ -40,13 +40,20 @@ constexpr array<TextureSpec, Game::NUM_TEXTURES> textureList{
 	{"wasp.png"},
 	{"turtle.png",1,7},
 	{"menuBackground.png"},
-	{"texts/ELIGE UN MAPA.png"},
 	{"texts/Avispado.png" },
+	{"texts/CONTINUAR.png"},
+	{"texts/ELIGE UN MAPA.png"},
+	{"texts/GAME OVER.png"},
+	{"texts/HAS GANADO.png"},
+	{"texts/LEFT.png"},
+	{"texts/RIGHT.png"},
 	{"texts/Original.png"},
 	{"texts/Practica1.png" },
+	{"texts/REINICIAR.png"}, 
+	{"texts/SALIR.png"},
 	{"texts/Trivial.png"},
-	{"texts/Veloz.png"}
-	
+	{"texts/Veloz.png"},
+	{"texts/VOLVER AL MENU.png"}
 };
 
 Game::Game()

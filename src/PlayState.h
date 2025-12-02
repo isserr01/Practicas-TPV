@@ -29,19 +29,22 @@ private:
 	//atributos para los punteros del juego
 	Frog* frog = nullptr;
 	std::list<SceneObject*> Objects;
-	
+	std::string currentMap;
 	
 	bool baseOcupada[5] = { false,false,false,false,false };
 
 
 public:
-	PlayState(Game* game, std::string& mapName);
+	PlayState(Game* game, const std::string& mapName);
 	~PlayState();
 	void render() const;
 	void update();
 	void handleEvents(SDL_Event event);
 	std::list<SceneObject*> sceneObjects;
-
+	
+	const std::string getCurrentMap() const {
+		return currentMap;
+	}
 	// Comprueba si hay algún objeto colocado en ese rectángulo
 	Collision checkCollision(const SDL_FRect& rect) const override;
 
@@ -51,8 +54,7 @@ public:
 	bool CheckHomeCollision();
 	//comprueba si se han completado todas las casas
 	bool completeHome();
-	//reinicia el estado del juego
-	void reiniciarJuego();
+
 
 };
 #endif PLAYSTATE_H

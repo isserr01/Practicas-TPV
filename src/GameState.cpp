@@ -4,6 +4,7 @@
 #include "Game.h"
 #include <algorithm>
 
+
 GameState::GameState(Game* game) : game(game) {}
 GameState::~GameState() {
     for (auto o : gameObjects) delete o;

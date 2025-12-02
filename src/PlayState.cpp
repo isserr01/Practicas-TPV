@@ -19,15 +19,16 @@
 #include "TurtleGroup.h"
 #include "GameError.h"
 #include "PauseState.h"
+#include "EndState.h"
 
 using namespace std;
 ;
 
-PlayState::PlayState(Game* game, std::string& mapName)
-	: GameState (game)
+PlayState::PlayState(Game* game, const std::string& mapName)
+	: GameState(game), currentMap(mapName)
 {
 	//llamamos al método de cargar el mapa
-	loadMap(MAP_FILE + mapName);
+	loadMap(std::string(MAP_FILE) + mapName);
 }
 
 PlayState::~PlayState()
@@ -89,8 +90,11 @@ PlayState::update()
 
 	CheckHomeCollision();
 
+	if(completeHome()) {
+		game->pushState(std::make_shared<EndState>(game,true));
+	}
 	if(frog&& frog->getLives() <=0 ) {
-		game->quit();
+		game->pushState(std::make_shared<EndState>(game,false));
 	}
 }
 
@@ -106,46 +110,22 @@ PlayState::handleEvents(SDL_Event event)
 		throw string("No se pudo obtener el estado del teclado: ") + SDL_GetError();
 		return;
 	}
-	
-		if (keystate) {
-			if (keystate[SDL_SCANCODE_LSHIFT] && keystate[SDL_SCANCODE_LCTRL]) {
-				reiniciarJuego();
+
+	if (event.type == SDL_EVENT_KEY_DOWN) {
+		if (event.key.key == SDLK_ESCAPE) { //si se pulsa ESC se pausa el juego
+			game->pushState(std::make_shared<PauseState>(game, getCurrentMap()));
+			return;
+		}
+		else if (frog) {
+			//se delegan los eventos a la rana para comprobar el input
+			//para el movimiento
+			if (event.key.key == SDLK_UP || event.key.key == SDLK_DOWN
+				|| event.key.key == SDLK_LEFT || event.key.key == SDLK_RIGHT)
+			{
+				frog->HandleEvents(event);
 			}
-
-			if (event.type == SDL_EVENT_KEY_DOWN) {
-				if (frog) {
-					game->pushState(std::make_shared<PauseState>(game));
-					//se delegan los eventos a la rana para comprobar el input
-					//para el movimiento
-					if (event.key.key == SDLK_UP || event.key.key == SDLK_DOWN
-						|| event.key.key == SDLK_LEFT || event.key.key == SDLK_RIGHT)
-					{
-						frog->HandleEvents(event);
-
-					}
-
-				}
-			}
-		
+		}
 	}
-	
-	
-
-
-}
-void PlayState::reiniciarJuego() {
-	//eliminamos todos los objetos de la escena
-	for (SceneObject* obj : Objects) {
-		delete obj;
-		Objects.clear();
-	}
-	frog = nullptr;
-	//reseteamos las bases ocupadas
-	for (bool& ocupado : baseOcupada) {
-		ocupado = false;
-	}
-	//recargamos el mapa
-	loadMap(MAP_FILE);
 }
 /// <summary>
 /// Método que comprueba si hay colisiones entre un objeto y el rectángulo generado por la rana
