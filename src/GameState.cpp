@@ -1,19 +1,21 @@
 #include "GameState.h"
 #include "GameObject.h"
 #include "EventHandler.h"
-#include "Game.h"
+#include "game.h"
 #include <algorithm>
 
 
 GameState::GameState(Game* game) : game(game) {}
+
 GameState::~GameState() {
-    for (auto o : gameObjects) delete o;
-    gameObjects.clear();
+   
+  
 }
+
 
 void GameState::addObject(GameObject* o) { gameObjects.push_back(o); }
 void GameState::addEventListener(EventHandler* h) { eventHandler.push_back(h); }
-void GameState::runLater(Callback& cb) { lateCallbacks.push_back(cb); }
+void GameState::runLater(const Callback& cb) { lateCallbacks.push_back(cb); }
 
 void GameState::update() {
     for (auto o : gameObjects) o->update();

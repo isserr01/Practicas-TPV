@@ -4,4 +4,4 @@ Blanca Navajas González
 
 Cosas que no funcionan o nos habría gustado mejorar:
 
-- La penúltima línea de troncos mueve mal a la rana por temas de cómo de grandes son los sprites (eso creemos).
+- El mapa "Avispado" no funciona.

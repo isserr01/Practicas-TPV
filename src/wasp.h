@@ -23,11 +23,13 @@ class wasp : public SceneObject
 public:
 	
 	wasp(GameState* state, Point2D posicion);
-	bool isAlive() const;
+	bool isAlive() const override;
 	void spawn();
 	void update() override;
 	Collision checkCollision(const SDL_FRect& other) override;
 	int getPosition() const;
-	void SetPosition(const int& index);
+	void SetPosition(int index);
+	bool isWasp() const override { return true; }
+	
 };
 #endif //WASP_H

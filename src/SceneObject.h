@@ -1,4 +1,4 @@
-#ifndef SCENEOBJECT_H
+﻿#ifndef SCENEOBJECT_H
 #define SCENEOBJECT_H
 #include "GameObject.h"
 #include "vector2D.h"
@@ -17,6 +17,10 @@ public:
 	virtual void render() const override;
 	virtual	void update() override = 0;
 	virtual Collision checkCollision(const SDL_FRect& rect);
+
+	// Nuevo método para avispas
+	virtual bool isWasp() const { return false; }
+	virtual bool isAlive() const { return true; }
 	
 
 protected:

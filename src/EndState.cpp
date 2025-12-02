@@ -1,4 +1,4 @@
-#include "EndState.h"
+﻿#include "EndState.h"
 #include "MainMenuState.h"
 #include <iostream>
 #include <fstream>
@@ -64,7 +64,7 @@ void EndState::update()
 	if (index != -1) {
 		switch (index)
 		{
-		case 0: //volver al men�
+		case 0: //volver al menú
 			game->replaceState(std::make_shared<MainMenuState>(game));
 			return;
 

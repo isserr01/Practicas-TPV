@@ -13,7 +13,7 @@ class GameObject;
 
 class GameState{
 public:
-	using Callback = std::is_function<void()>;
+	using Callback = std::function<void()>;
 
 	GameState(Game* game);
 	virtual ~GameState();
@@ -23,7 +23,7 @@ public:
 	void removeObject(GameObject* obj);
 	void addObject(GameObject* obj);
 	void addEventListener(EventHandler* handler);
-	void runLater(Callback& func);
+	void runLater(const Callback& func);
 	virtual Collision checkCollision(const SDL_FRect& rect) const;
 	Game* getGame() const { return game; }
 

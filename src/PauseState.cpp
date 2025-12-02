@@ -1,4 +1,4 @@
-#include "PauseState.h"
+﻿#include "PauseState.h"
 #include "PlayState.h"
 #include "MainMenuState.h"
 #include <iostream>
@@ -66,7 +66,7 @@ void PauseState::update()
 				game->replaceState(std::make_shared<PlayState>(game,mapName));
 			return;
 
-			case 2: //volver al men�
+			case 2: //volver al menú
 				game->replaceState(std::make_shared<MainMenuState>(game));
 			return;
 

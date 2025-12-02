@@ -1,9 +1,39 @@
-﻿  MainMenuState.cpp
+﻿  Crosser.cpp
+  Frog.cpp
+  HomedFrog.cpp
+  Log.cpp
+  Platform.cpp
+  PlayState.cpp
+  SceneObject.cpp
+  TurtleGroup.cpp
+  Vehicle.cpp
+  wasp.cpp
 C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\PlayState.h(18,7): warning C4099: 'Collision': nombre de tipo visto anteriormente usando 'struct' ahora se ve usando 'class'
-  (compilando archivo de origen "MainMenuState.cpp")
+  (compilando archivo de origen "PlayState.cpp")
       C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Collision.h(5,8):
       vea la declaración de 'Collision'
   
-C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\MainMenuState.cpp(37,38): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\MainMenuState.cpp(37,35): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Vehicle.cpp(24,34): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Vehicle.cpp(25,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\wasp.cpp(13,32): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\wasp.cpp(14,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Log.cpp(21,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Log.cpp(22,34): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(20,32): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(21,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(86,37): warning C4305: 'argumento': truncamiento de 'double' a 'T'
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(86,37): warning C4305:         with
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(86,37): warning C4305:         [
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(86,37): warning C4305:             T=float
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Frog.cpp(86,37): warning C4305:         ]
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\TurtleGroup.cpp(20,34): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\TurtleGroup.cpp(21,36): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\TurtleGroup.cpp(26,19): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\HomedFrog.cpp(11,32): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\HomedFrog.cpp(12,33): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Crosser.cpp(14,51): warning C4305: 'argumento': truncamiento de 'double' a 'T'
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Crosser.cpp(14,51): warning C4305:         with
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Crosser.cpp(14,51): warning C4305:         [
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Crosser.cpp(14,51): warning C4305:             T=float
+C:\Users\Isa\Documents\GitHub\Practica-TPV1\src\Crosser.cpp(14,51): warning C4305:         ]
   src.vcxproj -> C:\Users\Isa\Documents\GitHub\Practica-TPV1\bin\srcDebug.exe

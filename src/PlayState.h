@@ -1,4 +1,4 @@
-#ifndef PLAYSTATE_H
+ï»¿#ifndef PLAYSTATE_H
 #define PLAYSTATE_H
 
 #pragma once
@@ -28,7 +28,7 @@ public:
 private:
 	//atributos para los punteros del juego
 	Frog* frog = nullptr;
-	std::list<SceneObject*> Objects;
+	std::list<SceneObject*> sceneObjects;
 	std::string currentMap;
 	
 	bool baseOcupada[5] = { false,false,false,false,false };
@@ -37,15 +37,15 @@ private:
 public:
 	PlayState(Game* game, const std::string& mapName);
 	~PlayState();
-	void render() const;
-	void update();
-	void handleEvents(SDL_Event event);
-	std::list<SceneObject*> sceneObjects;
+	void render() const override;
+	void update() override;
+	void handleEvent(const SDL_Event& event) override;
+
 	
 	const std::string getCurrentMap() const {
 		return currentMap;
 	}
-	// Comprueba si hay algún objeto colocado en ese rectángulo
+	// Comprueba si hay algÃºn objeto colocado en ese rectÃ¡ngulo
 	Collision checkCollision(const SDL_FRect& rect) const override;
 
 	void loadMap(const std::string& filename);
@@ -57,4 +57,4 @@ public:
 
 
 };
-#endif PLAYSTATE_H
+#endif //PLAYSTATE_H

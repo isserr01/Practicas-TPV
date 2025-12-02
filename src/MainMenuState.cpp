@@ -14,11 +14,13 @@ MainMenuState::MainMenuState(Game* game)
 	createButtons();
 	title = new Label(this, game->getTexture(Game::ELIGE_UN_MAPA), 100.0f, 140.0f);
 
+
 }
 
 MainMenuState::~MainMenuState() {
-	for (Button* b : buttons)
-		delete b;
+	delete title;
+	for (GameObject* o : buttons)
+		delete o;
 
 }
 
@@ -64,13 +66,18 @@ void MainMenuState::render() const {
 
 void MainMenuState::update()
 {
+
 	for (Button* b : buttons)
 		b->update();
 
 	if (index != -1) {
+		std::cout << "CAMBIANDO DE ESTADO" << std::endl;
+		game->popState();
 		game->pushState(std::make_shared<PlayState>(game, mapName[index]));
 		index = -1;
 	}
+
+	
 }
 
 void MainMenuState::handleEvent(const SDL_Event& e)

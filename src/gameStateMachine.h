@@ -4,7 +4,7 @@
 #include <memory>
 #include <stack>
 
-#include "gameState.h"
+#include "GameState.h"
 
 /**
  * Máquina de estados del juego.

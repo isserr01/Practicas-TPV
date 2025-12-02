@@ -1,4 +1,4 @@
-#include "PlayState.h"
+Ôªø#include "PlayState.h"
 #include "game.h"
 
 #include <string>
@@ -27,56 +27,56 @@ using namespace std;
 PlayState::PlayState(Game* game, const std::string& mapName)
 	: GameState(game), currentMap(mapName)
 {
-	//llamamos al mÈtodo de cargar el mapa
+	//llamamos al m√©todo de cargar el mapa
 	loadMap(std::string(MAP_FILE) + mapName);
 }
 
 PlayState::~PlayState()
 {
-	//liberamos memoria
-	for (SceneObject* objs : Objects)
-		delete objs;
+	for (SceneObject* o : sceneObjects)
+		delete o;
 }
 
 void
 PlayState::render() const
 {
-	//renderizado de los troncos, los coches y la rana llamando a sus mÈtodos de render
+
+	SDL_RenderClear(game->getRenderer());
+	//renderizado de los troncos, los coches y la rana llamando a sus m√©todos de render
 	game->getTexture(Game::BACKGROUND)->render();
-	for (SceneObject* obj : Objects) {
+	for (SceneObject* obj : sceneObjects) {
 		obj->render();
+
 	}
+	SDL_RenderPresent(game->getRenderer());
 
 }
 
 void
 PlayState::update()
 {
-	//actualizaciÛn de los objetos del juego llamando al metodo update de sceneobject
-	for (SceneObject* obj : Objects) obj->update();
+	//actualizaci√≥n de los objetos del juego llamando al metodo update de sceneobject
+	for (SceneObject* obj : sceneObjects) obj->update();
 
-	//eliminamos las avispas que ya no est·n vivas
-	std::erase_if(Objects, [](SceneObject* obj) {
-		wasp* a = dynamic_cast<wasp*>(obj);
-		if (a && !a->isAlive()) {
+	//eliminamos las avispas que ya no est√°n vivas
+	sceneObjects.remove_if([](SceneObject* obj) {
+		if (obj->isWasp() && !obj->isAlive()) {
 			delete obj;
 			return true;
 		}
 		return false;
 		});
 
-	//lÛgica de spawn de avispas
+	//l√≥gica de spawn de avispas
 	bool hayAvispaViva = false;
-	for (SceneObject* obj : Objects) {
-		wasp* a = dynamic_cast<wasp*>(obj);
-		if (a && a->isAlive()) {
+	for (SceneObject* obj : sceneObjects) {
+		if (obj->isWasp() && obj->isAlive()) {
 			hayAvispaViva = true;
 			break;
 		}
-
 	}
 
-	//generamos un n˙mero aleatorio para decidir si spawneamos una avispa
+	//generamos un n√∫mero aleatorio para decidir si spawneamos una avispa
 	int haySpawn = game->getRandomRange(0, 10);
 	if (haySpawn == 3 && !hayAvispaViva) {
 		int pos = game->getRandomRange(0, 4);
@@ -84,7 +84,7 @@ PlayState::update()
 			wasp* nuevaAvispa = new wasp(this, Point2D(0, 0));
 			nuevaAvispa->SetPosition(pos);
 			nuevaAvispa->spawn();
-			Objects.push_back(nuevaAvispa);
+			sceneObjects.push_back(nuevaAvispa);
 		}
 	}
 
@@ -96,15 +96,17 @@ PlayState::update()
 	if(frog&& frog->getLives() <=0 ) {
 		game->pushState(std::make_shared<EndState>(game,false));
 	}
+
+	
 }
 
 
 
 
 void
-PlayState::handleEvents(SDL_Event event)
+PlayState::handleEvent(const SDL_Event& event)
 {
-	
+	std::cout << "Evento recibido: " << event.type << std::endl;
 	const bool* keystate = SDL_GetKeyboardState(NULL);
 	if (keystate == NULL) {
 		throw string("No se pudo obtener el estado del teclado: ") + SDL_GetError();
@@ -128,16 +130,16 @@ PlayState::handleEvents(SDL_Event event)
 	}
 }
 /// <summary>
-/// MÈtodo que comprueba si hay colisiones entre un objeto y el rect·ngulo generado por la rana
+/// M√©todo que comprueba si hay colisiones entre un objeto y el rect√°ngulo generado por la rana
 /// </summary>
-/// <param name="rect">Rect·ngulo generado por el sprite de la rana</param>
+/// <param name="rect">Rect√°ngulo generado por el sprite de la rana</param>
 /// <returns></returns>
 Collision
 PlayState::checkCollision(const SDL_FRect& rect) const
 {
 	Collision col;
 
-	for (SceneObject* obj : Objects) {
+	for (SceneObject* obj : sceneObjects) {
 		col = obj->checkCollision(rect);
 		if (col.type != Collision::NONE) {
 
@@ -149,13 +151,13 @@ PlayState::checkCollision(const SDL_FRect& rect) const
 }
 
 /// <summary>
-/// MÈtodo para cargar el mapa desde un archivo de texto
+/// M√©todo para cargar el mapa desde un archivo de texto
 /// </summary>
 /// <param name="filename">Ruta del .txt del mapa</param>
 void PlayState::loadMap(const std::string& filename)
 {
 	std::ifstream f(filename);
-	//lanzamos excepciÛn si no se encuentra el archivo
+	//lanzamos excepci√≥n si no se encuentra el archivo
 	if (!f) {
 		throw FileNotFoundError(filename);
 	}
@@ -163,7 +165,7 @@ void PlayState::loadMap(const std::string& filename)
 	//leemos char a char
 	char id;
 	while (f >> id) {
-		//casuÌstica para cada tipo de objeto
+		//casu√≠stica para cada tipo de objeto
 		//ignorar comentarios
 		if (id == '#') {
 			f.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -173,26 +175,30 @@ void PlayState::loadMap(const std::string& filename)
 		if (id == 'F') {
 			//llamada al constructor
 			frog = new Frog(this, f);
+			sceneObjects.push_back(frog);
 			addObject(frog);
 		}
-		//caso de los vehÌculos
+		//caso de los veh√≠culos
 		else if (id == 'V') {
-			//llamada al constructor y aÒadimos el elemento al array din·mico de vehÌculos
+			//llamada al constructor y a√±adimos el elemento al array din√°mico de veh√≠culos
 			Vehicle* v = new Vehicle(this, f);
+			sceneObjects.push_back(v);
 			addObject(v);
 		}
 		//caso de los troncos
 		else if (id == 'L') {
-			//llamada al constructor y aÒadimos al array din·mico de troncos
+			//llamada al constructor y a√±adimos al array din√°mico de troncos
 			Log* l = new Log(this, f);
+			sceneObjects.push_back(l);
 			addObject(l);
 		}
 		else if (id == 'T') {
 			TurtleGroup* t = new TurtleGroup(this, f);
+			sceneObjects.push_back(t);
 			addObject(t);
 		}
 
-		//excepciÛn si el identificador no existe
+		//excepci√≥n si el identificador no existe
 		else {
 			throw FileFormatError(filename, "Identificador de objeto desconocido" + id);
 		}
@@ -217,7 +223,7 @@ bool PlayState::CheckHomeCollision() {
 
 	for (int i = 0; i < homePositions.size(); i++) {
 		if (frog->isAtHome(homeRect[i]) && !baseOcupada[i]) {
-			Objects.push_back(new HomedFrog(this, homePositions[i]));
+			sceneObjects.push_back(new HomedFrog(this, homePositions[i]));
 			frog->resetPosition();
 			baseOcupada[i] = true;
 			return true;

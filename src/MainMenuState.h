@@ -1,4 +1,4 @@
-#ifndef MAINMENUSTATE_H
+﻿#ifndef MAINMENUSTATE_H
 #define MAINMENUSTATE_H
 
 #include "GameState.h"
@@ -30,7 +30,7 @@ private:
 	std::vector<std::string> mapName{
 		"Avispado.txt",
 		"Original.txt",
-		"Pr�ctica 1.txt",
+		"Práctica 1.txt",
 		"Trivial.txt",
 		"Veloz.txt"
 	};

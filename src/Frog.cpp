@@ -19,6 +19,11 @@ Frog::Frog(GameState* state, std::istream& in)
 		texture = game->getTexture(Game::FROG);
 		dimX = texture->getFrameWidth();
 		dimY = texture->getFrameHeight();
+
+		moveDir = { 0,0 };
+		moving = false;
+		currentFrame = 0;
+
 	}
 	catch(const std::string& e){
 		throw std::string("Error al cargar la rana desde el mapa") + e;
@@ -118,6 +123,7 @@ void Frog::HandleEvents(const SDL_Event& event) {
 			moveDir = Vector2D<float>(1, 0);
 			moving = true;
 		}
+		
 
 	}
 }

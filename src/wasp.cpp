@@ -50,7 +50,7 @@ bool wasp::isAlive() const{
 int wasp::getPosition() const {
 	return positionAle;
 }
-void wasp::SetPosition(const int& index) {
+void wasp::SetPosition(int index) {
 	positionAle = index;
 
 	static const Point2D positions[5] = {
@@ -62,3 +62,4 @@ void wasp::SetPosition(const int& index) {
 	};
 	position = positions[index];
 }
+

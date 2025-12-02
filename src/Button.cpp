@@ -1,4 +1,4 @@
-#include "Button.h"
+ï»¿#include "Button.h"
 #include "GameState.h"
 #include <SDL3/SDL.h>
 
@@ -36,11 +36,6 @@ void Button::update()
 
 	SDL_FRect rect{ x, y, texture->getFrameWidth(), texture->getFrameHeight() };
 
-	// Si el mouse está sobre el botón, render amarillo, si no, blanco
-	SDL_Color color = (mouseX >= rect.x && mouseX <= rect.x + rect.w &&
-		mouseY >= rect.y && mouseY <= rect.y + rect.h)
-		? SDL_Color{ 255, 255, 0, 255 }  // Amarillo
-	: SDL_Color{ 255, 255, 255, 255 }; // Normal
 
 }
 
