@@ -173,23 +173,23 @@ void PlayState::loadMap(const std::string& filename)
 		if (id == 'F') {
 			//llamada al constructor
 			frog = new Frog(this, f);
-			Objects.push_back(frog);
+			addObject(frog);
 		}
 		//caso de los vehículos
 		else if (id == 'V') {
 			//llamada al constructor y añadimos el elemento al array dinámico de vehículos
 			Vehicle* v = new Vehicle(this, f);
-			Objects.push_back(v);
+			addObject(v);
 		}
 		//caso de los troncos
 		else if (id == 'L') {
 			//llamada al constructor y añadimos al array dinámico de troncos
 			Log* l = new Log(this, f);
-			Objects.push_back(l);
+			addObject(l);
 		}
 		else if (id == 'T') {
 			TurtleGroup* t = new TurtleGroup(this, f);
-			Objects.push_back(t);
+			addObject(t);
 		}
 
 		//excepción si el identificador no existe

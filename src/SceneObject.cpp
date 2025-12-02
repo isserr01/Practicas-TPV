@@ -3,11 +3,6 @@
 SceneObject::SceneObject(GameState* state)
 	: GameObject(state), game(state->getGame())
 {
-	
-	class Crosser : public SceneObject {};
-	class Frog : public SceneObject {};
-	class Wasp : public SceneObject {};
-	class homedFrog : public SceneObject {};
 }
 
 

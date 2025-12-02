@@ -7,7 +7,7 @@ Vehicle::Vehicle(GameState* state, std::istream& in)
 {
 	float x, y, s;
 	int t;
-	
+	Game* game = state->getGame();
 	try {
 		if (in >> x >> y >> s >> t)
 		{

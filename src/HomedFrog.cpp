@@ -4,6 +4,7 @@
 HomedFrog::HomedFrog(GameState* state, Point2D posicion)
 	: SceneObject(state)
 {
+	Game* game = state->getGame();
 	try {
 		position = posicion;
 		texture = game->getTexture(Game::FROG);
