@@ -115,7 +115,11 @@ PlayState::handleEvent(const SDL_Event& event)
 
 	if (event.type == SDL_EVENT_KEY_DOWN) {
 		if (event.key.key == SDLK_ESCAPE) { //si se pulsa ESC se pausa el juego
-			game->pushState(std::make_shared<PauseState>(game, getCurrentMap()));
+
+			this->render(); 
+			SDL_RenderPresent(game->getRenderer()); 
+
+			game->pushState(std::make_shared<PauseState>(game, this));
 			return;
 		}
 		else if (frog) {
@@ -196,6 +200,11 @@ void PlayState::loadMap(const std::string& filename)
 			TurtleGroup* t = new TurtleGroup(this, f);
 			sceneObjects.push_back(t);
 			addObject(t);
+		}
+		else if (id == 'W') {
+			wasp* w = new wasp(this,f);
+			sceneObjects.push_back(w);
+			addObject(w);
 		}
 
 		//excepción si el identificador no existe

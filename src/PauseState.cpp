@@ -4,23 +4,28 @@
 #include <iostream>
 #include <fstream>
 
-PauseState::PauseState(Game* game, const std::string& map)
-	: GameState(game), mapName(map)
+PauseState::PauseState(Game* game, PlayState* playState)
+	: GameState(game), playState(playState)
 {
 	createButtons();
 }
 
 
 PauseState::~PauseState() {
-	for (Button* b : buttons)
+	for (Button* b : buttons) {
+		removeObject(b);
+		removeEventListener(b);
 		delete b;
+	}
+	buttons.clear();
+		
 
 }
 
 void PauseState::createButtons() {
 
-	int startX = 25;
-	int startY = 210;
+	int startX = 150;
+	int startY = 150;
 	int diffY = 75;
 	int x = startX;
 	int y = startY;
@@ -42,16 +47,24 @@ void PauseState::createButtons() {
 }
 
 void PauseState::render() const {
+	
 
-	SDL_RenderClear(game->getRenderer());
-	game->getTexture(Game::MAINMENU_BACKGROUND)->render();
+	SDL_SetRenderDrawBlendMode(game->getRenderer(), SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 0, 150); 
+	SDL_FRect screenRect = { 0, 0,Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT }; 
+	SDL_RenderFillRect(game->getRenderer(), &screenRect);
+
 	for (Button* b : buttons)
 		b->render();
+
 	SDL_RenderPresent(game->getRenderer());
 }
 
+
 void PauseState::update()
 {
+
+
 	for (Button* b : buttons)
 		b->update();
 
@@ -84,4 +97,3 @@ void PauseState::handleEvent(const SDL_Event& e)
 {
 	GameState::handleEvent(e);
 }
-//playButton->connect([this](){ startGame(); });

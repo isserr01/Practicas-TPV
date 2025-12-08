@@ -23,6 +23,7 @@ public:
 	void removeObject(GameObject* obj);
 	void addObject(GameObject* obj);
 	void addEventListener(EventHandler* handler);
+	void removeEventListener(EventHandler* handler);
 	void runLater(const Callback& func);
 	virtual Collision checkCollision(const SDL_FRect& rect) const;
 	Game* getGame() const { return game; }

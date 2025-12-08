@@ -15,9 +15,11 @@ class Label;
 class MainMenuState : public GameState
 {
 private:
-	std::vector<Button*> buttons;
-	int index = -1;
+	Button* mapButton = nullptr;
+	int index;
 	Label* title;
+	Button* leftArrow;
+	Button* rightArrow;
 
 	std::vector<Game::TextureName> buttonTextures{
 		Game::AVISPADO,
@@ -37,6 +39,7 @@ private:
 	
 	void switchMap(int dir);
 	void createButtons();
+	void createMapButton();
 
 public:
 	MainMenuState(Game* game);

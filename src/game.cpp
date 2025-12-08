@@ -53,7 +53,9 @@ constexpr array<TextureSpec, Game::NUM_TEXTURES> textureList{
 	{"texts/SALIR.png"},
 	{"texts/Trivial.png"},
 	{"texts/Veloz.png"},
-	{"texts/VOLVER AL MENU.png"}
+	{"texts/VOLVER AL MENU.png"},
+	{"texts/left.png"},
+	{"texts/right.png"}
 };
 
 Game::Game()
@@ -90,6 +92,8 @@ Game::Game()
 
 	auto mainMenu = std::make_shared<MainMenuState>(this);
 	pushState(mainMenu);
+
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	
 }
 

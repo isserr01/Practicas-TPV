@@ -17,12 +17,15 @@ class wasp : public SceneObject
 	
 	int durationAle;
 	int positionAle;
+	Vector2D<float> speed;
 	bool alive = false;
 	Game* game;
+	bool fromMap = false;
 
 public:
 	
 	wasp(GameState* state, Point2D posicion);
+	wasp(GameState* state, std::istream& in);
 	bool isAlive() const override;
 	void spawn();
 	void update() override;

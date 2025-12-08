@@ -44,3 +44,9 @@ void GameState::removeObject(GameObject* obj)
         gameObjects.erase(it);
     }
 }
+
+void GameState::removeEventListener(EventHandler* h) {
+    if (!h) return;
+    auto it = std::find(eventHandler.begin(), eventHandler.end(), h);
+    if (it != eventHandler.end()) eventHandler.erase(it);
+}

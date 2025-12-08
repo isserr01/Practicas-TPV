@@ -67,6 +67,8 @@ public:
 		TRIVIAL,
 		VELOZ,
 		VOLVER_AL_MENU,
+		ARROWL,
+		ARROWR,
 		NUM_TEXTURES
 	};
 

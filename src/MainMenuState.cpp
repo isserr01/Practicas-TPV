@@ -3,84 +3,101 @@
 #include "Label.h"
 #include "game.h"
 #include "PlayState.h"
-#include <filesystem>
 #include <iostream>
-#include <fstream>
+#include <algorithm>
 
 MainMenuState::MainMenuState(Game* game)
-	:GameState(game)
+    : GameState(game), index(0), mapButton(nullptr)
 {
-
-	createButtons();
-	title = new Label(this, game->getTexture(Game::ELIGE_UN_MAPA), 100.0f, 140.0f);
-
-
+    
+    createButtons();
+    title = new Label(this, game->getTexture(Game::ELIGE_UN_MAPA), 100.0f, 200.0f);
 }
 
 MainMenuState::~MainMenuState() {
-	delete title;
-	for (GameObject* o : buttons)
-		delete o;
-
+    delete title;
+    delete leftArrow;
+    delete rightArrow;
+    if (mapButton) delete mapButton;
+    gameObjects.clear();
 }
 
 void MainMenuState::createButtons() {
+    
+    leftArrow = new Button(this, game->getTexture(Game::ARROWL), 30.f, 300.f);
+    rightArrow = new Button(this, game->getTexture(Game::ARROWR), 400.f, 300.f);
 
-	int startX = 25;
-	int startY = 210;
-	int diffX = 180;
-	int diffY = 75;
-	int cols = 2;
-	int x = startX;
-	int y = startY;
+    leftArrow->connect([this]() { switchMap(-1); });
+    rightArrow->connect([this]() { switchMap(1); });
 
-	for (int i = 0;i < mapName.size();i++) {
-		Texture* t = game->getTexture(buttonTextures[i]);
-		Button* b = new Button(this, t, x, y);
-		
+    addObject(leftArrow);
+    addObject(rightArrow);
 
-		b->connect([this, i]() {
-			index = i;
-			});
+   
+    createMapButton();
+}
 
-		buttons.push_back(b);
-		addObject(b);
+void MainMenuState::createMapButton() {
 
-		if (i % cols == 0) {
-			x = startX;
-			y += diffY;
-		}
-		else x += diffX;	
-	}
+    if (mapButton) {
+        removeObject(mapButton);             
+        removeEventListener(mapButton);      
+        delete mapButton;
+        mapButton = nullptr;
+    }
+
+
+
+    Game::TextureName tex;
+    switch (index) {
+    case 0: tex = Game::AVISPADO; break;
+    case 1: tex = Game::ORIGINAL; break;
+    case 2: tex = Game::PRACTICA1; break;
+    case 3: tex = Game::TRIVIAL; break;
+    case 4: tex = Game::VELOZ; break;
+    }
+
+    mapButton = new Button(this, game->getTexture(tex), 150.f, 300.f);
+    mapButton->connect([this]() {
+        game->popState();
+        switch (index) {
+        case 0: game->pushState(std::make_shared<PlayState>(game, "Avispado.txt")); break;
+        case 1: game->pushState(std::make_shared<PlayState>(game, "Original.txt")); break;
+        case 2: game->pushState(std::make_shared<PlayState>(game, "Práctica1.txt")); break;
+        case 3: game->pushState(std::make_shared<PlayState>(game, "Trivial.txt")); break;
+        case 4: game->pushState(std::make_shared<PlayState>(game, "Veloz.txt")); break;
+        }
+        });
+
+    addObject(mapButton); 
+}
+
+
+void MainMenuState::switchMap(int dir) {
+    index += dir;
+    if (index < 0) index = 4; 
+    if (index > 4) index = 0; 
+    createMapButton();
 }
 
 void MainMenuState::render() const {
+    SDL_RenderClear(game->getRenderer());
+    game->getTexture(Game::MAINMENU_BACKGROUND)->render();
 
-	SDL_RenderClear(game->getRenderer());
-	game->getTexture(Game::MAINMENU_BACKGROUND)->render();
-	for (Button* b : buttons)
-		b->render();
-	title->render();
-	SDL_RenderPresent(game->getRenderer());
+    leftArrow->render();
+    rightArrow->render();
+    if (mapButton) mapButton->render();
+    title->render();
+
+    SDL_RenderPresent(game->getRenderer());
 }
 
-void MainMenuState::update()
-{
-
-	for (Button* b : buttons)
-		b->update();
-
-	if (index != -1) {
-		std::cout << "CAMBIANDO DE ESTADO" << std::endl;
-		game->popState();
-		game->pushState(std::make_shared<PlayState>(game, mapName[index]));
-		index = -1;
-	}
-
-	
+void MainMenuState::update() {
+    leftArrow->update();
+    rightArrow->update();
+    if (mapButton) mapButton->update();
 }
 
-void MainMenuState::handleEvent(const SDL_Event& e)
-{
-	GameState::handleEvent(e);
+void MainMenuState::handleEvent(const SDL_Event& e) {
+    GameState::handleEvent(e);
 }

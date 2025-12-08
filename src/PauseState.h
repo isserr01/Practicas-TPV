@@ -14,6 +14,7 @@ private :
 	std::vector<Button*> buttons;
 	int index = -1;
 	const std::string mapName;
+	PlayState* playState;
 
 	std::vector<Game::TextureName> buttonTextures{
 		Game::CONTINUAR,
@@ -25,7 +26,7 @@ private :
 	void createButtons();
 
 public:
-	PauseState(Game* game, const std::string& map);
+	PauseState(Game* game, PlayState* playState);
 	~PauseState();
 	void update() override;
 	void render() const override;
