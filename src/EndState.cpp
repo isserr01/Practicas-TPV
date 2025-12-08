@@ -8,10 +8,10 @@ EndState::EndState(Game* game, bool partidaGanada)
 {
 	createButtons();
 	if (partidaGanada) {
-		title = new Label(this, game->getTexture(Game::HAS_GANADO), 100.0f, 140.0f);
+		title = new Label(this, game->getTexture(Game::HAS_GANADO), 130.0f, 150.0f);
 	}
 	else {
-		title = new Label(this, game->getTexture(Game::GAME_OVER), 100.0f, 140.0f);
+		title = new Label(this, game->getTexture(Game::GAME_OVER), 130.0f, 150.0f);
 	}
 }
 
@@ -25,19 +25,19 @@ EndState::~EndState() {
 
 void EndState::createButtons() {
 
-	int startX = 25;
-	int startY = 210;
+	int startX = 100;
+	int startY = 280;
 	int diffY = 75;
 	int x = startX;
 	int y = startY;
 
-	for (int i = 0;i < buttonTextures.size();i++) {
+	for (int i = 0;i < buttonTextures.size() - 2;i++) {
 		Texture* t = game->getTexture(buttonTextures[i]);
 		Button* b = new Button(this, t, x, y);
 
 		b->connect([this, i]() {
 			index = i;
-			});
+		});
 
 		buttons.push_back(b);
 		addObject(b);
@@ -51,6 +51,9 @@ void EndState::render() const {
 
 	SDL_RenderClear(game->getRenderer());
 	game->getTexture(Game::MAINMENU_BACKGROUND)->render();
+
+	if (title) title->render();
+
 	for (Button* b : buttons)
 		b->render();
 	SDL_RenderPresent(game->getRenderer());

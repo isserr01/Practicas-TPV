@@ -10,6 +10,7 @@
 #include "game.h"
 
 
+
 class Label;
 
 class MainMenuState : public GameState
@@ -40,6 +41,7 @@ private:
 	void switchMap(int dir);
 	void createButtons();
 	void createMapButton();
+	std::vector<std::string> getMaps();
 
 public:
 	MainMenuState(Game* game);
@@ -48,7 +50,7 @@ public:
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event& event) override;
-
+	
 
 };
 #endif // MAINMENUSTATE_H

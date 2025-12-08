@@ -30,7 +30,11 @@ private:
 	Frog* frog = nullptr;
 	std::list<SceneObject*> sceneObjects;
 	std::string currentMap;
-	
+	const float MAX_TIME = 60.0f;
+	float timeLeft = MAX_TIME;
+	Uint32 lastTick = 0;
+	class InfoBar* infoBar = nullptr;
+
 	bool baseOcupada[5] = { false,false,false,false,false };
 
 

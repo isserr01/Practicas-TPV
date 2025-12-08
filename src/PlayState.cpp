@@ -19,6 +19,7 @@
 #include "TurtleGroup.h"
 #include "GameError.h"
 #include "PauseState.h"
+#include "InfoBar.h"
 #include "EndState.h"
 
 using namespace std;
@@ -29,12 +30,16 @@ PlayState::PlayState(Game* game, const std::string& mapName)
 {
 	//llamamos al método de cargar el mapa
 	loadMap(std::string(MAP_FILE) + mapName);
+
+	lastTick = SDL_GetTicks();
+	infoBar = new InfoBar(MAX_TIME, frog ? frog->getLives() : 3,game);
 }
 
 PlayState::~PlayState()
 {
 	for (SceneObject* o : sceneObjects)
 		delete o;
+	delete infoBar;
 }
 
 void
@@ -47,6 +52,10 @@ PlayState::render() const
 	for (SceneObject* obj : sceneObjects) {
 		obj->render();
 
+	}
+	if (infoBar) {
+		infoBar->update(frog->getLives(), timeLeft);
+		infoBar->render(game->getRenderer());
 	}
 	SDL_RenderPresent(game->getRenderer());
 
@@ -93,10 +102,19 @@ PlayState::update()
 	if(completeHome()) {
 		game->pushState(std::make_shared<EndState>(game,true));
 	}
-	if(frog&& frog->getLives() <=0 ) {
+	if(frog && frog->getLives() <= 0 ) {
 		game->pushState(std::make_shared<EndState>(game,false));
 	}
 
+	Uint32 currentTick = SDL_GetTicks();
+	float deltaTime = (currentTick - lastTick) / 1000.0f;
+	lastTick = currentTick;
+
+	timeLeft -= deltaTime;
+
+	if (timeLeft <= 0 && frog) {
+		game->pushState(std::make_shared<EndState>(game, false));
+	}
 	
 }
 
@@ -235,6 +253,7 @@ bool PlayState::CheckHomeCollision() {
 			sceneObjects.push_back(new HomedFrog(this, homePositions[i]));
 			frog->resetPosition();
 			baseOcupada[i] = true;
+			timeLeft = MAX_TIME;
 			return true;
 		}
 	}

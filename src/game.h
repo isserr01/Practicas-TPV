@@ -5,10 +5,14 @@
 #include <array>
 #include "gameStateMachine.h"
 #include <random>
+#include <filesystem>
+#include <vector>
+#include <string>
 
 class Texture;
 class PlayState;
 class MainMenuState;
+namespace fs = std::filesystem;
 
 /**
  * Clase principal del juego.
@@ -79,6 +83,7 @@ private:
 	bool exit = false;
 	std::mt19937_64 randomGenerator;
 	MainMenuState* mainMenu;
+	
 
 public:
 	Game();
@@ -91,6 +96,7 @@ public:
 	SDL_Window* getWindow() const;
 	//generador de numeros aleatorios
 	int getRandomRange(int min, int max);
+	
 
 	// Ejecuta el bucle principal del juego
 	void run();

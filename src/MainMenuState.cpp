@@ -101,3 +101,4 @@ void MainMenuState::update() {
 void MainMenuState::handleEvent(const SDL_Event& e) {
     GameState::handleEvent(e);
 }
+

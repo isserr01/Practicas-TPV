@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ENDSTATE_H
+#define ENDSTATE_H
+
 #include "GameState.h"
 #include <vector>
 #include "game.h"
@@ -17,7 +19,9 @@ private:
 	bool partidaGanada;
 	std::vector<Game::TextureName> buttonTextures{
 		Game::VOLVER_AL_MENU,
-		Game::SALIR
+		Game::SALIR,
+		Game::HAS_GANADO,
+		Game::GAME_OVER
 	};
 
 	void createButtons();
@@ -30,3 +34,4 @@ public:
 	void handleEvent(const SDL_Event& event) override;
 };
 
+#endif //ENDSTATE_H
