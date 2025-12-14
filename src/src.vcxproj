@@ -107,6 +107,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="gameStateMachine.cpp" />
     <ClCompile Include="HomedFrog.cpp" />
+    <ClCompile Include="InfoBar.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="gameStateMachine.h" />
     <ClInclude Include="HomedFrog.h" />
+    <ClInclude Include="InfoBar.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="MainMenuState.h" />
