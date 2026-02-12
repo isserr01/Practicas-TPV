@@ -8,32 +8,14 @@
 
 void start() {
 	
-	try {
 
-		std::cout << "1\n";
-
-		if (!Game::Init()) {
-			std::cerr << "Init failed\n";
-			return;
-		}
-
-		std::cout << "2\n";
+	if (Game::Init()) {
 
 		Game::Instance()->initGame();
-
-		std::cout << "3\n";
-
 		Game::Instance()->start();
+	}
 
-		std::cout << "4\n";
-
-	}
-	catch (std::exception& e) {
-		std::cerr << "Exception: " << e.what() << std::endl;
-	}
-	catch (...) {
-		std::cerr << "Unknown Error\n";
-	}
+	Game::Release();
 
 	
 }
