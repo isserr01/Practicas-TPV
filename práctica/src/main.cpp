@@ -7,7 +7,6 @@
 
 
 void start() {
-	
 
 	if (Game::Init()) {
 
@@ -16,8 +15,6 @@ void start() {
 	}
 
 	Game::Release();
-
-	
 }
 
 int main(int, char**) {
