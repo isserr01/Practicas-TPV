@@ -1,6 +1,0 @@
-﻿  InfoBar.cpp
-Collision.obj : warning LNK4099: no se encontró PDB 'vc143.pdb' con 'Collision.obj' o en 'C:\Users\Isa\Documents\GitHub\Practica-TPV1\bin\vc143.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
-EventHandler.obj : warning LNK4099: no se encontró PDB 'vc143.pdb' con 'EventHandler.obj' o en 'C:\Users\Isa\Documents\GitHub\Practica-TPV1\bin\vc143.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
-SceneObject.obj : warning LNK4099: no se encontró PDB 'vc143.pdb' con 'SceneObject.obj' o en 'C:\Users\Isa\Documents\GitHub\Practica-TPV1\bin\vc143.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
-texture.obj : warning LNK4099: no se encontró PDB 'vc143.pdb' con 'texture.obj' o en 'C:\Users\Isa\Documents\GitHub\Practica-TPV1\bin\vc143.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
-  src.vcxproj -> C:\Users\Isa\Documents\GitHub\Practica-TPV1\bin\srcDebug.exe

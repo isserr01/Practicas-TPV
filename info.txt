@@ -1,7 +1,0 @@
-Grupo 20
-Isabel Serrano Martín
-Blanca Navajas González
-
-Cosas que no funcionan o nos habría gustado mejorar:
-
-- El mapa "Avispado" no funciona.
