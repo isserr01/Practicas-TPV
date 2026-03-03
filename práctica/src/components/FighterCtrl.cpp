@@ -1,8 +1,9 @@
 #include "FighterCtrl.h"
 
- FighterCtrl::FighterCtrl() {
-     _tr(nullptr) {}
- }
+ FighterCtrl::FighterCtrl():
+    _tr(nullptr)
+{
+}
  FighterCtrl::~FighterCtrl() {}
 
  void FighterCtrl:: initComponent() {
@@ -34,6 +35,6 @@
 
          vel = newVel;
 
-         sdlutils().soundEffects().at("thrust")->play();
+         sdlutils().soundEffects().at("thrust").play();
      }
  }

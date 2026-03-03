@@ -8,6 +8,9 @@
 #include "../components/RunningState.h"
 #include "../components/NewRoundState.h" 
 #include "../ecs/EntityManager.h"
+#include "FighterFacade.h"
+#include "AsteroidsFacade.h"
+
 //#include "../components/GameOverState.h"
 
 namespace ecs {
@@ -79,6 +82,7 @@ public:
 	}
 
 	virtual ~Game();
+	bool initGame();
 	bool init();
 	void start();
 private:
@@ -97,5 +101,7 @@ private:
 	GameState* _gameover_state;
 	State _currentState;
 
+	FighterFacade* _fighterFacade;
+	AsteroidsFacade* _asteroidsFacade;
 };
 

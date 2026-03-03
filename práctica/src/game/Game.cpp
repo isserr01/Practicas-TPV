@@ -13,12 +13,14 @@
 #include "../utils/Vector2D.h"
 #include "../utils/Collisions.h"
 
+
 using ecs::EntityManager;
 
 Game::Game() :
 		_mngr(nullptr), //
 		_state(nullptr) {
 }
+
 
 Game::~Game() {
 	delete _mngr;

@@ -1,7 +1,7 @@
 #include "Health.h"
 
 Health::Health():
-    _lives(3);
+    _lives(3)
 {
 }
 Health::~Health() {}
@@ -25,6 +25,6 @@ void Health::subLives(int n) {
 void Health::resetLives() {
     _lives = 3;
 }
-void Health::getLives() const {
+int Health::getLives() const {
     return _lives;
 }

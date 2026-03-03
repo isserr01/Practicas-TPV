@@ -26,7 +26,7 @@ public:
 	Gun();
 	virtual ~Gun();
 
-	void init() override;
+	void init();
 	void update() override;
 	void render() override;
 

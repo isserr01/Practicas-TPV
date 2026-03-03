@@ -32,6 +32,9 @@ public:
 	Vector2D& getPos() {
 		return _pos;
 	}
+	void setPos(Vector2D pos){
+		_pos=pos;
+	}
 	Vector2D& getVel() {
 		return _vel;
 	}
