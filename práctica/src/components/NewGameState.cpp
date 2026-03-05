@@ -8,6 +8,10 @@
 #include "../game/Game.h"
 #include "../components/GameInfoMsgs.h"
 #include "../ecs/EntityManager.h"
+#include "../components/FighterCtrl.h"
+#include "../components/DeAcceleration.h"
+#include "../components/Gun.h"
+#include "../components/ShowAtOpposieSide.h"
 
 NewGameState::NewGameState() :
 	_msg(sdlutils().msgs().at("start")) {
@@ -66,5 +70,5 @@ void NewGameState::enter() {
 	fighter->addComponent<FighterCtrl>();
 	fighter->addComponent<DeAcceleration>();
 	fighter->addComponent<Gun>();
-	fighter->addComponent<ShowAtOppositeSide>();
+	fighter->addComponent<ShowAtOpposieSide>();
 }
