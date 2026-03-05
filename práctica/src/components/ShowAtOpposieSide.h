@@ -7,10 +7,12 @@
 
 class ShowAtOpposieSide : public ecs::Component {
 public:
+    __CMPID_DECL__(ecs::cmp::SHOWATOPPOSITESIDE)
+
     ShowAtOpposieSide() {}
     virtual ~ShowAtOpposieSide() {}
 
-    void init() override;
+    void init();
 
     void update()override;
 

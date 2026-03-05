@@ -10,6 +10,9 @@
 
 class Gun : public ecs::Component {
 public:
+
+	__CMPID_DECL__(ecs::cmp::GUN)
+
 	struct Bullet {
 		bool used = false;
 		Vector2D pos;

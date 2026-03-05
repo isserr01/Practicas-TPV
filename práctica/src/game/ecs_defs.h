@@ -10,7 +10,11 @@
 	IMAGE, \
 	RECTANGLEVIEWER, \
 	GAMESTATE, \
-	GAMEINFOMSGS
+	GAMEINFOMSGS, \
+	GUN, \
+	DEACCELERATION, \
+	SHOWATOPPOSITESIDE, \
+	FIGHTERCTRL
 	
 
 // Groups list - must have at least one element

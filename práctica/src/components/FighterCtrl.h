@@ -8,6 +8,8 @@
 
 class FighterCtrl: public ecs::Component{
     public:
+        __CMPID_DECL__(ecs::cmp::FIGHTERCTRL)
+
         FighterCtrl(){}
         virtual ~FighterCtrl() {}
 

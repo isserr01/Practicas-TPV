@@ -69,6 +69,6 @@ void NewGameState::enter() {
 
 	fighter->addComponent<FighterCtrl>();
 	fighter->addComponent<DeAcceleration>();
-	fighter->addComponent<Gun>();
-	fighter->addComponent<ShowAtOpposieSide>();
+	/*fighter->addComponent<Gun>();
+	fighter->addComponent<ShowAtOpposieSide>();*/
 }
