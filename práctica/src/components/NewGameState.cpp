@@ -59,12 +59,12 @@ void NewGameState::enter() {
 		0.0f
 	);
 
-	fighter->addComponent<Image>(
-		sdlutils().images().at("fighter")
-	);
+	//fighter->addComponent<Image>(
+	//	sdlutils().images().at("fighter")
+	//);
 
-	fighter->addComponent<FighterCtrl>();
-	fighter->addComponent<DeAcceleration>();
-	fighter->addComponent<Gun>();
-	fighter->addComponent<ShowAtOppositeSide>();
+	//fighter->addComponent<FighterCtrl>();
+	//fighter->addComponent<DeAcceleration>();
+	//fighter->addComponent<Gun>();
+	//fighter->addComponent<ShowAtOppositeSide>();
 }
