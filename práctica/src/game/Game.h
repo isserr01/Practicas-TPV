@@ -82,7 +82,6 @@ public:
 	}
 
 	virtual ~Game();
-	bool initGame();
 	bool init();
 	void start();
 private:
