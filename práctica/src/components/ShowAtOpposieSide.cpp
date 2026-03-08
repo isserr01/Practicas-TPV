@@ -1,11 +1,10 @@
 #include "ShowAtOpposieSide.h"
 
-ShowAtOpposieSide::ShowAtOpposieSide():
-_tr(nullptr)
+ShowAtOpposieSide::ShowAtOpposieSide()
 {}
 ShowAtOpposieSide:: ~ShowAtOpposieSide() {}
 
-void ShowAtOpposieSide::init() {
+void ShowAtOpposieSide::initComponent() {
 	_tr = _ent->getComponent<Transform>();
 	assert(_tr != nullptr);
 }

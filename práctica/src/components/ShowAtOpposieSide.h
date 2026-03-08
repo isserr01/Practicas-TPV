@@ -12,7 +12,7 @@ public:
     ShowAtOpposieSide();
     virtual ~ShowAtOpposieSide();
 
-    void init();
+    void initComponent() override;
 
     void update()override;
 
