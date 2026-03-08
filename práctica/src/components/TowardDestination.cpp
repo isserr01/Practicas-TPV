@@ -23,6 +23,7 @@ void TowardDestination::pickNewDestination() {
 }
 
 void TowardDestination::update() {
+    if (!_tr) return;
 
     Vector2D pos = _tr->getPos();
     Vector2D& vel = _tr->getVel();

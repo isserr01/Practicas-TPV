@@ -95,6 +95,7 @@ public:
 		render(src, dest, rotation);
 	}
 
+
 private:
 
 	// Construct from text

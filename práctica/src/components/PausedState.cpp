@@ -17,4 +17,13 @@ void PausedState::update() {
 	if (ih().keyDownEvent()) {
 		Game::Instance()->setState(Game::RUNNING);
 	}
+
+	auto& msg = sdlutils().msgs().at("continue");
+
+	msg.render(
+		(sdlutils().width() - msg.width()) / 2,
+		sdlutils().height() / 2 + msg.height() * 2
+	);
+
+	sdlutils().presentRenderer();
 }

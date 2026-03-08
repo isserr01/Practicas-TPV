@@ -21,7 +21,8 @@
 	TELEPORTONEXIT, \
 	TOWARDDESTINATION, \
 	FOLLOW, \
-	SHOWATOPPOSIESIDE
+	SHOWATOPPOSIESIDE, \
+	IMAGEWITHFRAMES
 	
 
 // Groups list - must have at least one element

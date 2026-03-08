@@ -13,14 +13,16 @@
 #include "../components/Gun.h"
 #include "../components/ShowAtOpposieSide.h"
 #include "../components/Image.h"
+#include "../game/FighterUtils.h"
 
 NewGameState::NewGameState() :
 	_msg(sdlutils().msgs().at("start")) {
+	_fighterFacade =  new FighterUtils();
 
 }
 
 NewGameState::~NewGameState() {
-	// TODO Auto-generated destructor stub
+	delete _fighterFacade;
 }
 
 void NewGameState::leave() {
@@ -30,7 +32,8 @@ void NewGameState::update() {
 
 	auto& inhdlr = ih();
 
-	if (inhdlr.keyDownEvent() && inhdlr.isKeyDown(SDL_SCANCODE_SPACE)) {
+	if (inhdlr.keyDownEvent()) {
+		_fighterFacade->reset_lives();
 		Game::Instance()->setState(Game::NEWROUND);
 	}
 

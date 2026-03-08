@@ -26,8 +26,10 @@
 		for (auto& b : _bullets) {
 			if (b.used) {
 				b.pos = b.pos + b.vel;
+				std::cout << b.pos.getX() << " " << b.pos.getY() << std::endl;
 			}
 		}
+		
 
 		//disparar
 		if (ih().isKeyDown(SDL_SCANCODE_S)) {
@@ -45,7 +47,6 @@
 				);
 
 				Vector2D bp = c - Vector2D(0, 30).rotate(r);
-				Vector2D(bw / 2, bh / 2);
 				Vector2D bv = Vector2D(0, -1).rotate(r) * (v.magnitude() + 5.0f);
 				float br = Vector2D(0, -1).angle(bv);
 				shoot(bp, bv, bw, bh, br);

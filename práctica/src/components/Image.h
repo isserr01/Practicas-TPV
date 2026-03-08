@@ -24,6 +24,10 @@ public:
 		_tex = tex;
 	}
 
+	const Texture* getTexture() const {
+		return _tex;
+	}
+
 	void initComponent() override;
 	void render() override;
 

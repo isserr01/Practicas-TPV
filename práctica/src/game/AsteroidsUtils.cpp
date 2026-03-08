@@ -4,13 +4,14 @@
 #include "../ecs/Entity.h"
 #include "Game.h"
 #include "../sdlutils/SDLUtils.h"
-#include "../components/Image.h"
+#include "../components/ImageWithFrames.h"
 #include "../components/Generations.h"
 #include "../components/ShowAtOpposieSide.h"
 #include "../components/TeleportOnExit.h"
 #include "../components/TowardDestination.h"
 #include "../components/Follow.h"
 #include "../components/MaterialConsistency.h"
+
 
 
 AsteroidsUtils::AsteroidsUtils(){}
@@ -50,8 +51,8 @@ void AsteroidsUtils::create_asteroids(int n) {
         auto a = mngr->addEntity(ecs::grp::ASTEROIDS);
         a->addComponent<Transform>(p, v, size, size, 0.0f);
 
-        a->addComponent<Image>(
-            &sdlutils().images().at("asteroid")
+        a->addComponent<ImageWithFrames>(
+            &sdlutils().images().at("asteroid"), 6,5, 50.0f
         );
 
         a->addComponent<Generations>(g);
@@ -82,12 +83,9 @@ void AsteroidsUtils::remove_all_asteroids() {
     auto& asteroids = mngr->getEntities(ecs::grp::ASTEROIDS);
 
     for (auto& a : asteroids) {
-        if (a->isAlive()) {
-            a->setAlive(false);
-        }
-
-        mngr->refresh();
+        if (a->isAlive()) a->setAlive(false);
     }
+    mngr->refresh(); 
 }
 
 void AsteroidsUtils::split_astroid(ecs::Entity* a) {
@@ -99,6 +97,7 @@ void AsteroidsUtils::split_astroid(ecs::Entity* a) {
 
     auto tr = a->getComponent<Transform>();
     auto gens = a->getComponent<Generations>();
+    if (!tr || !gens) return;
 
     int g = gens->getGenerations();
 
@@ -132,8 +131,8 @@ void AsteroidsUtils::split_astroid(ecs::Entity* a) {
 
         nA->addComponent<Transform>(p, v, size, size, 0.0f);
 
-        nA->addComponent<Image>(
-            &sdlutils().images().at("asteroid")
+        nA->addComponent<ImageWithFrames>(
+            &sdlutils().images().at("asteroid"), 6, 5, 50.0f
         );
         nA->addComponent<Generations>(newG);
 
