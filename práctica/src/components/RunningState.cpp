@@ -8,12 +8,12 @@ void RunningState::update() {
 	auto* game = Game::Instance();
 	auto* gm = game->getMngr();
 
+	sdlutils().clearRenderer();
+
 	gm->update();
 	//gm->checkCollisions();
 	gm->render();
 	gm->refresh();
-
-
 
     auto& inhdlr = ih();
 
@@ -21,17 +21,7 @@ void RunningState::update() {
         Game::Instance()->setState(Game::PAUSED);
     }
 
-    sdlutils().clearRenderer();
-
-    //auto& msg = sdlutils().msgs().at("newround");
-    /*
-    msg.render(
-        (sdlutils().width() - msg.width()) / 2,
-        sdlutils().height() / 2 + msg.height() * 2
-    );*/
+    Game::Instance()->getMngr()->render();
 
     sdlutils().presentRenderer();
-    
-
-
 }

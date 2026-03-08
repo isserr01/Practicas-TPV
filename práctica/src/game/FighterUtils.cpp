@@ -41,7 +41,7 @@ void FighterUtils::create_fighter() {
     );
 
     fighter_->addComponent<DeAcceleration>();
-    fighter_->addComponent<Health>(3);
+    fighter_->addComponent<Health>();
     fighter_->addComponent<FighterCtrl>();
     fighter_->addComponent<Gun>();
     fighter_->addComponent<ShowAtOpposieSide>();

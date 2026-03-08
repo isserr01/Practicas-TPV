@@ -6,7 +6,7 @@ _tr(nullptr)
 {}
 TeleportOnExit:: ~TeleportOnExit() {}
 
-void TeleportOnExit::init() {
+void TeleportOnExit::initComponent() {
 	_tr = _ent->getComponent<Transform>();
 	assert(_tr != nullptr);
 }

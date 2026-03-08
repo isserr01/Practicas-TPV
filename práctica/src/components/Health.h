@@ -1,4 +1,7 @@
-#pragma once
+#ifndef __HEALTH_H__
+#define __HEALTH_H__
+
+
 #include "../ecs/Component.h"
 #include "../ecs/Entity.h"
 #include "../components/Transform.h"
@@ -7,8 +10,11 @@
 
 class Health : public ecs::Component {
 public:
-    Health() {}
-    virtual ~Health() {}
+
+	__CMPID_DECL__(ecs::cmp::HEALTH)
+
+    Health();
+    virtual ~Health();
 
     void render() override;
 
@@ -19,3 +25,5 @@ public:
 private:
     int _lives;
 };
+
+#endif // __HEALTH_H__  

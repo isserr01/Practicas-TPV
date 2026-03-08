@@ -8,11 +8,11 @@ class DeAcceleration: public ecs::Component{
     public:
         __CMPID_DECL__(ecs::cmp::DEACCELERATION)
 
-        DeAcceleration(){}
-        virtual ~DeAcceleration() {}
+        DeAcceleration();
+        virtual ~DeAcceleration();
 
-        void initComponent() override{}
-        void update() override{}
+        void initComponent() override;
+        void update() override;
     private:
         Transform* _tr;
 };

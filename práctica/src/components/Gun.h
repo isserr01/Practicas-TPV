@@ -29,7 +29,7 @@ public:
 	Gun();
 	virtual ~Gun();
 
-	void init();
+	void initComponent() override;
 	void update() override;
 	void render() override;
 

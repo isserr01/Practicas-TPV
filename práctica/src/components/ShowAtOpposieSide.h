@@ -9,8 +9,8 @@ class ShowAtOpposieSide : public ecs::Component {
 public:
     __CMPID_DECL__(ecs::cmp::SHOWATOPPOSITESIDE)
 
-    ShowAtOpposieSide() {}
-    virtual ~ShowAtOpposieSide() {}
+    ShowAtOpposieSide();
+    virtual ~ShowAtOpposieSide();
 
     void init();
 

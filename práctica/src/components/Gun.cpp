@@ -1,4 +1,6 @@
 #include "Gun.h"
+
+
 	Gun::Gun() :
 		_tr(nullptr),
 		_lastBullet(0),
@@ -9,12 +11,14 @@
 		}
 	}
 
-	Gun:: ~Gun() {}
+	Gun::~Gun() = default;
 
-	void Gun::init() {
+	void Gun::initComponent() {
 		_tr = _ent->getComponent<Transform>();
 		assert(_tr != nullptr);
 	}
+
+
 	void Gun::update() {
 		auto& vt = sdlutils().virtualTimer();
 
@@ -27,7 +31,7 @@
 
 		//disparar
 		if (ih().isKeyDown(SDL_SCANCODE_S)) {
-			if (vt.currTime > _lastShotTime + 250) {
+			if (vt.currTime() > _lastShotTime + 250) {
 				Vector2D& p = _tr->getPos();
 				Vector2D& v = _tr->getVel();
 				float r = _tr->getRot();
@@ -44,11 +48,11 @@
 				Vector2D(bw / 2, bh / 2);
 				Vector2D bv = Vector2D(0, -1).rotate(r) * (v.magnitude() + 5.0f);
 				float br = Vector2D(0, -1).angle(bv);
-				shoot(bp, bd, bw, bh, br);
+				shoot(bp, bv, bw, bh, br);
 
 				_lastShotTime = vt.currTime();
 
-				sdlutils().soundEffects().at("fire")->play();
+				//sdlutils().soundEffects().at("fire")->play();
 
 			}
 		}
@@ -61,7 +65,7 @@
 
 			if (b.used) {
 
-				SDL_Rect dst = {
+				SDL_FRect dst = {
 					(int)b.pos.getX(),
 					(int)b.pos.getY(),
 					b.width,

@@ -12,6 +12,7 @@
 #include "../components/DeAcceleration.h"
 #include "../components/Gun.h"
 #include "../components/ShowAtOpposieSide.h"
+#include "../components/Image.h"
 
 NewGameState::NewGameState() :
 	_msg(sdlutils().msgs().at("start")) {
@@ -34,6 +35,7 @@ void NewGameState::update() {
 	}
 
 	sdlutils().clearRenderer();
+
 
 	_msg.render((sdlutils().width() - _msg.width()) / 2,
 		sdlutils().height() / 2 + _msg.height() * 2);
@@ -63,12 +65,12 @@ void NewGameState::enter() {
 		0.0f
 	);
 
-	//fighter->addComponent<Image>(
-	//	sdlutils().images().at("fighter")
-	//);
+	fighter->addComponent<Image>(
+		&sdlutils().images().at("fighter")
+	);
 
-	fighter->addComponent<FighterCtrl>();
+	fighter->addComponent<FighterCtrl>()->initComponent();
 	fighter->addComponent<DeAcceleration>();
-	/*fighter->addComponent<Gun>();
-	fighter->addComponent<ShowAtOpposieSide>();*/
+	//fighter->addComponent<Gun>();
+	//fighter->addComponent<ShowAtOpposieSide>();
 }
