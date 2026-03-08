@@ -45,7 +45,7 @@ void NewGameState::update() {
 }
 
 void NewGameState::enter() {
-	auto mngr = Game::Instance()->getMngr();
+	/*auto mngr = Game::Instance()->getMngr();
 
 	int w = 50;
 	int h = 50;
@@ -72,5 +72,5 @@ void NewGameState::enter() {
 	fighter->addComponent<FighterCtrl>()->initComponent();
 	fighter->addComponent<DeAcceleration>();
 	fighter->addComponent<Gun>();
-	fighter->addComponent<ShowAtOpposieSide>();
+	fighter->addComponent<ShowAtOpposieSide>();*/
 }

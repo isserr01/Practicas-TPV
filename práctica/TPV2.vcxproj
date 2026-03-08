@@ -38,6 +38,7 @@
     <ClCompile Include="src\components\TeleportOnExit.cpp" />
     <ClCompile Include="src\components\TowardDestination.cpp" />
     <ClCompile Include="src\ecs\EntityManager.cpp" />
+    <ClCompile Include="src\game\AsteroidsUtils.cpp" />
     <ClCompile Include="src\game\FighterUtils.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\json\JSON.cpp" />
@@ -77,6 +78,7 @@
     <ClInclude Include="src\ecs\Entity.h" />
     <ClInclude Include="src\ecs\EntityManager.h" />
     <ClInclude Include="src\game\AsteroidsFacade.h" />
+    <ClInclude Include="src\game\AsteroidsUtils.h" />
     <ClInclude Include="src\game\ecs_defs.h" />
     <ClInclude Include="src\game\FighterFacade.h" />
     <ClInclude Include="src\game\FighterUtils.h" />

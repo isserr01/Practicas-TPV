@@ -12,6 +12,8 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"
 #include "../utils/Collisions.h"
+#include "../game/AsteroidsUtils.h"
+#include "../game/FighterUtils.h"
 
 
 using ecs::EntityManager;
@@ -44,7 +46,9 @@ bool Game::init() {
 		std::cerr << SDL_GetError() << std::endl;
 		return false;
 	}
-		
+	_fighterFacade = new FighterUtils();
+	_asteroidsFacade = new AsteroidsUtils();
+
 
 	return true;
 }

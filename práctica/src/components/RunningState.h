@@ -20,5 +20,6 @@ public:
 private:
 	ecs::EntityManager* _gm;
 	Transform* _fighter;
+	float _lastAsteroidTime=0;
 };
 

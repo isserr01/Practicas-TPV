@@ -6,10 +6,11 @@
 #include "../components/Transform.h"
 #include "../sdlutils/SDLUtils.h"
 #include <cassert>
+#pragma once
 
 class TeleportOnExit : public ecs::Component {
 public:
-	//__CMPID_DECL__(ecs::cmp::TELEPORTONEXIT)
+	__CMPID_DECL__(ecs::cmp::TELEPORTONEXIT)
     TeleportOnExit();
     virtual ~TeleportOnExit();
 

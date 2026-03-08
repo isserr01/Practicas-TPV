@@ -84,6 +84,12 @@ public:
 	virtual ~Game();
 	bool init();
 	void start();
+	AsteroidsFacade* getAteroidsFacade() {
+		return _asteroidsFacade;
+	}
+	FighterFacade* getFighterFacade() {
+		return _fighterFacade;
+	}
 private:
 	Game();
 	void checkCollisions();

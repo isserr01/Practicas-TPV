@@ -15,16 +15,22 @@
 	DEACCELERATION, \
 	SHOWATOPPOSITESIDE, \
 	FIGHTERCTRL, \
-	HEALTH
+	HEALTH, \
+	GENERATIONS, \
+	MATERIALCONSISTENCY, \
+	TELEPORTONEXIT, \
+	TOWARDDESTINATION, \
+	FOLLOW, \
+	SHOWATOPPOSIESIDE
 	
 
 // Groups list - must have at least one element
 //
 #define _GRPS_LIST_ \
-	PADDLES
+	ASTEROIDS
+
 
 // Handlers list - must have at least one element
 //
 #define _HDLRS_LIST_ \
 	FIGHTER
-

@@ -2,10 +2,11 @@
 #include "../ecs/Component.h"
 #include "../ecs/Entity.h"
 #include "../sdlutils/SDLUtils.h"
+#include <cassert>
 
 class MaterialConsistency : public ecs::Component {
 public:
-
+    __CMPID_DECL__(ecs::cmp::MATERIALCONSISTENCY)
     MaterialConsistency(int consistency);
     virtual ~MaterialConsistency();
 
