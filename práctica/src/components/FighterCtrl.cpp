@@ -21,7 +21,7 @@ FighterCtrl::FighterCtrl() :
 
      //rotacion si pulsas derecha o izquierda
      if (ihdlr.isKeyDown(SDL_SCANCODE_LEFT)) {
-         _tr -> setRot(_tr -> getRot() - 5.0f);
+         _tr->setRot(_tr -> getRot() - 5.0f);
      }
      if (ihdlr.isKeyDown(SDL_SCANCODE_RIGHT)) {
          _tr->setRot(_tr->getRot() + 5.0f);
@@ -31,7 +31,7 @@ FighterCtrl::FighterCtrl() :
      if (ihdlr.isKeyDown(SDL_SCANCODE_UP)) {
 
          Vector2D& vel = _tr->getVel();
-         float rot = _tr->getRot() * (PI/180.0f);
+         float rot = _tr->getRot();
 
          Vector2D newVel =
              vel + Vector2D(0, -1).rotate(rot) * _thrust;
@@ -40,6 +40,8 @@ FighterCtrl::FighterCtrl() :
              newVel = newVel.normalize() * _speedLimit;
 
          vel = newVel;
+         _tr->getVel().setY(newVel.getY());
+         _tr->getVel().setX(newVel.getX());
 
          //sdlutils().soundEffects().at("thrust").play();
      }

@@ -9,7 +9,8 @@
     { "id" : "tennis_ball", "file" : "resources/images/tennis_ball.png" },
     { "id" : "fighter", "file": "resources/images/fighter.png"},
     { "id" : "fire", "file": "resources/images/fire.png"},
-    { "id" : "asteroid", "file": "resources/images/asteroid.png"}
+    { "id" : "asteroid", "file": "resources/images/asteroid.png"},
+    { "id" : "heart", "file": "resources/images/heart.png"}
   ],
   
   "messages" : [
