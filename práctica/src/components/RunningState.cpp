@@ -9,7 +9,7 @@ void RunningState::update() {
 	auto* gm = game->getMngr();
 	auto& ihdlr = ih();
 	auto& vt = sdlutils().virtualTimer();
-
+	SDL_Log("TIMER = %u", sdlutils().virtualTimer().currTime());
 	sdlutils().clearRenderer();
 
 	gm->update();

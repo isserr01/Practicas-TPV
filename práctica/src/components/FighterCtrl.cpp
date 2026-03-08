@@ -5,7 +5,7 @@ constexpr float PI = 3.14159265f;
 
 
 FighterCtrl::FighterCtrl() :
-    _tr(nullptr), _thrust(0.1f), _speedLimit(5.0f) {
+    _tr(nullptr), _thrust(0.1f), _speedLimit(1.0f) {
 }
 
  FighterCtrl::~FighterCtrl() {}
@@ -21,10 +21,10 @@ FighterCtrl::FighterCtrl() :
 
      //rotacion si pulsas derecha o izquierda
      if (ihdlr.isKeyDown(SDL_SCANCODE_LEFT)) {
-         _tr->setRot(_tr -> getRot() - 5.0f);
+         _tr->setRot(_tr -> getRot() - 1.0f);
      }
      if (ihdlr.isKeyDown(SDL_SCANCODE_RIGHT)) {
-         _tr->setRot(_tr->getRot() + 5.0f);
+         _tr->setRot(_tr->getRot() + 1.0f);
      }
 
      //aceleracion si pulsas arriba

@@ -20,20 +20,28 @@
 
 
 	void Gun::update() {
+		auto& inhdlr = ih();
 		auto& vt = sdlutils().virtualTimer();
 
 		//mover balas
 		for (auto& b : _bullets) {
 			if (b.used) {
 				b.pos = b.pos + b.vel;
-				std::cout << b.pos.getX() << " " << b.pos.getY() << std::endl;
+				if (b.pos.getX() < 0 || b.pos.getX() > sdlutils().width() ||
+					b.pos.getY() < 0 || b.pos.getY() > sdlutils().height()) {
+					b.used = false;
+				}
 			}
 		}
 		
 
 		//disparar
 		if (ih().isKeyDown(SDL_SCANCODE_S)) {
-			if (vt.currTime() > _lastShotTime + 250) {
+			SDL_Log("Gun update ejecutándose");
+			Uint32 now = sdlutils().virtualTimer().currTime();
+			SDL_Log("now=%u last=%u diff=%u", now, _lastShotTime, now - _lastShotTime);
+			if (now- _lastShotTime>= 250) {
+				_lastShotTime = now;
 				Vector2D& p = _tr->getPos();
 				Vector2D& v = _tr->getVel();
 				float r = _tr->getRot();
@@ -53,7 +61,7 @@
 
 				_lastShotTime = vt.currTime();
 
-				//sdlutils().soundEffects().at("fire")->play();
+				//sdlutils().soundEffects().at("fire").play();
 
 			}
 		}
@@ -82,10 +90,14 @@
 		for (auto& b : _bullets) {
 			b.used = false;
 		}
+		_lastBullet = 0;
+		_lastShotTime = 0;
 	}
 
 	void Gun::shoot(Vector2D p, Vector2D v, int width, int height, float r) {
 		//busqueda circular de las balas para inicializar
+		SDL_Log("Entrando en shoot");
+
 		for (int i = 0; i < _max_bullets; i++) {
 			int idx = (_lastBullet + i) % _max_bullets;
 
@@ -99,6 +111,8 @@
 				b.width = width;
 				b.height = height;
 				b.rot = r;
+
+				_lastBullet = idx;
 				return;
 			}
 		}

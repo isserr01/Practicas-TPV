@@ -56,21 +56,20 @@ bool Game::init() {
 
 void Game::start() {
 
-	// a boolean to exit the loop
-	bool exit = false;
-
 	auto &ihdlr = ih();
 	auto& vt = sdlutils().virtualTimer();
 	// reset the time before starting - so we calculate correct
 	// delta-time in the first iteration
 	//
-	sdlutils().resetTime();
+	vt.resetTime();
+	// a boolean to exit the loop
+	bool exit = false;
 
 	while (!exit) {
 		// store the current time -- all game objects should use this time when
 		// then need to the current time. They also have accessed to the time elapsed
 		// between the last two calls to regCurrTime().
-		Uint32 startTime = sdlutils().regCurrTime();
+		Uint32 startTime = vt.regCurrTime();
 
 		// refresh the input handler
 		ihdlr.refresh();

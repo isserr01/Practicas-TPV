@@ -46,6 +46,6 @@ private:
 	void shoot(Vector2D p, Vector2D v, int width, int height, float r);
 	bullets_array_t _bullets;
 	Transform* _tr;
-	Uint16 _lastShotTime;
-	int _lastBullet;
+	Uint16 _lastShotTime=0;
+	int _lastBullet=0;
 };

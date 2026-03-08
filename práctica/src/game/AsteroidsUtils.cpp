@@ -41,7 +41,7 @@ void AsteroidsUtils::create_asteroids(int n) {
         Vector2D c = centro + r;
 
         //velocidad
-        float speed = rnd.nextInt(1, 10) / 10.0f;
+        float speed = rnd.nextInt(1, 5) / 20.0f;
         Vector2D v = (c - p).normalize() * speed;
 
         //tamaño
