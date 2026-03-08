@@ -84,6 +84,7 @@ public:
 	virtual ~Game();
 	bool init();
 	void start();
+	void checkCollisions();
 	AsteroidsFacade* getAteroidsFacade() {
 		return _asteroidsFacade;
 	}
@@ -92,7 +93,7 @@ public:
 	}
 private:
 	Game();
-	void checkCollisions();
+
 	ecs::EntityManager *_mngr;
 
 	Transform* _fighter;

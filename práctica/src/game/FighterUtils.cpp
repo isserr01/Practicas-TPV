@@ -9,7 +9,9 @@
 #include "../components/Gun.h"
 #include "../components/ShowAtOpposieSide.h"
 
-FighterUtils::FighterUtils() : fighter_(nullptr) {}
+FighterUtils::FighterUtils() : fighter_(nullptr) {
+
+}
 
 FighterUtils::~FighterUtils() {}
 
@@ -18,6 +20,7 @@ void FighterUtils::create_fighter() {
     auto mngr = Game::Instance()->getMngr();
 
     fighter_ = mngr->addEntity(ecs::hdlr::FIGHTER);
+    mngr->setHandler(ecs::hdlr::FIGHTER, fighter_);
 
     int w = sdlutils().width();
     int h = sdlutils().height();

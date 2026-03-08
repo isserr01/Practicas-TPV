@@ -99,6 +99,7 @@ public:
 	// is in Manager.cpp, but we could also defined it here).
 	//
 	void refresh();
+	void checkCollisions();
 
 private:
 

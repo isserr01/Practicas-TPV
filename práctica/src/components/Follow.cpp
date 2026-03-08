@@ -7,7 +7,7 @@ Follow::Follow() :
 Follow::~Follow() {
 }
 
-void Follow::init() {
+void Follow::initComponent() {
     _tr = _ent->getComponent<Transform>();
     assert(_tr != nullptr);
 }

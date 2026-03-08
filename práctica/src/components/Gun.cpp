@@ -37,9 +37,7 @@
 
 		//disparar
 		if (ih().isKeyDown(SDL_SCANCODE_S)) {
-			SDL_Log("Gun update ejecutándose");
 			Uint32 now = sdlutils().virtualTimer().currTime();
-			SDL_Log("now=%u last=%u diff=%u", now, _lastShotTime, now - _lastShotTime);
 			if (now- _lastShotTime>= 250) {
 				_lastShotTime = now;
 				Vector2D& p = _tr->getPos();
@@ -96,8 +94,7 @@
 
 	void Gun::shoot(Vector2D p, Vector2D v, int width, int height, float r) {
 		//busqueda circular de las balas para inicializar
-		SDL_Log("Entrando en shoot");
-
+	
 		for (int i = 0; i < _max_bullets; i++) {
 			int idx = (_lastBullet + i) % _max_bullets;
 

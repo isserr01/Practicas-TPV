@@ -9,11 +9,10 @@ void RunningState::update() {
 	auto* gm = game->getMngr();
 	auto& ihdlr = ih();
 	auto& vt = sdlutils().virtualTimer();
-	SDL_Log("TIMER = %u", sdlutils().virtualTimer().currTime());
 	sdlutils().clearRenderer();
 
 	gm->update();
-	//gm->checkCollisions();
+	game->checkCollisions();
 	gm->render();
 	gm->refresh();
 	if (vt.currTime() - _lastAsteroidTime >= 5000) {
