@@ -43,6 +43,6 @@ FighterCtrl::FighterCtrl() :
          _tr->getVel().setY(newVel.getY());
          _tr->getVel().setX(newVel.getX());
 
-         //sdlutils().soundEffects().at("thrust").play();
+         sdlutils().soundEffects().at("thrust").play();
      }
  }
