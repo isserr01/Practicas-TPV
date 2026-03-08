@@ -22,7 +22,14 @@
   
   "sounds" : [
     { "id" : "paddle_hit", "file" : "resources/sound/paddle_hit.wav" },
-    { "id" : "wall_hit", "file" : "resources/sound/wall_hit.wav" }
+    {
+      "id": "wall_hit",
+      "file": "resources/sound/wall_hit.wav"
+    },
+    {
+      "id": "fire",
+      "file": "resources/sound/explosion.wav"
+    }
   ]
 
 }

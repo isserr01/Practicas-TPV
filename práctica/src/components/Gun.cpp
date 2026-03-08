@@ -61,7 +61,7 @@
 
 				_lastShotTime = vt.currTime();
 
-				//sdlutils().soundEffects().at("fire").play();
+				sdlutils().soundEffects().at("fire").play();
 
 			}
 		}
