@@ -10,7 +10,7 @@ public:
     Follow();
     virtual ~Follow();
 
-    void init();
+    void initComponent() override;
     void update() override;
 
 private:

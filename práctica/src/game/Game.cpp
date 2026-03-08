@@ -91,7 +91,47 @@ void Game::start() {
 }
 
 void Game::checkCollisions() {
-	
+	auto ship = _mngr->getHandler(ecs::hdlr::FIGHTER);
+    auto asteroids = _mngr->getEntities(ecs::grp::ASTEROIDS);
+    auto bullets = _mngr->getEntities(ecs::grp::BULLETS);
+    Transform* shipTr = ship->getComponent<Transform>();
+    assert(shipTr != nullptr);
+
+    bool shipHit = false;
+
+    for (auto it : asteroids) {
+        Transform* tr = it->getComponent<Transform>();
+        assert(tr != nullptr);
+
+        if (Collisions::collidesWithRotation(shipTr->getPos(), shipTr->getWidth(), shipTr->getHeight(), shipTr->getRot(), tr->getPos(), tr->getWidth(), tr->getHeight(), tr->getRot())) {
+            // matarse ;(
+            shipHit = true;
+			std::cout << "colision" << std::endl;
+           /* auto sound = &SDLUtils::instance()->soundEffects().at(sounds[EXPLOSION1]);
+            sound->setVolume(shipDestroyVolume);
+            sound->play();*/
+            break;
+        }
+
+        for (auto ot : bullets) {
+
+            Transform* bTr = ot->getComponent<Transform>();
+            if (Collisions::collides(tr->getPos(), tr->getWidth(), tr->getHeight(), bTr->getPos(), bTr->getWidth(), bTr->getHeight())) {
+                // destruir bala
+                ot->setAlive(false);
+                // dividir asteroide
+                //astMngr->onCollision(it);
+               /* auto sound = &SDLUtils::instance()->soundEffects().at(sounds[EXPLOSION]);
+                sound->setVolume(asteroidDestroyVolume);
+                sound->play();*/
+                break;
+            }
+        }
+    }
+
+   /* if (shipHit) {
+        reset();
+    }*/
 
 
 }

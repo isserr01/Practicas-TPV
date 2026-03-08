@@ -5,7 +5,7 @@ constexpr float PI = 3.14159265f;
 
 
 FighterCtrl::FighterCtrl() :
-    _tr(nullptr), _thrust(0.1f), _speedLimit(1.0f) {
+    _tr(nullptr), _thrust(0.05f), _speedLimit(1.0f) {
 }
 
  FighterCtrl::~FighterCtrl() {}
