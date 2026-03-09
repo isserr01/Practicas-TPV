@@ -3,11 +3,11 @@
 
 class FighterFacade {
 public:
-    FighterFacade() {}
-    virtual ~FighterFacade() {}
+	FighterFacade() {}
+	virtual ~FighterFacade() {}
 
-    virtual void create_fighter() = 0;
-    virtual void reset_fighter() = 0;
-    virtual void reset_lives() = 0;
-    virtual int update_lives(int n) = 0;
+	virtual void create_fighter() = 0;
+	virtual void reset_fighter() = 0;
+	virtual void reset_lives() = 0;
+	virtual int update_lives(int n) = 0;
 };

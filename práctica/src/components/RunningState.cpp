@@ -23,11 +23,11 @@ void RunningState::update() {
 		_lastAsteroidTime = vt.currTime();
 	}
 
-    if (ihdlr.keyDownEvent() && ihdlr.isKeyDown(SDL_SCANCODE_P)) {
-        Game::Instance()->setState(Game::PAUSED);
-    }
+	if (ihdlr.keyDownEvent() && ihdlr.isKeyDown(SDL_SCANCODE_P)) {
+		Game::Instance()->setState(Game::PAUSED);
+	}
 
-    Game::Instance()->getMngr()->render();
+	Game::Instance()->getMngr()->render();
 
-    sdlutils().presentRenderer();
+	sdlutils().presentRenderer();
 }

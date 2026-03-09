@@ -23,7 +23,7 @@
 	FOLLOW, \
 	SHOWATOPPOSIESIDE, \
 	IMAGEWITHFRAMES
-	
+
 
 // Groups list - must have at least one element
 //

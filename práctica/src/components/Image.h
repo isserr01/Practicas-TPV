@@ -6,7 +6,7 @@
 class Transform;
 class Texture;
 
-class Image: public ecs::Component {
+class Image : public ecs::Component {
 public:
 
 	// This line expands to the following (see the defintion of
@@ -16,11 +16,11 @@ public:
 	//
 	__CMPID_DECL__(ecs::cmp::IMAGE)
 
-	Image();
-	Image(const Texture *tex);
+		Image();
+	Image(const Texture* tex);
 	virtual ~Image();
 
-	void setTexture(Texture *tex) {
+	void setTexture(Texture* tex) {
 		_tex = tex;
 	}
 
@@ -32,7 +32,7 @@ public:
 	void render() override;
 
 private:
-	Transform *_tr;
-	const Texture *_tex;
+	Transform* _tr;
+	const Texture* _tex;
 };
 

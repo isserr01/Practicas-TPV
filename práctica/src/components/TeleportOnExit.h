@@ -11,15 +11,15 @@
 class TeleportOnExit : public ecs::Component {
 public:
 	__CMPID_DECL__(ecs::cmp::TELEPORTONEXIT)
-    TeleportOnExit();
-    virtual ~TeleportOnExit();
+		TeleportOnExit();
+	virtual ~TeleportOnExit();
 
-    void initComponent() override;
+	void initComponent() override;
 
-    void update()override;
+	void update()override;
 
 private:
-    Transform* _tr;
+	Transform* _tr;
 };
 
 #endif // TELEPORTONEXIT_H

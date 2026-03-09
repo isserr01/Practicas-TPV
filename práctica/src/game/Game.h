@@ -15,13 +15,13 @@
 //#include "../components/GameOverState.h"
 
 namespace ecs {
-class EntityManager;
+	class EntityManager;
 }
 
 class Transform;
 class GameState;
 
-class Game : public Singleton<Game>{
+class Game : public Singleton<Game> {
 	friend class Singleton<Game>;
 public:
 	enum State {
@@ -100,12 +100,12 @@ public:
 private:
 	Game();
 
-	ecs::EntityManager *_mngr;
+	ecs::EntityManager* _mngr;
 
 	Transform* _fighter;
 	std::vector<Transform*> _objs;
 
-	GameState *_state;
+	GameState* _state;
 	GameState* _paused_state;
 	GameState* _running_state;
 	GameState* _newgame_state;

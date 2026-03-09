@@ -17,7 +17,7 @@
 
 NewGameState::NewGameState() :
 	_msg(sdlutils().msgs().at("start")) {
-	_fighterFacade =  new FighterUtils();
+	_fighterFacade = new FighterUtils();
 
 }
 

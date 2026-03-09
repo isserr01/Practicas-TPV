@@ -13,17 +13,17 @@ public:
 
 	__CMPID_DECL__(ecs::cmp::HEALTH)
 
-    Health();
-    virtual ~Health();
+		Health();
+	virtual ~Health();
 
-    void render() override;
+	void render() override;
 
-    void subLives(int n);
-    void resetLives();
-    int getLives() const;
+	void subLives(int n);
+	void resetLives();
+	int getLives() const;
 
 private:
-    int _lives;
+	int _lives;
 };
 
 #endif // __HEALTH_H__  

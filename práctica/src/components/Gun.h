@@ -13,7 +13,7 @@ public:
 
 	__CMPID_DECL__(ecs::cmp::GUN)
 
-	struct Bullet {
+		struct Bullet {
 		bool used = false;
 		Vector2D pos;
 		Vector2D vel;
@@ -41,11 +41,11 @@ public:
 	iterator end() {
 		return _bullets.end();
 	}
-	
+
 private:
 	void shoot(Vector2D p, Vector2D v, int width, int height, float r);
 	bullets_array_t _bullets;
 	Transform* _tr;
-	Uint16 _lastShotTime=0;
+	Uint16 _lastShotTime = 0;
 	int _lastBullet;
 };

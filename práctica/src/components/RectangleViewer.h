@@ -7,11 +7,11 @@
 
 class Transform;
 
-class RectangleViewer: public ecs::Component {
+class RectangleViewer : public ecs::Component {
 public:
 	__CMPID_DECL__(ecs::cmp::RECTANGLEVIEWER)
 
-	RectangleViewer();
+		RectangleViewer();
 	RectangleViewer(SDL_Color color, bool empty = false);
 	virtual ~RectangleViewer();
 
@@ -23,7 +23,7 @@ public:
 	void initComponent() override;
 	void render() override;
 private:
-	Transform *_tr;
+	Transform* _tr;
 	bool _empty;
 	SDL_Color _color;
 

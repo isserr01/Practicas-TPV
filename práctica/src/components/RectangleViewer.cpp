@@ -9,13 +9,13 @@
 #include "Transform.h"
 
 RectangleViewer::RectangleViewer() :
-		RectangleViewer(build_sdlcolor(0xffffffff), false) {
+	RectangleViewer(build_sdlcolor(0xffffffff), false) {
 }
 
 RectangleViewer::RectangleViewer(SDL_Color color, bool empty) :
-		_tr(nullptr), //
-		_empty(empty), //
-		_color(color) {
+	_tr(nullptr), //
+	_empty(empty), //
+	_color(color) {
 }
 
 RectangleViewer::~RectangleViewer() {
@@ -27,7 +27,7 @@ void RectangleViewer::initComponent() {
 }
 
 void RectangleViewer::render() {
-	auto &pos = _tr->getPos();
+	auto& pos = _tr->getPos();
 	auto width = _tr->getWidth();
 	auto height = _tr->getHeight();
 
@@ -36,7 +36,8 @@ void RectangleViewer::render() {
 
 	if (_empty) {
 		SDL_RenderRect(sdlutils().renderer(), &rect);
-	} else {
+	}
+	else {
 		SDL_RenderFillRect(sdlutils().renderer(), &rect);
 	}
 }

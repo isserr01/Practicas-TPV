@@ -20,8 +20,8 @@
 using ecs::EntityManager;
 
 Game::Game() :
-		_mngr(nullptr), //
-		_state(nullptr) {
+	_mngr(nullptr), //
+	_state(nullptr) {
 }
 
 
@@ -58,7 +58,7 @@ bool Game::init() {
 void Game::start() {
 
 	_fighterFacade->create_fighter();
-	auto &ihdlr = ih();
+	auto& ihdlr = ih();
 	auto& vt = sdlutils().virtualTimer();
 	// reset the time before starting - so we calculate correct
 	// delta-time in the first iteration
@@ -94,31 +94,31 @@ void Game::start() {
 
 void Game::checkCollisions() {
 	auto ship = _mngr->getHandler(ecs::hdlr::FIGHTER);
-    auto asteroids = _mngr->getEntities(ecs::grp::ASTEROIDS);
+	auto asteroids = _mngr->getEntities(ecs::grp::ASTEROIDS);
 	auto gun = ship->getComponent<Gun>();
 
-    Transform* shipTr = ship->getComponent<Transform>();
-    assert(shipTr != nullptr);
+	Transform* shipTr = ship->getComponent<Transform>();
+	assert(shipTr != nullptr);
 
-    bool shipHit = false;
+	bool shipHit = false;
 
-    for (auto it : asteroids) {
-        Transform* tr = it->getComponent<Transform>();
-        assert(tr != nullptr);
+	for (auto it : asteroids) {
+		Transform* tr = it->getComponent<Transform>();
+		assert(tr != nullptr);
 
-        if (Collisions::collidesWithRotation(shipTr->getPos(), shipTr->getWidth(), shipTr->getHeight(), shipTr->getRot(), tr->getPos(), tr->getWidth(), tr->getHeight(), tr->getRot())) {
+		if (Collisions::collidesWithRotation(shipTr->getPos(), shipTr->getWidth(), shipTr->getHeight(), shipTr->getRot(), tr->getPos(), tr->getWidth(), tr->getHeight(), tr->getRot())) {
 			getFighterFacade()->update_lives(1);
-           /* auto sound = &SDLUtils::instance()->soundEffects().at(sounds[EXPLOSION1]);
-            sound->setVolume(shipDestroyVolume);
-            sound->play();*/
-            break;
-        }
+			/* auto sound = &SDLUtils::instance()->soundEffects().at(sounds[EXPLOSION1]);
+			 sound->setVolume(shipDestroyVolume);
+			 sound->play();*/
+			break;
+		}
 
-        for (auto &b : *gun) {
+		for (auto& b : *gun) {
 			if (!b.used)continue;
 
 			if (Collisions::collides(tr->getPos(), tr->getWidth(), tr->getHeight(),
-				b.pos, b.width, b.height)) 
+				b.pos, b.width, b.height))
 			{
 				// destruir bala
 				b.used = false;
@@ -127,16 +127,16 @@ void Game::checkCollisions() {
 				break;
 			}
 
-          
-                // dividir asteroide
-                getAteroidsFacade()->split_astroid(it);
-               /* auto sound = &SDLUtils::instance()->soundEffects().at(sounds[EXPLOSION]);
-                sound->setVolume(asteroidDestroyVolume);
-                sound->play();*/
-               
-            
-        }
-    }
+
+			// dividir asteroide
+			getAteroidsFacade()->split_astroid(it);
+			/* auto sound = &SDLUtils::instance()->soundEffects().at(sounds[EXPLOSION]);
+			 sound->setVolume(asteroidDestroyVolume);
+			 sound->play();*/
+
+
+		}
+	}
 
 
 }

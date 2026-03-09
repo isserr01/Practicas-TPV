@@ -6,13 +6,13 @@
 
 class MaterialConsistency : public ecs::Component {
 public:
-    __CMPID_DECL__(ecs::cmp::MATERIALCONSISTENCY)
-    MaterialConsistency(int consistency);
-    virtual ~MaterialConsistency();
+	__CMPID_DECL__(ecs::cmp::MATERIALCONSISTENCY)
+		MaterialConsistency(int consistency);
+	virtual ~MaterialConsistency();
 
-    void update() override;
+	void update() override;
 
 private:
-    int _consistency;
-    Uint32 _lastCheck;
+	int _consistency;
+	Uint32 _lastCheck;
 };

@@ -5,17 +5,17 @@
 #include "../utils/Vector2D.h"
 #include <cassert>
 
-class Transform: public ecs::Component {
+class Transform : public ecs::Component {
 public:
 
 	__CMPID_DECL__(ecs::cmp::TRANSFORM)
 
-	Transform() :
-			_pos(), _vel(), _width(), _height(), _rot() {
+		Transform() :
+		_pos(), _vel(), _width(), _height(), _rot() {
 	}
 
 	Transform(Vector2D pos, Vector2D vel, float w, float h, float r) :
-			_pos(pos), _vel(vel), _width(w), _height(h), _rot(r) {
+		_pos(pos), _vel(vel), _width(w), _height(h), _rot(r) {
 	}
 
 	virtual ~Transform() {
@@ -32,8 +32,8 @@ public:
 	Vector2D& getPos() {
 		return _pos;
 	}
-	void setPos(Vector2D pos){
-		_pos=pos;
+	void setPos(Vector2D pos) {
+		_pos = pos;
 	}
 	Vector2D& getVel() {
 		return _vel;

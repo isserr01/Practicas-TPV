@@ -1,7 +1,8 @@
 #include "ShowAtOpposieSide.h"
 
 ShowAtOpposieSide::ShowAtOpposieSide()
-{}
+{
+}
 ShowAtOpposieSide:: ~ShowAtOpposieSide() {}
 
 void ShowAtOpposieSide::initComponent() {
@@ -9,7 +10,7 @@ void ShowAtOpposieSide::initComponent() {
 	assert(_tr != nullptr);
 }
 //calcula si se sale de la pantalla y lo mueve al otro lado
-void ShowAtOpposieSide::update(){
+void ShowAtOpposieSide::update() {
 	Vector2D& pos = _tr->getPos();
 
 	float w = _tr->getWidth();
@@ -18,7 +19,7 @@ void ShowAtOpposieSide::update(){
 	if (pos.getX() > sdlutils().width()) {
 		pos.setX(-w);
 	}
-	else if (pos.getX() +w < 0) {
+	else if (pos.getX() + w < 0) {
 		pos.setX(sdlutils().width());
 	}
 

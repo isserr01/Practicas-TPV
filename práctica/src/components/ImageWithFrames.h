@@ -15,14 +15,14 @@ private:
 	int _cols, _rows;
 	int _currentFrame;
 	int _totalFrames;
-	float _frameTime; 
+	float _frameTime;
 	float _elapsedTime;
 	Transform* _tr;
 
 public:
 	__CMPID_DECL__(ecs::cmp::IMAGEWITHFRAMES)
 
-	ImageWithFrames(const Texture* tex, int cols, int rows, float frameTime = 50);
+		ImageWithFrames(const Texture* tex, int cols, int rows, float frameTime = 50);
 	virtual ~ImageWithFrames() {};
 	void initComponent() override;
 	void update() override;

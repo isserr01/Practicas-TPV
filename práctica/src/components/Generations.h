@@ -4,16 +4,16 @@
 #include "../ecs/Component.h"
 
 class Generations : public ecs::Component {
-	public:
-		__CMPID_DECL__(ecs::cmp::GENERATIONS)
+public:
+	__CMPID_DECL__(ecs::cmp::GENERATIONS)
 		Generations(int g);
-		virtual ~Generations();
+	virtual ~Generations();
 
-		int getGenerations() const;
-		void setGenerations(int g);
+	int getGenerations() const;
+	void setGenerations(int g);
 
-	private:
-		int _generations;
+private:
+	int _generations;
 };
 
 #endif // GENERATIONS_H

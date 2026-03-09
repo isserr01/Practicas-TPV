@@ -3,9 +3,9 @@
 #pragma once
 class FighterFacade;
 
-class GameState{
+class GameState {
 public:
-	GameState() : _fighterFacade(nullptr){}
+	GameState() : _fighterFacade(nullptr) {}
 	virtual ~GameState() {
 	}
 	virtual void update() = 0;
