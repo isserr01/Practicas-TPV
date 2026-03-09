@@ -56,6 +56,7 @@ bool Game::init() {
 
 void Game::start() {
 
+	_fighterFacade->create_fighter();
 	auto &ihdlr = ih();
 	auto& vt = sdlutils().virtualTimer();
 	// reset the time before starting - so we calculate correct
@@ -104,9 +105,7 @@ void Game::checkCollisions() {
         assert(tr != nullptr);
 
         if (Collisions::collidesWithRotation(shipTr->getPos(), shipTr->getWidth(), shipTr->getHeight(), shipTr->getRot(), tr->getPos(), tr->getWidth(), tr->getHeight(), tr->getRot())) {
-            // matarse ;(
-            shipHit = true;
-			std::cout << "colision" << std::endl;
+			getFighterFacade()->update_lives(1);
            /* auto sound = &SDLUtils::instance()->soundEffects().at(sounds[EXPLOSION1]);
             sound->setVolume(shipDestroyVolume);
             sound->play();*/
@@ -120,7 +119,7 @@ void Game::checkCollisions() {
                 // destruir bala
                 ot->setAlive(false);
                 // dividir asteroide
-                //astMngr->onCollision(it);
+                getAteroidsFacade()->split_astroid(it);
                /* auto sound = &SDLUtils::instance()->soundEffects().at(sounds[EXPLOSION]);
                 sound->setVolume(asteroidDestroyVolume);
                 sound->play();*/
@@ -128,10 +127,6 @@ void Game::checkCollisions() {
             }
         }
     }
-
-   /* if (shipHit) {
-        reset();
-    }*/
 
 
 }

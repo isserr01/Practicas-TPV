@@ -29,12 +29,16 @@ void GameInfoMsgs::render() {
 	if (state != Game::RUNNING) {
 
 		// game over message
-		if (state == Game::GAMEOVER) {
-			auto &t = sdlutils().msgs().at("gameover");
+		if (state == Game::GAMEOVER_LOST) {
+			auto &t = sdlutils().msgs().at("won");
 			t.render((sdlutils().width() - t.width()) / 2,
 					(sdlutils().height() - t.height()) / 2);
 		}
-
+		if (state == Game::GAMEOVER_WON) {
+			auto& t = sdlutils().msgs().at("lost");
+			t.render((sdlutils().width() - t.width()) / 2,
+				(sdlutils().height() - t.height()) / 2);
+		}
 		// new game message
 		if (state == Game::NEWGAME) {
 			auto &t = sdlutils().msgs().at("newgame");

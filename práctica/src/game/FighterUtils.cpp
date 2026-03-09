@@ -80,10 +80,10 @@ void FighterUtils::reset_lives() {
 
 int FighterUtils::update_lives(int n) {
 
-    if (fighter_ == nullptr) return 0;
-
     auto health = fighter_->getComponent<Health>();
     health->subLives(n);
-
+    if (health->getLives() > 0)
+        Game::Instance()->setState(Game::NEWROUND);
+    else Game::Instance()->setState(Game::GAMEOVER_LOST);
     return health->getLives();
 }

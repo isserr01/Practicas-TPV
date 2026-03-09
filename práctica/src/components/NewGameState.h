@@ -1,4 +1,5 @@
-#pragma once
+#ifndef NEWGAMESTATE_H
+#define NEWGAMESTATE_H
 
 
 #include <SDL_rect.h>
@@ -19,3 +20,4 @@ private:
 };
 
 
+#endif // NEWGAMESTATE_H

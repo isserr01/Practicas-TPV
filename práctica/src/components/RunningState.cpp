@@ -3,12 +3,15 @@
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
+#include "Health.h"
 
 void RunningState::update() {
 	auto* game = Game::Instance();
 	auto* gm = game->getMngr();
 	auto& ihdlr = ih();
 	auto& vt = sdlutils().virtualTimer();
+	auto ship = gm->getHandler(ecs::hdlr::FIGHTER);
+
 	sdlutils().clearRenderer();
 
 	gm->update();

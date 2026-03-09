@@ -7,6 +7,7 @@
 #include "../components/PausedState.h"
 #include "../components/RunningState.h"
 #include "../components/NewRoundState.h" 
+#include "../components/GameOverState.h"
 #include "../ecs/EntityManager.h"
 #include "FighterFacade.h"
 #include "AsteroidsFacade.h"
@@ -28,7 +29,8 @@ public:
 		NEWROUND, // just before starting a new round
 		PAUSED, // between rounds
 		RUNNING, // playing
-		GAMEOVER // game over
+		GAMEOVER_LOST,
+		GAMEOVER_WON
 	};
 
 	inline void setState(State s) {
@@ -50,8 +52,11 @@ public:
 		case RUNNING:
 			_state = _running_state;
 			break;
-		case GAMEOVER:
-			_state = _gameover_state;
+		case GAMEOVER_LOST:
+			_state = _gameover_lost_state;
+			break;
+		case GAMEOVER_WON:
+			_state = _gameover_won_state;
 			break;
 		default:
 			break;
@@ -67,7 +72,8 @@ public:
 		_newround_state = new NewRoundState();
 		_paused_state = new PausedState();
 		_running_state = new RunningState();
-		//_gameover_state = new GameOverState();
+		_gameover_won_state = new GameOverState(true);
+		_gameover_lost_state = new GameOverState(false);
 
 		_state = _newgame_state;
 		_state->enter();
@@ -104,7 +110,8 @@ private:
 	GameState* _running_state;
 	GameState* _newgame_state;
 	GameState* _newround_state;
-	GameState* _gameover_state;
+	GameState* _gameover_won_state;
+	GameState* _gameover_lost_state;
 	State _currentState;
 
 	FighterFacade* _fighterFacade;
