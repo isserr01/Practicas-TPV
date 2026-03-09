@@ -17,13 +17,11 @@
 
 NewGameState::NewGameState() :
 	_msg(sdlutils().msgs().at("start")) {
-	_fighterFacade = new FighterUtils();
+	_fighterFacade = Game::Instance()->getFighterFacade();
 
 }
 
-NewGameState::~NewGameState() {
-	delete _fighterFacade;
-}
+NewGameState::~NewGameState() {}
 
 void NewGameState::leave() {
 }
@@ -49,4 +47,5 @@ void NewGameState::update() {
 
 void NewGameState::enter() {
 	_fighterFacade->reset_fighter();
+
 }

@@ -6,13 +6,13 @@
 
 class Follow : public ecs::Component {
 public:
-    __CMPID_DECL__(ecs::cmp::FOLLOW)
-    Follow();
-    virtual ~Follow();
+	__CMPID_DECL__(ecs::cmp::FOLLOW)
+		Follow();
+	virtual ~Follow();
 
-    void initComponent() override;
-    void update() override;
+	void initComponent() override;
+	void update() override;
 
 private:
-    Transform* _tr;
+	Transform* _tr;
 };

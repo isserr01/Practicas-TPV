@@ -1,22 +1,23 @@
 #include "DeAcceleration.h"
 
-DeAcceleration::DeAcceleration():
-    _tr(nullptr){}
-
-DeAcceleration::~DeAcceleration(){
+DeAcceleration::DeAcceleration() :
+	_tr(nullptr) {
 }
 
-void DeAcceleration::initComponent(){
-    _tr=_ent->getComponent<Transform>();
-    assert(_tr !=nullptr);
+DeAcceleration::~DeAcceleration() {
 }
 
-void DeAcceleration::update(){
+void DeAcceleration::initComponent() {
+	_tr = _ent->getComponent<Transform>();
+	assert(_tr != nullptr);
+}
 
-    Vector2D& vel=_tr->getVel();
-    vel=vel*0.98f;
+void DeAcceleration::update() {
 
-        if(vel.magnitude()<0.05f){
-            vel=Vector2D(0.0f,0.0f);
-        }
+	Vector2D& vel = _tr->getVel();
+	vel = vel * 0.98f;
+
+	if (vel.magnitude() < 0.05f) {
+		vel = Vector2D(0.0f, 0.0f);
+	}
 }

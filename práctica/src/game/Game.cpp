@@ -108,9 +108,8 @@ void Game::checkCollisions() {
 
 		if (Collisions::collidesWithRotation(shipTr->getPos(), shipTr->getWidth(), shipTr->getHeight(), shipTr->getRot(), tr->getPos(), tr->getWidth(), tr->getHeight(), tr->getRot())) {
 			getFighterFacade()->update_lives(1);
-			/* auto sound = &SDLUtils::instance()->soundEffects().at(sounds[EXPLOSION1]);
-			 sound->setVolume(shipDestroyVolume);
-			 sound->play();*/
+
+			sdlutils().soundEffects().at("explosion").play();
 			break;
 		}
 
@@ -127,9 +126,7 @@ void Game::checkCollisions() {
 				break;
 			}
 
-               /* auto sound = &SDLUtils::instance()->soundEffects().at(sounds[EXPLOSION]);
-                sound->setVolume(asteroidDestroyVolume);
-                sound->play();*/
+			sdlutils().soundEffects().at("explosion").play();
                
             
         }

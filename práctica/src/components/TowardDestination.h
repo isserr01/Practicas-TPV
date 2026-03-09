@@ -7,16 +7,16 @@
 
 class TowardDestination : public ecs::Component {
 public:
-    __CMPID_DECL__(ecs::cmp::TOWARDDESTINATION)
-    TowardDestination();
-    virtual ~TowardDestination();
+	__CMPID_DECL__(ecs::cmp::TOWARDDESTINATION)
+		TowardDestination();
+	virtual ~TowardDestination();
 
-    void init();
-    void update() override;
+	void init();
+	void update() override;
 
 private:
-    void pickNewDestination();
+	void pickNewDestination();
 
-    Transform* _tr;
-    Vector2D _dest;
+	Transform* _tr;
+	Vector2D _dest;
 };

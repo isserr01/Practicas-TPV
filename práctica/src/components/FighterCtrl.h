@@ -8,19 +8,19 @@
 #include "../sdlutils/SDLUtils.h"
 #include <cassert>
 
-class FighterCtrl: public ecs::Component{
-    public:
-        __CMPID_DECL__(ecs::cmp::FIGHTERCTRL)
+class FighterCtrl : public ecs::Component {
+public:
+	__CMPID_DECL__(ecs::cmp::FIGHTERCTRL)
 
-        FighterCtrl();
-        virtual ~FighterCtrl();
+		FighterCtrl();
+	virtual ~FighterCtrl();
 
-        void initComponent() override;
-        void update() override;
-    private:
-        Transform* _tr;
-        float _thrust;
-        float _speedLimit;
+	void initComponent() override;
+	void update() override;
+private:
+	Transform* _tr;
+	float _thrust;
+	float _speedLimit;
 };
 
 #endif // __FIGHTERCTRL_H__

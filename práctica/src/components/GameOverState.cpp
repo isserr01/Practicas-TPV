@@ -9,23 +9,23 @@ GameOverState::GameOverState(bool won) : _won(won) {}
 
 void GameOverState::update()
 {
-    auto& inhdlr = ih();
+	auto& inhdlr = ih();
 
-    if (inhdlr.keyDownEvent()) {
-        Game::Instance()->setState(Game::NEWGAME);
-    }
+	if (inhdlr.keyDownEvent() && inhdlr.isKeyDown(SDL_SCANCODE_RETURN)) {
+		Game::Instance()->setState(Game::NEWGAME);
+	}
 
-    sdlutils().clearRenderer();
+	sdlutils().clearRenderer();
 
-    auto& msg = sdlutils().msgs().at(_won ? "won" : "lost");
+	auto& msg = sdlutils().msgs().at(_won ? "won" : "lost");
 
-    msg.render(
-        (sdlutils().width() - msg.width()) / 2,
-        sdlutils().height() / 2 + msg.height() * 2
-    );
+	msg.render(
+		(sdlutils().width() - msg.width()) / 2,
+		sdlutils().height() / 2 + msg.height() * 2
+	);
 
 
-    sdlutils().presentRenderer();
+	sdlutils().presentRenderer();
 }
 
 void GameOverState::enter()

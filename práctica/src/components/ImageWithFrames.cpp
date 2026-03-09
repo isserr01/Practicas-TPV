@@ -6,9 +6,9 @@
 
 ImageWithFrames::ImageWithFrames(const Texture* tex, int cols, int rows, float frameTime)
 	: _cols(cols), _rows(rows),
-		_currentFrame(0), _elapsedTime(0.0f),
-		_frameTime(frameTime),
-		_tex(tex)
+	_currentFrame(0), _elapsedTime(0.0f),
+	_frameTime(frameTime),
+	_tex(tex)
 {
 	_totalFrames = _cols * _rows;
 	_tr = nullptr;
@@ -43,9 +43,9 @@ void ImageWithFrames::render()
 		(_currentFrame / _cols) * _frameHeight,
 		_frameWidth, _frameHeight
 	};
-	
+
 	_tex->render(src, dest, _tr->getRot());
-	
+
 }
 
 

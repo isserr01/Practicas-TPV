@@ -6,62 +6,62 @@
 
 namespace ecs {
 
-/*
- * Classes that inherit from Component must define a field
- *
- *   	constexpr static ecs::cmpId_t id = value;
- *
- * where value is from the enum ecs::cmpId (see ecs.h). This
- * how we assign numeric identifiers to components (so we can
- * easily put them in an array). The list of possible identifiers
- * is defined as an enum in ecs.h
- *
- */
-class Component {
-public:
-	Component() :
+	/*
+	 * Classes that inherit from Component must define a field
+	 *
+	 *   	constexpr static ecs::cmpId_t id = value;
+	 *
+	 * where value is from the enum ecs::cmpId (see ecs.h). This
+	 * how we assign numeric identifiers to components (so we can
+	 * easily put them in an array). The list of possible identifiers
+	 * is defined as an enum in ecs.h
+	 *
+	 */
+	class Component {
+	public:
+		Component() :
 			_ent() //
-	{
-	}
+		{
+		}
 
-	// Destroys the component.
-	// Careful! ent_ and mngr_ should not be destroyed
-	//
-	virtual ~Component() {
-	}
+		// Destroys the component.
+		// Careful! ent_ and mngr_ should not be destroyed
+		//
+		virtual ~Component() {
+		}
 
-	// This method is used to set the context, which is a
-	// reference to the entity in which the component is
-	// installed and a reference to the manager. It will
-	// be called by Entity when adding a component.
-	//
-	inline void setContext(Entity *ent) {
-		_ent = ent;
-	}
+		// This method is used to set the context, which is a
+		// reference to the entity in which the component is
+		// installed and a reference to the manager. It will
+		// be called by Entity when adding a component.
+		//
+		inline void setContext(Entity* ent) {
+			_ent = ent;
+		}
 
-	// We assume that initComponent will be called when adding a
-	// component to an entity, immediately after setContext.
-	//
-	virtual void initComponent() {
-	}
+		// We assume that initComponent will be called when adding a
+		// component to an entity, immediately after setContext.
+		//
+		virtual void initComponent() {
+		}
 
-	// A component has an update method, and by default it
-	// does nothing -- some components will not override this
-	// method.
-	//
-	virtual void update() {
-	}
+		// A component has an update method, and by default it
+		// does nothing -- some components will not override this
+		// method.
+		//
+		virtual void update() {
+		}
 
-	// A component has a render method, and by default it
-	// does nothing -- some components will not override this
-	// method.
-	//
-	virtual void render() {
-	}
+		// A component has a render method, and by default it
+		// does nothing -- some components will not override this
+		// method.
+		//
+		virtual void render() {
+		}
 
-protected: // we allow direct use these fields from subclasses
+	protected: // we allow direct use these fields from subclasses
 
-	Entity *_ent; // a pointer to the entity, should not be deleted on destruction
-};
+		Entity* _ent; // a pointer to the entity, should not be deleted on destruction
+	};
 
 } // end of namespace

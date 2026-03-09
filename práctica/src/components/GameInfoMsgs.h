@@ -5,16 +5,16 @@
 
 class GameState;
 
-class GameInfoMsgs: public ecs::Component {
+class GameInfoMsgs : public ecs::Component {
 public:
 
 	__CMPID_DECL__(ecs::cmp::GAMEINFOMSGS)
 
-	GameInfoMsgs();
+		GameInfoMsgs();
 	virtual ~GameInfoMsgs();
 	void initComponent() override;
 	void render() override;
 private:
-	GameState *_gameState;
+	GameState* _gameState;
 };
 

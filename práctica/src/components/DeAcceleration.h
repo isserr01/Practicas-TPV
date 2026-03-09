@@ -4,15 +4,15 @@
 #include "../components/Transform.h"
 #include <cassert>
 
-class DeAcceleration: public ecs::Component{
-    public:
-        __CMPID_DECL__(ecs::cmp::DEACCELERATION)
+class DeAcceleration : public ecs::Component {
+public:
+	__CMPID_DECL__(ecs::cmp::DEACCELERATION)
 
-        DeAcceleration();
-        virtual ~DeAcceleration();
+		DeAcceleration();
+	virtual ~DeAcceleration();
 
-        void initComponent() override;
-        void update() override;
-    private:
-        Transform* _tr;
+	void initComponent() override;
+	void update() override;
+private:
+	Transform* _tr;
 };

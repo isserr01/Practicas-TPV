@@ -9,7 +9,7 @@
 #include "../sdlutils/Texture.h"
 
 GameInfoMsgs::GameInfoMsgs() :
-		_gameState(nullptr) {
+	_gameState(nullptr) {
 
 }
 
@@ -30,9 +30,9 @@ void GameInfoMsgs::render() {
 
 		// game over message
 		if (state == Game::GAMEOVER_LOST) {
-			auto &t = sdlutils().msgs().at("won");
+			auto& t = sdlutils().msgs().at("won");
 			t.render((sdlutils().width() - t.width()) / 2,
-					(sdlutils().height() - t.height()) / 2);
+				(sdlutils().height() - t.height()) / 2);
 		}
 		if (state == Game::GAMEOVER_WON) {
 			auto& t = sdlutils().msgs().at("lost");
@@ -41,9 +41,9 @@ void GameInfoMsgs::render() {
 		}
 		// new game message
 		if (state == Game::NEWGAME) {
-			auto &t = sdlutils().msgs().at("newgame");
+			auto& t = sdlutils().msgs().at("newgame");
 			t.render((sdlutils().width() - t.width()) / 2,
-					sdlutils().height() / 2 + t.height() * 2);
+				sdlutils().height() / 2 + t.height() * 2);
 		}
 		else if (state == Game::NEWROUND) {
 			auto& t = sdlutils().msgs().at("newround");
@@ -53,6 +53,6 @@ void GameInfoMsgs::render() {
 	}
 
 	// score
-	
+
 
 }
