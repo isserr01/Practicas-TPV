@@ -6,7 +6,6 @@
   ],
   
   "images" : [
-    { "id" : "tennis_ball", "file" : "resources/images/tennis_ball.png" },
     { "id" : "fighter", "file": "resources/images/fighter.png"},
     { "id" : "fire", "file": "resources/images/fire.png"},
     { "id" : "asteroid", "file": "resources/images/asteroid.png"},
@@ -22,7 +21,6 @@
   ],
   
   "sounds" : [
-    { "id" : "paddle_hit", "file" : "resources/sound/paddle_hit.wav" },
     {
       "id": "thrust",
       "file": "resources/sound/thrust.wav"
