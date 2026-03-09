@@ -47,5 +47,5 @@ private:
 	bullets_array_t _bullets;
 	Transform* _tr;
 	Uint16 _lastShotTime=0;
-	int _lastBullet=0;
+	int _lastBullet;
 };

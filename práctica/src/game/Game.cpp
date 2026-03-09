@@ -14,6 +14,7 @@
 #include "../utils/Collisions.h"
 #include "../game/AsteroidsUtils.h"
 #include "../game/FighterUtils.h"
+#include "../components/Gun.h"
 
 
 using ecs::EntityManager;
@@ -93,7 +94,8 @@ void Game::start() {
 void Game::checkCollisions() {
 	auto ship = _mngr->getHandler(ecs::hdlr::FIGHTER);
     auto asteroids = _mngr->getEntities(ecs::grp::ASTEROIDS);
-    auto bullets = _mngr->getEntities(ecs::grp::BULLETS);
+	auto gun = ship->getComponent<Gun>();
+
     Transform* shipTr = ship->getComponent<Transform>();
     assert(shipTr != nullptr);
 
@@ -113,19 +115,27 @@ void Game::checkCollisions() {
             break;
         }
 
-        for (auto ot : bullets) {
+        for (auto &b : *gun) {
+			if (!b.used)continue;
 
-            Transform* bTr = ot->getComponent<Transform>();
-            if (Collisions::collides(tr->getPos(), tr->getWidth(), tr->getHeight(), bTr->getPos(), bTr->getWidth(), bTr->getHeight())) {
-                // destruir bala
-                ot->setAlive(false);
+			if (Collisions::collides(tr->getPos(), tr->getWidth(), tr->getHeight(),
+				b.pos, b.width, b.height)) 
+			{
+				// destruir bala
+				b.used = false;
+				_asteroidsFacade->split_astroid(it);
+
+				break;
+			}
+
+          
                 // dividir asteroide
                 //astMngr->onCollision(it);
                /* auto sound = &SDLUtils::instance()->soundEffects().at(sounds[EXPLOSION]);
                 sound->setVolume(asteroidDestroyVolume);
                 sound->play();*/
-                break;
-            }
+               
+            
         }
     }
 
