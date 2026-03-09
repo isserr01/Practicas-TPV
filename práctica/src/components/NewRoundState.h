@@ -12,7 +12,7 @@ public:
 	virtual ~NewRoundState() {};
 	void leave() override {};
 	void update() override;
-	void enter() override { std::cout << "new round"; };
+	void enter() override {};
 
 };
 

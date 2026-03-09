@@ -87,10 +87,18 @@ public:
 		return _currentState;
 	}
 
+	int getScore() const { return _score; }
+	void addScore(int s) { _score += s; }
+
+	void resetStats() { _score = 0; }
+
 	virtual ~Game();
 	bool init();
 	void start();
 	void checkCollisions();
+	
+
+
 	AsteroidsFacade* getAteroidsFacade() {
 		return _asteroidsFacade;
 	}
@@ -116,5 +124,7 @@ private:
 
 	FighterFacade* _fighterFacade;
 	AsteroidsFacade* _asteroidsFacade;
+
+	int _score = 0;
 };
 

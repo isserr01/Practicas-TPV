@@ -122,6 +122,7 @@ void Game::checkCollisions() {
 				// destruir bala
 				b.used = false;
 				_asteroidsFacade->split_astroid(it);
+				addScore(100);
 
 				break;
 			}
