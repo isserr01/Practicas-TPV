@@ -48,5 +48,5 @@ void NewGameState::update() {
 }
 
 void NewGameState::enter() {
-	_fighterFacade->create_fighter();
+	_fighterFacade->reset_fighter();
 }
