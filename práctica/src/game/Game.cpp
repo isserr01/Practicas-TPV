@@ -127,9 +127,6 @@ void Game::checkCollisions() {
 				break;
 			}
 
-          
-                // dividir asteroide
-                getAteroidsFacade()->split_astroid(it);
                /* auto sound = &SDLUtils::instance()->soundEffects().at(sounds[EXPLOSION]);
                 sound->setVolume(asteroidDestroyVolume);
                 sound->play();*/
