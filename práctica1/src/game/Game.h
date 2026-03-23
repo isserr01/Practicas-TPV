@@ -12,8 +12,6 @@
 #include "FighterFacade.h"
 #include "AsteroidsFacade.h"
 
-//#include "../components/GameOverState.h"
-
 namespace ecs {
 	class EntityManager;
 }

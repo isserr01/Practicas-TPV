@@ -16,14 +16,10 @@
 using ecs::EntityManager;
 
 Game::Game() :
-		_mngr(), //
-		_pacmanSys(), //
-		_gameCtrlSys(), //
-		_startsSys(), //
-		_renderSys(), //
-		_collisionSys() {
-
+	_mngr(nullptr), //
+	_state(nullptr) {
 }
+
 
 Game::~Game() {
 	delete _mngr;
@@ -37,7 +33,7 @@ Game::~Game() {
 		SDLUtils::Release();
 }
 
-void Game::init() {
+bool Game::init() {
 
 	// initialize the SDL singleton
 	if (!SDLUtils::Init("PacMan, Stars, ...", 800, 600,
@@ -45,14 +41,14 @@ void Game::init() {
 
 		std::cerr << "Something went wrong while initializing SDLUtils"
 				<< std::endl;
-		return;
+		return false;
 	}
 
 	// initialize the InputHandler singleton
 	if (!InputHandler::Init()) {
 		std::cerr << "Something went wrong while initializing SDLHandler"
 				<< std::endl;
-		return;
+		return false;
 
 	}
 
@@ -65,6 +61,8 @@ void Game::init() {
 	_gameCtrlSys = _mngr->addSystem<GameCtrlSystem>();
 	_renderSys = _mngr->addSystem<RenderSystem>();
 	_collisionSys = _mngr->addSystem<CollisionsSystem>();
+
+	return true;
 }
 
 void Game::start() {
@@ -95,6 +93,10 @@ void Game::start() {
 		sdlutils().clearRenderer();
 		_renderSys->update();
 		sdlutils().presentRenderer();
+
+		assert(_state != nullptr);
+		_state->update();
+
 
 		Uint32 frameTime = sdlutils().currRealTime() - startTime;
 

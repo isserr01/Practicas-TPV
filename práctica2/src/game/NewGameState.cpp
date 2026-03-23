@@ -10,7 +10,7 @@
 #include "../components/Image.h"
 
 NewGameState::NewGameState() :
-	_msg(sdlutils().msgs().at("start")) {
+	_msg(sdlutils().msgs().at("newgame")) {
 	
 
 }
@@ -21,15 +21,14 @@ void NewGameState::leave() {
 }
 
 void NewGameState::update() {
-
+	std::cout << "new game" << std::endl;
 	auto& inhdlr = ih();
 
 	if (inhdlr.keyDownEvent()) {
-		//Game::Instance()->setState(Game::NEWROUND);
+		Game::Instance()->setState(Game::NEWROUND);
 	}
 
 	sdlutils().clearRenderer();
-
 
 	_msg.render((sdlutils().width() - _msg.width()) / 2,
 		sdlutils().height() / 2 + _msg.height() * 2);
@@ -39,6 +38,5 @@ void NewGameState::update() {
 }
 
 void NewGameState::enter() {
-	
 
 }
