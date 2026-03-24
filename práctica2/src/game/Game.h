@@ -72,6 +72,9 @@ public:
 		_state->enter();
 	}
 
+	ecs::EntityManager* getMngr() {
+		return _mngr;
+	}
 
 	virtual ~Game();
 	bool init();
@@ -80,11 +83,6 @@ private:
 	Game();
 	//entitymanager and systems
 	ecs::EntityManager *_mngr;
-	ecs::System *_pacmanSys;
-	ecs::System *_gameCtrlSys;
-	ecs::System *_startsSys;
-	ecs::System *_renderSys;
-	ecs::System *_collisionSys;
 
 	//game states
 	GameState* _state;

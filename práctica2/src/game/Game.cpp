@@ -5,13 +5,7 @@
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
-#include "../systems/CollisionsSystem.h"
-#include "../systems/GameCtrlSystem.h"
-#include "../systems/PacManSystem.h"
-#include "../systems/RenderSystem.h"
-#include "../systems/StarsSystem.h"
-#include "../utils/Vector2D.h"
-#include "../utils/Collisions.h"
+
 
 using ecs::EntityManager;
 
@@ -55,12 +49,7 @@ bool Game::init() {
 	// Create the manager
 	_mngr = new EntityManager();
 
-	// add the systems
-	_pacmanSys = _mngr->addSystem<PacManSystem>();
-	_startsSys = _mngr->addSystem<StarsSystem>();
-	_gameCtrlSys = _mngr->addSystem<GameCtrlSystem>();
-	_renderSys = _mngr->addSystem<RenderSystem>();
-	_collisionSys = _mngr->addSystem<CollisionsSystem>();
+	
 
 	return true;
 }
@@ -83,25 +72,17 @@ void Game::start() {
 			continue;
 		}
 
-		_pacmanSys->update();
-		_startsSys->update();
-		_gameCtrlSys->update();
-		_collisionSys->update();
 
 		_mngr->refresh();
 
-		sdlutils().clearRenderer();
-		_renderSys->update();
-		sdlutils().presentRenderer();
-
 		assert(_state != nullptr);
 		_state->update();
-
 
 		Uint32 frameTime = sdlutils().currRealTime() - startTime;
 
 		if (frameTime < 10)
 			SDL_Delay(10 - frameTime);
+	
 	}
 
 }

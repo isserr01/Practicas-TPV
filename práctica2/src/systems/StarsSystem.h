@@ -16,5 +16,7 @@ public:
 private:
 	unsigned int _starsLimit;
 	unsigned int _currNumOfStars;
+	unsigned int _starPosX;
+	unsigned int _starPosY;
 };
 

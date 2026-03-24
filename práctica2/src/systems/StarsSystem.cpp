@@ -12,16 +12,17 @@
 #include "GameCtrlSystem.h"
 
 StarsSystem::StarsSystem() :
-		_starsLimit(30), _currNumOfStars(0) {
+		_starsLimit(48), _currNumOfStars(0), _starPosX(10), _starPosY(10) {
 }
 
 StarsSystem::~StarsSystem() {
 }
 
 void StarsSystem::initSystem() {
+
 }
 
-void StarsSystem::update() {
+ void StarsSystem::update() {
 
 	auto currTime = sdlutils().currRealTime();
 	auto stars = _mngr->getEntities(ecs::grp::STARS);
@@ -32,13 +33,6 @@ void StarsSystem::update() {
 		auto starmotion = _mngr->getComponent<StarMotion>(stars[i]);
 
 		if (starmotion->shouldUpdate(currTime)) {
-
-			// rotate it
-			tr->_rot += starmotion->_rot;
-
-			// resize it
-			tr->_width *= 0.95f;
-			tr->_height *= 0.95f;
 
 			// check if it should die
 			if (tr->_width < starmotion->_sizeLimit
@@ -56,40 +50,35 @@ void StarsSystem::addStar(unsigned int n) {
 	//
 	auto &rand = sdlutils().rand();
 
-	auto limit = std::min( //
-			static_cast<unsigned int>(n), //
-			_starsLimit - _currNumOfStars);
+	for (auto i = 0u; i < 6; i++) {
+		for (auto j = 0u;j < 8;j++) {
+			// add and entity to the manager
+			//
+			auto e = _mngr->addEntity(ecs::grp::STARS);
 
-	for (auto i = 0u; i < limit; i++) {
+			// add a Transform component, and initialise it with random
+			// size and position
+			//
+			auto tr = _mngr->addComponent<Transform>(e);
+			tr->init(Vector2D(_starPosX, _starPosY), Vector2D(), 100, 100, 0.0f);
 
-		// add and entity to the manager
-		//
-		auto e = _mngr->addEntity(ecs::grp::STARS);
+			// add an Image Component
+			//
+			_mngr->addComponent<Image>(e, &sdlutils().images().at("star"));
 
-		// add a Transform component, and initialise it with random
-		// size and position
-		//
-		auto tr = _mngr->addComponent<Transform>(e);
-		auto s = rand.nextInt(50, 100);
-		auto x = rand.nextInt(0, sdlutils().width() - s);
-		auto y = rand.nextInt(0, sdlutils().height() - s);
-		tr->init(Vector2D(x, y), Vector2D(), s, s, 0.0f);
+			// add a StarMotion component to resize/rotate the star
+			//
+			auto motion = _mngr->addComponent<StarMotion>(e);
 
-		// add an Image Component
-		//
-		_mngr->addComponent<Image>(e, &sdlutils().images().at("star"));
+			auto pts = _mngr->addComponent<Points>(e);
+			pts->_points = rand.nextInt(1, 5);
 
-		// add a StarMotion component to resize/rotate the star
-		//
-		auto motion = _mngr->addComponent<StarMotion>(e);
-
-		motion->_rot = rand.nextInt(5, 10);
-		motion->_sizeLimit = rand.nextInt(2, 10);
-		motion->_updateFreq = rand.nextInt(20, 100);
-
-		auto pts = _mngr->addComponent<Points>(e);
-		pts->_points = rand.nextInt(1, 5);
-		_currNumOfStars++;
+			_starPosX += 100;
+			
+			_currNumOfStars++;
+		}
+		_starPosY += 100;
+		_starPosX = 0;
 	}
 }
 

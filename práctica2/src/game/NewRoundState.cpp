@@ -20,7 +20,7 @@ void NewRoundState::update() {
 		//// Crear 10 asteroides nuevos
 		//Game::Instance()->getAteroidsFacade()->create_asteroids(10);
 
-		//Game::Instance()->setState(Game::RUNNING);
+		Game::Instance()->setState(Game::RUNNING);
 	}
 
 	sdlutils().clearRenderer();

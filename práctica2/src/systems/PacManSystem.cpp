@@ -36,19 +36,19 @@ void PacManSystem::update() {
 	if (ihldr.keyDownEvent()) {
 
 		if (ihldr.isKeyDown(SDL_SCANCODE_RIGHT)) { // rotate right
-			_pmTR->_rot = _pmTR->_rot + 5.0f;
+			_pmTR->_rot = _pmTR->_rot + 90.0f;
 
 			// also rotate the PacMan so it looks in the same
 			// direction where it moves
 			//
-			_pmTR->_vel = _pmTR->_vel.rotate(5.0f);
+			_pmTR->_vel = _pmTR->_vel.rotate(90.0f);
 		} else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) { // rotate left
-			_pmTR->_rot = _pmTR->_rot - 5.0f;
+			_pmTR->_rot = _pmTR->_rot - 90.0f;
 
 			// also rotate the PacMan so it looks in the same
 			// direction where it moves
 			//
-			_pmTR->_vel = _pmTR->_vel.rotate(-5.0f);
+			_pmTR->_vel = _pmTR->_vel.rotate(-90.0f);
 		} else if (ihldr.isKeyDown(SDL_SCANCODE_UP)) { // increase speed
 
 			// add 1.0f to the speed (respecting the limit 3.0f). Recall

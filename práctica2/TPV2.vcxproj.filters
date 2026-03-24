@@ -239,6 +239,9 @@
     <ClInclude Include="src\game\RunningState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\game\messages_defs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ecs\README.md" />

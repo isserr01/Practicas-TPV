@@ -3,6 +3,13 @@
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../systems/CollisionsSystem.h"
+#include "../systems/GameCtrlSystem.h"
+#include "../systems/PacManSystem.h"
+#include "../systems/RenderSystem.h"
+#include "../systems/StarsSystem.h"
+#include "../utils/Vector2D.h"
+#include "../utils/Collisions.h"
 
 void RunningState::update() {
 	/*auto* game = Game::Instance();
@@ -28,5 +35,34 @@ void RunningState::update() {
 
 	//Game::Instance()->getMngr()->render();
 
+	for (auto sys : systems) {
+		sys->update();
+	}
+
 	sdlutils().presentRenderer();
 }
+
+void RunningState::enter()
+{
+	// add the systems
+	_pacmanSys = Game::Instance()->getMngr()->addSystem<PacManSystem>();
+	_starsSys = Game::Instance()->getMngr()->addSystem<StarsSystem>();
+	_gameCtrlSys = Game::Instance()->getMngr()->addSystem<GameCtrlSystem>();
+	_renderSys = Game::Instance()->getMngr()->addSystem<RenderSystem>();
+	_collisionSys = Game::Instance()->getMngr()->addSystem<CollisionsSystem>();
+
+	systems.push_back(_pacmanSys);
+	systems.push_back(_starsSys);
+	systems.push_back(_renderSys);
+	systems.push_back(_gameCtrlSys);
+	systems.push_back(_collisionSys);
+
+	Message m;
+	m.id = _m_CREATE_STARS;
+	m.create_stars_data.n = 5;
+	Game::Instance()->getMngr()->send(m);
+		
+	
+
+}
+

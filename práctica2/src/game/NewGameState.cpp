@@ -21,7 +21,7 @@ void NewGameState::leave() {
 }
 
 void NewGameState::update() {
-	std::cout << "new game" << std::endl;
+	 
 	auto& inhdlr = ih();
 
 	if (inhdlr.keyDownEvent()) {

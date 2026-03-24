@@ -3,6 +3,7 @@
 
 #include "GameState.h"
 #include <iostream>
+#include <vector>
 #include "../ecs/EntityManager.h"
 
 
@@ -14,11 +15,21 @@ public:
 	virtual ~RunningState() {};
 	void leave() override {};
 	void update() override;
-	void enter() override { std::cout << "running state"; };
+	void enter() override;
 
 private:
 	ecs::EntityManager* _gm;
 	Transform* _fighter;
 	float _lastAsteroidTime = 0;
+
+	//systems
+	ecs::System* _pacmanSys;
+	ecs::System* _gameCtrlSys;
+	ecs::System* _starsSys;
+	ecs::System* _renderSys;
+	ecs::System* _collisionSys;
+
+	std::vector<ecs::System*> systems;
+
 };
 

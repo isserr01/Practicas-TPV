@@ -2,6 +2,8 @@
 
 #pragma once
 
+class Message;
+
 class GameState {
 public:
 	GameState(){}
@@ -10,5 +12,6 @@ public:
 	virtual void update() = 0;
 	virtual void enter() = 0;
 	virtual void leave() = 0;
+	virtual void receive(const Message& m) {};
 };
 
