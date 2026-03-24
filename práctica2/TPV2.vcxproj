@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\Miracle.cpp" />
     <ClCompile Include="src\ecs\EntityManager.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\GameOverState.cpp" />
@@ -45,6 +46,7 @@
     <ClCompile Include="src\utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\Miracle.h" />
     <ClInclude Include="src\components\Points.h" />
     <ClInclude Include="src\components\StarMotion.h" />
     <ClInclude Include="src\components\Transform.h" />

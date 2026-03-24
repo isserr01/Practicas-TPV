@@ -8,12 +8,14 @@ struct Transform;
 struct Image;
 struct StarMotion;
 struct Points;
+struct Miracle;
 
 #define _CMPS_LIST_ \
 	Transform, \
 	Image, \
 	StarMotion, \
-	Points
+	Points, \
+	Miracle
 
 // Groups list - must have at least one element
 //

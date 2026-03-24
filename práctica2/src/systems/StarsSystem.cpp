@@ -6,6 +6,7 @@
 #include "../components/Image.h"
 #include "../components/Points.h"
 #include "../components/StarMotion.h"
+#include "../components/Miracle.h"
 #include "../components/Transform.h"
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/SDLUtils.h"
@@ -30,16 +31,11 @@ void StarsSystem::initSystem() {
 
 	for (auto i = 0u; i < n; i++) {
 		auto tr = _mngr->getComponent<Transform>(stars[i]);
-		auto starmotion = _mngr->getComponent<StarMotion>(stars[i]);
+		auto miracle = _mngr->getComponent<Miracle>(stars[i]);
 
-		if (starmotion->shouldUpdate(currTime)) {
+		if (miracle->switchState(currTime)) {
 
-			// check if it should die
-			if (tr->_width < starmotion->_sizeLimit
-					|| tr->_height < starmotion->_sizeLimit) {
-				_mngr->setAlive(stars[i], false);
-				_currNumOfStars--;
-			}
+			std::cout << "holaa" << std::endl;
 		}
 	}
 }
@@ -52,6 +48,8 @@ void StarsSystem::addStar(unsigned int n) {
 
 	for (auto i = 0u; i < 6; i++) {
 		for (auto j = 0u;j < 8;j++) {
+
+			int m = rand.nextInt(1, 10);
 			// add and entity to the manager
 			//
 			auto e = _mngr->addEntity(ecs::grp::STARS);
@@ -69,6 +67,8 @@ void StarsSystem::addStar(unsigned int n) {
 			// add a StarMotion component to resize/rotate the star
 			//
 			auto motion = _mngr->addComponent<StarMotion>(e);
+			//if (m == 1) _mngr->addComponent<Miracle>(e)
+			_mngr->addComponent<Miracle>(e);
 
 			auto pts = _mngr->addComponent<Points>(e);
 			pts->_points = rand.nextInt(1, 5);
