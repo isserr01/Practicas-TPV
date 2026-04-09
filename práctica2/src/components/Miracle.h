@@ -18,11 +18,13 @@ struct Miracle : public ecs::Component {
 
 	inline bool switchState(Uint32 currTime) {
 		if (N + M < currTime && _isActive) {
-			N = currTime;
+			N = currTime;			
 			return true;
+			_isActive = false;
 		}
 		else {
 			M = currTime;
+			_isActive = true;
 			return false;
 		}
 	}

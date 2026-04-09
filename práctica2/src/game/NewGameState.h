@@ -15,6 +15,7 @@ public:
 	void leave() override;
 	void update() override;
 	void enter() override;
+	void receive(const Message& m) override {};
 private:
 	const Texture& _msg;
 };

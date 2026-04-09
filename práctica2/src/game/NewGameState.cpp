@@ -25,6 +25,9 @@ void NewGameState::update() {
 	auto& inhdlr = ih();
 
 	if (inhdlr.keyDownEvent()) {
+		Message m;
+		m.id = _m_NEW_GAME;
+		Game::Instance()->getMngr()->send(m);
 		Game::Instance()->setState(Game::NEWROUND);
 	}
 
