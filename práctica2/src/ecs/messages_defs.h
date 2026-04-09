@@ -16,7 +16,11 @@
 using msgId_t = uint8_t;
 enum msgId : msgId_t {
 	STAR_EATEN, //
-	CREATE_STARS
+	CREATE_STARS,
+	_m_NEW_GAME, _m_ROUND_START, _m_ROUND_OVER, _m_GAME_OVER,
+	_m_PACMAN_FOOD_COLLISION, _m_PACMAN_GHOST_COLLISION,
+	_m_IMMUNITY_START, _m_IMMUNITY_END
+
 };
 
 
@@ -39,5 +43,11 @@ struct Message {
 			unsigned int n;
 		} create_stars_data;
 
+		// _m_CREATE_GHOST
+		struct {
+			unsigned int n;
+		} create_ghost_data;
+
 	};
+
 };
