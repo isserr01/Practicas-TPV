@@ -52,7 +52,7 @@ namespace grp {
 enum grpId : cmpId_t {
 	DEFAULT,
 	_GRPS_LIST_, /* taken from ../game/ecs_defs */
-	GHOST,
+
 	// do not remove this
 	_LAST_GRP_ID
 };
@@ -63,7 +63,7 @@ namespace hdlr {
 // first number is 0 in C/C++ standard
 enum hdlrId : hdlrId_t {
 	_HDLRS_LIST_, /* taken from ../game/ecs_defs */
-	
+
 	// do not remove this
 	_LAST_HDLR_ID
 };
