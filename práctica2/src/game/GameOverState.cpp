@@ -9,13 +9,13 @@ void GameOverState::update()
 {
 	auto& inhdlr = ih();
 
-	if (inhdlr.keyDownEvent() && inhdlr.isKeyDown(SDL_SCANCODE_RETURN)) {
-		//Game::Instance()->setState(Game::NEWGAME);
+	if (inhdlr.keyDownEvent()) {
+		Game::Instance()->setState(Game::NEWGAME);
 	}
 
 	sdlutils().clearRenderer();
 
-	auto& msg = sdlutils().msgs().at(_won ? "won" : "lost");
+	auto& msg = sdlutils().msgs().at("gameover");
 
 	msg.render(
 		(sdlutils().width() - msg.width()) / 2,

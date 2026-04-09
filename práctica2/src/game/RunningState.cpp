@@ -12,11 +12,10 @@
 #include "../utils/Collisions.h"
 
 void RunningState::update() {
-	/*auto* game = Game::Instance();
+	auto* game = Game::Instance();
 	auto* gm = game->getMngr();
 	auto& ihdlr = ih();
 	auto& vt = sdlutils().virtualTimer();
-	auto ship = gm->getHandler(ecs::hdlr::FIGHTER);*/
 
 	sdlutils().clearRenderer();
 
@@ -29,9 +28,9 @@ void RunningState::update() {
 	//	_lastAsteroidTime = vt.currTime();
 	//}
 
-	//if (ihdlr.keyDownEvent() && ihdlr.isKeyDown(SDL_SCANCODE_P)) {
-	//	Game::Instance()->setState(Game::PAUSED);
-	//}
+	if (ihdlr.keyDownEvent() && ihdlr.isKeyDown(SDL_SCANCODE_P)) {
+		Game::Instance()->setState(Game::PAUSED);
+	}
 
 	//Game::Instance()->getMngr()->render();
 
@@ -64,5 +63,16 @@ void RunningState::enter()
 		
 	
 
+}
+
+void RunningState::receive(const Message& m)
+{
+	switch (m.id) {
+	case _m_ROUND_OVER:
+		Game::Instance()->setState(Game::PAUSED);
+		break;
+	default:
+		break;
+	}
 }
 

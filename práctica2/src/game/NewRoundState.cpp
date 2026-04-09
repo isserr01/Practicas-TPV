@@ -5,6 +5,7 @@
 #include "../sdlutils/Texture.h"
 #include "../game/Game.h"
 #include "../ecs/EntityManager.h"
+#include "messages_defs.h"
 
 
 void NewRoundState::update() {
@@ -20,6 +21,9 @@ void NewRoundState::update() {
 		//// Crear 10 asteroides nuevos
 		//Game::Instance()->getAteroidsFacade()->create_asteroids(10);
 
+		Message m;
+		m.id = _m_ROUND_START;
+		Game::Instance()->getMngr()->send(m);
 		Game::Instance()->setState(Game::RUNNING);
 	}
 
@@ -33,6 +37,11 @@ void NewRoundState::update() {
 	);
 
 	sdlutils().presentRenderer();
+}
+
+void NewRoundState::receive(const Message& m)
+{
+
 }
 
 

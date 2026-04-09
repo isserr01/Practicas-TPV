@@ -26,6 +26,8 @@ struct Transform: public ecs::Component {
 		_rot = r;
 	}
 
+	inline Vector2D getPos() { return _pos; }
+
 	Vector2D _pos;
 	Vector2D _vel;
 	float _width;

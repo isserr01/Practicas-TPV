@@ -2,7 +2,7 @@
 
 #pragma once
 
-class Message;
+#include "messages_defs.h"
 
 class GameState {
 public:
@@ -12,6 +12,6 @@ public:
 	virtual void update() = 0;
 	virtual void enter() = 0;
 	virtual void leave() = 0;
-	virtual void receive(const Message& m) {};
+	virtual void receive(const Message &m) = 0;
 };
 

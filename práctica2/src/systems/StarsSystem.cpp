@@ -11,6 +11,7 @@
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/SDLUtils.h"
 #include "GameCtrlSystem.h"
+#include "../game/Game.h"
 
 StarsSystem::StarsSystem() :
 		_starsLimit(48), _currNumOfStars(0), _starPosX(10), _starPosY(10) {
@@ -85,6 +86,13 @@ void StarsSystem::addStar(unsigned int n) {
 void StarsSystem::onStarEaten(ecs::entity_t e) {
 	_mngr->setAlive(e, false);
 	_currNumOfStars--;
+
+	if(_currNumOfStars == 0) {
+		Message m;
+		m.id = _m_ROUND_OVER;
+		Game::Instance()->getMngr()->send(m);
+		Game::Instance()->setState(Game::GAMEOVER_WON);
+	}
 
 	// play sound on channel 1 (if there is something playing there
 	// it will be cancelled

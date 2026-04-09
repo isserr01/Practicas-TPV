@@ -18,10 +18,10 @@ void PausedState::update() {
 	sdlutils().clearRenderer();
 
 	if (ih().keyDownEvent()) {
-		//Game::Instance()->setState(Game::RUNNING);
+		Game::Instance()->setState(Game::RUNNING);
 	}
 
-	auto& msg = sdlutils().msgs().at("continue");
+	auto& msg = sdlutils().msgs().at("paused");
 
 	msg.render(
 		(sdlutils().width() - msg.width()) / 2,
