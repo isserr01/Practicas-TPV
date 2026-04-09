@@ -32,6 +32,7 @@ struct Miracle;
 class StarsSystem;
 class RenderSystem;
 class PacManSystem;
+class GhostSystem;
 class GameCtrlSystem;
 class CollisionsSystem;
 
@@ -39,6 +40,7 @@ class CollisionsSystem;
     StarsSystem, \
 	RenderSystem, \
 	PacManSystem, \
+	GhostSystem, \
 	GameCtrlSystem, \
 	CollisionsSystem
 
