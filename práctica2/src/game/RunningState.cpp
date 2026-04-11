@@ -7,6 +7,7 @@
 #include "../systems/GameCtrlSystem.h"
 #include "../systems/PacManSystem.h"
 #include "../systems/RenderSystem.h"
+#include "../systems/GhostSystem.h"
 #include "../systems/StarsSystem.h"
 #include "../utils/Vector2D.h"
 #include "../utils/Collisions.h"
@@ -46,12 +47,14 @@ void RunningState::enter()
 	// add the systems
 	_pacmanSys = Game::Instance()->getMngr()->addSystem<PacManSystem>();
 	_starsSys = Game::Instance()->getMngr()->addSystem<StarsSystem>();
+	_ghostSys = Game::Instance()->getMngr()->addSystem<GhostSystem>();
 	_gameCtrlSys = Game::Instance()->getMngr()->addSystem<GameCtrlSystem>();
 	_renderSys = Game::Instance()->getMngr()->addSystem<RenderSystem>();
 	_collisionSys = Game::Instance()->getMngr()->addSystem<CollisionsSystem>();
 
 	systems.push_back(_pacmanSys);
 	systems.push_back(_starsSys);
+	systems.push_back(_ghostSys);
 	systems.push_back(_renderSys);
 	systems.push_back(_gameCtrlSys);
 	systems.push_back(_collisionSys);

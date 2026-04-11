@@ -17,6 +17,7 @@ private:
 	void drawStars();
 	void drawPacMan();
 	void drawMsgs();
+	void drawGhosts();
 	void draw(Transform *tr, const Texture *tex);
 };
 

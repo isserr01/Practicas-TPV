@@ -24,6 +24,7 @@ void RenderSystem::update() {
 	drawMsgs();
 	drawStars();
 	drawPacMan();
+	drawGhosts();
 }
 
 void RenderSystem::drawStars() {
@@ -43,7 +44,15 @@ void RenderSystem::drawPacMan() {
 	draw(tr, tex);
 
 }
+void RenderSystem::drawGhosts() {
+	// draw ghosts
+	for (auto g : _mngr->getEntities(ecs::grp::GHOSTS)) {
 
+		auto tr = _mngr->getComponent<Transform>(g);
+		auto tex = _mngr->getComponent<Image>(g)->_tex;
+		draw(tr, tex);
+	}
+}
 
 void RenderSystem::drawMsgs() {
 	// draw the score

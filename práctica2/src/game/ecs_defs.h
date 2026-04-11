@@ -20,7 +20,8 @@ struct Miracle;
 // Groups list - must have at least one element
 //
 #define _GRPS_LIST_ \
-	STARS
+	STARS, \
+	GHOSTS
 
 // Handlers list - must have at least one element
 //
@@ -32,6 +33,7 @@ struct Miracle;
 class StarsSystem;
 class RenderSystem;
 class PacManSystem;
+class GhostSystem;
 class GameCtrlSystem;
 class CollisionsSystem;
 
@@ -39,6 +41,7 @@ class CollisionsSystem;
     StarsSystem, \
 	RenderSystem, \
 	PacManSystem, \
+	GhostSystem, \
 	GameCtrlSystem, \
 	CollisionsSystem
 

@@ -25,6 +25,7 @@ private:
 	//systems
 	ecs::System* _pacmanSys;
 	ecs::System* _gameCtrlSys;
+	ecs::System* _ghostSys;
 	ecs::System* _starsSys;
 	ecs::System* _renderSys;
 	ecs::System* _collisionSys;
