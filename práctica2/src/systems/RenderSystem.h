@@ -2,6 +2,7 @@
 
 #pragma once
 #include "../ecs/System.h"
+#include"../components/ImageWithFrames.h"
 
 class Texture;
 struct Transform;
@@ -18,6 +19,6 @@ private:
 	void drawPacMan();
 	void drawMsgs();
 	void drawGhosts();
-	void draw(Transform *tr, const Texture *tex);
+	void draw(Transform *tr, const Texture *tex, ImageWithFrames* anim);
 };
 

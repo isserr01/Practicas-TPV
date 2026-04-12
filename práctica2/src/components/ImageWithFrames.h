@@ -7,6 +7,7 @@
 #include "../sdlutils/Texture.h"
 #include "../ecs/Entity.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../game/Game.h"
 
 struct ImageWithFrames : public ecs::Component {
 
@@ -34,9 +35,11 @@ struct ImageWithFrames : public ecs::Component {
 
 	void initComponent()
 	{
+		_tr = Game::Instance()->getMngr()->getComponent<Transform>(_ent);
 		//aquí hay que crear una instancia del objeto actual en cuestión :3
 		//el objeto siendo el parámetro "e" que le pasamos a getComponent
 		assert(_tr != nullptr);
+		
 		//_tr = Game::Instance()->getMngr()->getComponent<Transform>(e);
 	}
 
@@ -53,15 +56,27 @@ struct ImageWithFrames : public ecs::Component {
 	{
 		if (!_tr) return;
 	/*	SDL_FRect dest = build_sdlfrect(_tr->getPos(), _tr->getWidth(),
-			_tr->getHeight());*/
-
-		SDL_FRect src{
+			_tr->getHeight());
+			SDL_FRect src{
 			(_currentFrame % _cols) * _frameWidth,
 			(_currentFrame / _cols) * _frameHeight,
 			_frameWidth, _frameHeight
+		};*/
+
+		SDL_FRect src{
+			float((_currentFrame % _cols) * _frameWidth),
+			float((_currentFrame / _cols) * _frameHeight),
+			float(_frameWidth),
+			float(_frameHeight)
+		};
+		SDL_FRect dst{
+		_tr->getPos().getX(),
+		_tr->getPos().getY(),
+		float(_frameWidth),
+		float(_frameHeight)
 		};
 
-		//_tex->render(src, dest, _tr->getRot());
+		_tex->render(src, dst, _tr->_rot);
 
 	}
 

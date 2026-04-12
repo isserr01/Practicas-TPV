@@ -6,6 +6,7 @@
 //
 struct Transform;
 struct Image;
+struct ImageWithFrames;
 struct StarMotion;
 struct Points;
 struct Miracle;
@@ -13,6 +14,7 @@ struct Miracle;
 #define _CMPS_LIST_ \
 	Transform, \
 	Image, \
+	ImageWithFrames, \
 	StarMotion, \
 	Points, \
 	Miracle

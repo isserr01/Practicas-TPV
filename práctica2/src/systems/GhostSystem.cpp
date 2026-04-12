@@ -2,13 +2,14 @@
 
 #include "GhostSystem.h"
 
-#include "../components/Image.h"
+#include "../components/ImageWithFrames.h"
 #include "../components/Transform.h"
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../game/Game.h"
 #include "../sdlutils/SDLUtils.h"
 #include "PacManSystem.h"
+
 
 #include <cstdlib>
 
@@ -38,7 +39,8 @@ void GhostSystem::spawnGhost() {
 
 	auto tr = _mngr->addComponent<Transform>(ghost);
 	tr->init(pos, Vector2D(), s, s, 0.0f);
-	_mngr->addComponent<Image>(ghost, &sdlutils().images().at("ghostRed"));
+	//fantasma rojo
+	_mngr->addComponent<ImageWithFrames>(ghost, &sdlutils().images().at("sprites"),2,1,0.1f);
 	ghosts.push_back(ghost);
 }
 
@@ -53,10 +55,10 @@ void GhostSystem::update() {
 	Vector2D pmPos = pmTR->getPos();
 	for (auto g : ghosts) {
 		if (immunity) {
-			_mngr->getComponent<Image>(g)->_tex = &sdlutils().images().at("ghostBlue");
+			_mngr->getComponent<ImageWithFrames>(g)->_tex = &sdlutils().images().at("sprites"), 2, 1, 0.1f;
 		}
 		else {
-			_mngr->getComponent<Image>(g)->_tex = &sdlutils().images().at("ghostRed");
+			_mngr->getComponent<ImageWithFrames>(g)->_tex = &sdlutils().images().at("sprites"), 2, 1, 0.1f;
 		}
 		auto tr = _mngr->getComponent<Transform>(g);
 
@@ -82,7 +84,6 @@ void GhostSystem::update() {
 		//cambio color fantasma cuando pacman es inmortal
 		
 	}
-	std::cout << immunity << std::endl;
 	timerGhost ++; 
 	
 }

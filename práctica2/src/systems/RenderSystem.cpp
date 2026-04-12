@@ -9,6 +9,7 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/Texture.h"
 #include "GameCtrlSystem.h"
+#include"../components/ImageWithFrames.h"
 
 RenderSystem::RenderSystem() {
 
@@ -33,15 +34,19 @@ void RenderSystem::drawStars() {
 
 		auto tr = _mngr->getComponent<Transform>(e);
 		auto tex = _mngr->getComponent<Image>(e)->_tex;
-		draw(tr, tex);
+		draw(tr, tex,nullptr);
 	}
 }
 
 void RenderSystem::drawPacMan() {
 	auto e = _mngr->getHandler(ecs::hdlr::PACMAN);
 	auto tr = _mngr->getComponent<Transform>(e);
-	auto tex = _mngr->getComponent<Image>(e)->_tex;
-	draw(tr, tex);
+
+	auto img = _mngr->getComponent<Image>(e);
+	auto anim = _mngr->getComponent<ImageWithFrames>(e);
+
+	draw(tr, img->_tex, anim);
+
 
 }
 void RenderSystem::drawGhosts() {
@@ -50,7 +55,9 @@ void RenderSystem::drawGhosts() {
 
 		auto tr = _mngr->getComponent<Transform>(g);
 		auto tex = _mngr->getComponent<Image>(g)->_tex;
-		draw(tr, tex);
+		auto anim = _mngr->getComponent<ImageWithFrames>(g);
+		draw(tr, tex, anim);
+
 	}
 }
 
@@ -75,9 +82,22 @@ void RenderSystem::drawMsgs() {
 
 }
 
-void RenderSystem::draw(Transform *tr, const Texture *tex) {
+void RenderSystem::draw(Transform *tr, const Texture *tex, ImageWithFrames* anim) {
 	SDL_FRect dest = build_sdlfrect(tr->_pos, tr->_width, tr->_height);
+	if (anim == nullptr) {
+		// Imagen normal
+		tex->render(dest, tr->_rot);
+		return;
+	}
+	//assert(tex != nullptr);
+	// Imagen animada
+	SDL_FRect src{
+		(float)((anim->_currentFrame % anim->_cols) * anim->_frameWidth),
+		(float)((anim->_currentFrame / anim->_cols) * anim->_frameHeight),
+		(float)anim->_frameWidth,
+		(float)anim->_frameHeight
+	};
 
-	assert(tex != nullptr);
-	tex->render(dest, tr->_rot);
+	tex->render(src, dest, tr->_rot);
+
 }
