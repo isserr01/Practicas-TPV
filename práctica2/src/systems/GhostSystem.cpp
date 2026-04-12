@@ -6,6 +6,7 @@
 #include "../components/Transform.h"
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/InputHandler.h"
+#include "../game/Game.h"
 #include "../sdlutils/SDLUtils.h"
 #include "PacManSystem.h"
 
@@ -79,3 +80,27 @@ void GhostSystem::update() {
 	timerGhost ++; 
 	
 }
+//colision entre pacman y fantasma (siendo inmortal)
+void GhostSystem::colisionPac(ecs::entity_t e) {
+	if (immunity) {
+		_mngr->setAlive(e, false);
+		cantidadGhosts--;
+	}
+	else {
+		Message m;
+		m.id = _m_ROUND_OVER;
+		Game::Instance()->getMngr()->send(m);
+		Game::Instance()->setState(Game::GAMEOVER_LOST);
+	}
+}
+
+void GhostSystem::recieve(const Message& m) {
+	switch (m.id) {
+	case _m_PACMAN_GHOST_COLLISION:
+		colisionPac(m.ghost_coll_data.e);
+		break;
+	default:
+		break;
+	}
+}
+

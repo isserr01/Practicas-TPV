@@ -53,6 +53,29 @@ void CollisionsSystem::update() {
 			}
 		}
 	}
+	auto& ghost = _mngr->getEntities(ecs::grp::GHOSTS);
+	auto x = ghost.size();
+	for (auto i = 0u; i < x; i++) {
+		auto e = ghost[i];
+		if (_mngr->isAlive(e)) { // if the ghost is active (it might have died in this frame)
+
+			// the Star's Transform
+			//
+			auto gTR = _mngr->getComponent<Transform>(e);
+
+			// check if PacMan collides with the Star (i.e., eat it)
+			if (Collisions::collides(			//
+				pTR->_pos, pTR->_width, pTR->_height, //
+				gTR->_pos, gTR->_width, gTR->_height)) {
+
+				Message m;
+				m.id = _m_PACMAN_GHOST_COLLISION;
+				m.ghost_coll_data.e = e;
+				_mngr->send(m);
+
+			}
+		}
+	}
 
 }
 

@@ -14,6 +14,8 @@ public:
 	virtual ~GhostSystem();
 	void spawnGhost();
 	void update() override;
+	void recieve(const Message& msg) override;
+	void colisionPac(ecs::entity_t e);
 private:
 	std::vector<ecs::Entity*> ghosts;
 	Transform* gmTR;

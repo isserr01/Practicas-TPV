@@ -35,5 +35,10 @@ struct Message {
 			unsigned int n;
 		} create_stars_data;
 
+		// _m_GHOST_EATEN
+		struct {
+			ecs::entity_t e;
+		} ghost_coll_data;
+
 	};
 };
