@@ -8,6 +8,7 @@
 #include "../components/StarMotion.h"
 #include "../components/Miracle.h"
 #include "../components/Transform.h"
+#include "../components/ImageWithFrames.h"
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/SDLUtils.h"
 #include "GameCtrlSystem.h"
@@ -24,27 +25,29 @@ void StarsSystem::initSystem() {
 
 }
 
- void StarsSystem::update() {
-
-	auto currTime = sdlutils().currRealTime()/1000.0f;
+void StarsSystem::update() {
+	auto currTime = sdlutils().currRealTime() / 1000.0f;
 	auto stars = _mngr->getEntities(ecs::grp::STARS);
-	auto n = stars.size();
 
 	for (auto e : stars) {
-		//auto tr = _mngr->getComponent<Transform>(e);
 		auto miracle = _mngr->getComponent<Miracle>(e);
+		auto anim = _mngr->getComponent<ImageWithFrames>(e);
+
+		int currentFrame = anim->_frames.empty() ? -1 : anim->_frames[0];
+		int newFrame = currentFrame;
 
 		if (miracle->switchState(currTime)) {
-
 			if (miracle->isMiraculous()) {
-				std::cout << "ESTRELLA MILAGROSA\n";
-				_mngr->addComponent<Image>(e, &sdlutils().images().at("star"));
+				newFrame = 12;
 			}
 			else {
-				_mngr->addComponent<Image>(e, &sdlutils().images().at("pacman"));
+				newFrame = 15;
 			}
 		}
 
+		if (newFrame != currentFrame && newFrame != -1) {
+			anim->setFrames({ newFrame });
+		}
 	}
 }
 
@@ -70,7 +73,9 @@ void StarsSystem::addStar(unsigned int n) {
 
 			// add an Image Component
 			//
-			_mngr->addComponent<Image>(e, &sdlutils().images().at("star"));
+			auto tex = &sdlutils().images().at("sprites");
+			auto anim =_mngr->addComponent<ImageWithFrames>(e,tex,8,8,100);
+			anim->setFrames({ 4 });
 
 			// add a StarMotion component to resize/rotate the star
 			//
