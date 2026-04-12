@@ -90,6 +90,7 @@ void GhostSystem::update() {
 void GhostSystem::colisionPac(ecs::entity_t e) {
 	if (immunity) {
 		_mngr->setAlive(e, false);
+		ghosts.erase(std::remove(ghosts.begin(), ghosts.end(), e), ghosts.end());
 		cantidadGhosts--;
 	}
 	else {
