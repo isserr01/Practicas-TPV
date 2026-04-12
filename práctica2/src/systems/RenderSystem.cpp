@@ -59,9 +59,8 @@ void RenderSystem::drawGhosts() {
 	for (auto g : _mngr->getEntities(ecs::grp::GHOSTS)) {
 
 		auto tr = _mngr->getComponent<Transform>(g);
-		auto tex = _mngr->getComponent<Image>(g)->_tex;
 		auto anim = _mngr->getComponent<ImageWithFrames>(g);
-		draw(tr, tex, anim);
+		draw(tr, anim->_tex, anim);
 
 	}
 }
@@ -87,23 +86,33 @@ void RenderSystem::drawMsgs() {
 
 }
 
-void RenderSystem::draw(Transform *tr, const Texture *tex, ImageWithFrames* anim) {
+void RenderSystem::draw(Transform* tr, const Texture* tex, ImageWithFrames* anim) {
 	SDL_FRect dest = build_sdlfrect(tr->_pos, tr->_width, tr->_height);
 	if (anim == nullptr) {
 		// Imagen normal
 		tex->render(dest, tr->_rot);
 		return;
 	}
-	//assert(tex != nullptr);
-	// Imagen animada
+
+	// Verificar que hay frames para mostrar
+	if (anim->_frames.empty()) {
+		tex->render(dest, tr->_rot);
+		return;
+	}
+
+	// Obtener el número de frame actual de la lista de frames
+	int frameNumber = anim->_frames[anim->_index];
+
+	// Calcular la posición en la textura (assume grid layout)
+	int frameX = (frameNumber % anim->_cols) * anim->_frameWidth;
+	int frameY = (frameNumber / anim->_cols) * anim->_frameHeight;
+
 	SDL_FRect src{
-		(float)((anim->_currentFrame % anim->_cols) * anim->_frameWidth),
-		(float)((anim->_currentFrame / anim->_cols) * anim->_frameHeight),
+		(float)frameX,
+		(float)frameY,
 		(float)anim->_frameWidth,
 		(float)anim->_frameHeight
 	};
 
-
 	tex->render(src, dest, tr->_rot);
-
 }

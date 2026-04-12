@@ -62,7 +62,10 @@ void Game::start() {
 	auto &ihdlr = ih();
 
 	while (!exit) {
-		Uint32 startTime = sdlutils().currRealTime();
+		// Registrar el tiempo actual y calcular deltaTime
+		sdlutils().regCurrTime();  // <-- ¡Esto es crucial!
+
+		Uint32 startTime = sdlutils().currRealTime();  // O puedes eliminar esto si usas regCurrTime()
 
 		// refresh the input handler
 		ihdlr.refresh();
@@ -71,7 +74,6 @@ void Game::start() {
 			exit = true;
 			continue;
 		}
-
 
 		_mngr->refresh();
 
@@ -82,7 +84,6 @@ void Game::start() {
 
 		if (frameTime < 10)
 			SDL_Delay(10 - frameTime);
-	
 	}
 
 }

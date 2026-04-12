@@ -18,9 +18,10 @@ struct ImageWithFrames : public ecs::Component {
 	float _elapsedTime;
 	std::vector<int> _frames;
 	Transform* _tr;
+	Uint64 _lastFrameTime;
+	int _frameDelayMs;
 
 	ImageWithFrames(const Texture* tex, int cols, int rows, float frameTime);
-
 	void initComponent() override;
 	void update();
 	void render();

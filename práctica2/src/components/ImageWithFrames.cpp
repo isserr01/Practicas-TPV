@@ -9,7 +9,9 @@ ImageWithFrames::ImageWithFrames(const Texture* tex, int cols, int rows, float f
 	: _tex(tex), _cols(cols), _rows(rows),
 	_currentFrame(0), _frameTime(frameTime),
 	_index(0),
-	_elapsedTime(0.0f), _tr(nullptr)
+	_elapsedTime(0.0f), _tr(nullptr),
+	_lastFrameTime(0),
+	_frameDelayMs(static_cast<int>(frameTime * 1000))
 {
 	_totalFrames = _cols * _rows;
 	_frameWidth = _tex->width() / _cols;
@@ -26,13 +28,21 @@ void ImageWithFrames::update()
 {
 	if (_frames.empty()) return;
 
-	_elapsedTime += float(sdlutils().deltaTime());
+	Uint64 currentTime = sdlutils().currTime();  // Esto devuelve el tiempo registrado
 
-	if (_elapsedTime >= _frameTime) {
+	if (_lastFrameTime == 0) {
+		_lastFrameTime = currentTime;
+		return;
+	}
+
+	// Verificar si ha pasado suficiente tiempo
+	if (currentTime - _lastFrameTime >= _frameDelayMs) {
 		_index = (_index + 1) % _frames.size();
-		_elapsedTime = 0.0f;
+		_lastFrameTime = currentTime;
+
 	}
 }
+
 
 void ImageWithFrames::render()
 {
