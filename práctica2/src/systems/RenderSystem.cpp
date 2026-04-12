@@ -22,6 +22,13 @@ void RenderSystem::initSystem() {
 }
 
 void RenderSystem::update() {
+	for (auto e : _mngr->getEntities()) {
+
+		auto anim = _mngr->getComponent<ImageWithFrames>(e);
+
+		if (anim != nullptr)
+			anim->update();
+	}
 	drawMsgs();
 	drawStars();
 	drawPacMan();
@@ -42,13 +49,11 @@ void RenderSystem::drawPacMan() {
 	auto e = _mngr->getHandler(ecs::hdlr::PACMAN);
 	auto tr = _mngr->getComponent<Transform>(e);
 
-	auto img = _mngr->getComponent<Image>(e);
 	auto anim = _mngr->getComponent<ImageWithFrames>(e);
 
-	draw(tr, img->_tex, anim);
-
-
+	draw(tr, anim->_tex, anim);
 }
+
 void RenderSystem::drawGhosts() {
 	// draw ghosts
 	for (auto g : _mngr->getEntities(ecs::grp::GHOSTS)) {
@@ -97,6 +102,7 @@ void RenderSystem::draw(Transform *tr, const Texture *tex, ImageWithFrames* anim
 		(float)anim->_frameWidth,
 		(float)anim->_frameHeight
 	};
+
 
 	tex->render(src, dest, tr->_rot);
 

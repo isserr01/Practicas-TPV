@@ -5,49 +5,63 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../game/Game.h"
 
-//ImageWithFrames::ImageWithFrames(const Texture* tex, int cols, int rows, float frameTime)
-//	: _cols(cols), _rows(rows),
-//	_currentFrame(0), _elapsedTime(0.0f),
-//	_frameTime(frameTime),
-//	_tex(tex)
-//{
-//	_totalFrames = _cols * _rows;
-//	_tr = nullptr;
-//	_frameWidth = _tex->width() / _cols;
-//	_frameHeight = _tex->height() / _rows;
-//
-//}
-//
-//void ImageWithFrames::initComponent()
-//{
-//	_tr = Game::Instance()->getMngr()->getComponent<Transform>();
-//	assert(_tr != nullptr);
-//}
-//
-//void ImageWithFrames::update()
-//{
-//	_elapsedTime += sdlutils().deltaTime();
-//	if (_elapsedTime >= _frameTime) {
-//		_currentFrame = (_currentFrame + 1) % _totalFrames;
-//		_elapsedTime = 0.0f;
-//	}
-//}
-//
-//void ImageWithFrames::render()
-//{
-//	if (!_tr) return;
-//	SDL_FRect dest = build_sdlfrect(_tr->getPos(), _tr->getWidth(),
-//		_tr->getHeight());
-//
-//	SDL_FRect src{
-//		(_currentFrame % _cols) * _frameWidth,
-//		(_currentFrame / _cols) * _frameHeight,
-//		_frameWidth, _frameHeight
-//	};
-//
-//	_tex->render(src, dest, _tr->getRot());
-//
-//}
+ImageWithFrames::ImageWithFrames(const Texture* tex, int cols, int rows, float frameTime)
+	: _tex(tex), _cols(cols), _rows(rows),
+	_currentFrame(0), _frameTime(frameTime),
+	_index(0),
+	_elapsedTime(0.0f), _tr(nullptr)
+{
+	_totalFrames = _cols * _rows;
+	_frameWidth = _tex->width() / _cols;
+	_frameHeight = _tex->height() / _rows;
+}
+
+void ImageWithFrames::initComponent()
+{
+	_tr = Game::Instance()->getMngr()->getComponent<Transform>(_ent);
+	assert(_tr != nullptr);
+}
+
+void ImageWithFrames::update()
+{
+	if (_frames.empty()) return;
+
+	_elapsedTime += float(sdlutils().deltaTime());
+
+	if (_elapsedTime >= _frameTime) {
+		_index = (_index + 1) % _frames.size();
+		_elapsedTime = 0.0f;
+	}
+}
+
+void ImageWithFrames::render()
+{
+	if (_tr == nullptr || _frames.empty()) return;
+
+	int frame = _frames[_index];
+
+	SDL_FRect src{
+		float((frame % _cols) * _frameWidth),
+		float((frame / _cols) * _frameHeight),
+		float(_frameWidth),
+		float(_frameHeight)
+	};
+
+	SDL_FRect dest{
+		_tr->_pos.getX(),
+		_tr->_pos.getY(),
+		_tr->_width,
+		_tr->_height
+	};
+
+	_tex->render(src, dest, _tr->_rot);
+}
+
+void ImageWithFrames::setFrames(const std::vector<int>& frames)
+{
+	_frames = frames;
+	_index = 0;
+}
 
 
 

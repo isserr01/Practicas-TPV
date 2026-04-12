@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\components\Immunity.cpp" />
     <ClCompile Include="src\components\Health.cpp" />
+    <ClCompile Include="src\systems\GhostSystem.cpp" />
     <ClCompile Include="src\systems\ImmunitySystem.cpp" />
     <ClCompile Include="src\components\ImageWithFrames.cpp" />
     <ClCompile Include="src\components\Miracle.cpp" />
@@ -55,6 +56,7 @@
     <ClInclude Include="src\components\Health.h" />
     <ClInclude Include="src\ecs\ecs.h" />
     <ClInclude Include="src\ecs\ecs_defs_example.h" />
+    <ClInclude Include="src\systems\GhostSystem.h" />
     <ClInclude Include="src\systems\ImmunitySystem.h" />
     <ClInclude Include="src\components\Image.h" />
     <ClInclude Include="src\components\ImageWithFrames.h" />
