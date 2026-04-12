@@ -26,18 +26,25 @@ void StarsSystem::initSystem() {
 
  void StarsSystem::update() {
 
-	auto currTime = sdlutils().currRealTime();
+	auto currTime = sdlutils().currRealTime()/1000.0f;
 	auto stars = _mngr->getEntities(ecs::grp::STARS);
 	auto n = stars.size();
 
-	for (auto i = 0u; i < n; i++) {
-		auto tr = _mngr->getComponent<Transform>(stars[i]);
-		auto miracle = _mngr->getComponent<Miracle>(stars[i]);
+	for (auto e : stars) {
+		//auto tr = _mngr->getComponent<Transform>(e);
+		auto miracle = _mngr->getComponent<Miracle>(e);
 
 		if (miracle->switchState(currTime)) {
 
-			std::cout << "holaa" << std::endl;
+			if (miracle->isMiraculous()) {
+				std::cout << "ESTRELLA MILAGROSA\n";
+				_mngr->addComponent<Image>(e, &sdlutils().images().at("star"));
+			}
+			else {
+				_mngr->addComponent<Image>(e, &sdlutils().images().at("pacman"));
+			}
 		}
+
 	}
 }
 
@@ -98,6 +105,15 @@ void StarsSystem::onStarEaten(ecs::entity_t e) {
 	// it will be cancelled
 	sdlutils().soundEffects().at("pacman_eat").play("se");
 }
+void StarsSystem::resetTimers() {
+	auto stars = _mngr->getEntities(ecs::grp::STARS);
+	Uint32 now = sdlutils().currRealTime();
+
+	for (auto e : stars) {
+		auto miracle = _mngr->getComponent<Miracle>(e);
+		miracle->reset(now);
+	}
+}
 
 void StarsSystem::recieve(const Message &m) {
 	switch (m.id) {
@@ -106,6 +122,9 @@ void StarsSystem::recieve(const Message &m) {
 		break;
 	case _m_CREATE_STARS:
 		addStar(m.create_stars_data.n);
+		break;
+	case _m_ROUND_START:
+		resetTimers();
 		break;
 	default:
 		break;

@@ -44,8 +44,8 @@ void CollisionsSystem::update() {
 			if (Collisions::collides(			//
 					pTR->_pos, pTR->_width, pTR->_height, //
 					eTR->_pos, eTR->_width, eTR->_height)) {
-
 				Message m;
+				std::cout << "COLLISION PACMAN-STAR\n";
 				m.id = _m_STAR_EATEN;
 				m.star_eaten_data.e = e;
 				_mngr->send(m);

@@ -38,13 +38,12 @@ void GhostSystem::spawnGhost() {
 
 	auto tr = _mngr->addComponent<Transform>(ghost);
 	tr->init(pos, Vector2D(), s, s, 0.0f);
-	_mngr->addComponent<Image>(ghost, &sdlutils().images().at("pacman"));
+	_mngr->addComponent<Image>(ghost, &sdlutils().images().at("ghostRed"));
 	ghosts.push_back(ghost);
 }
 
 void GhostSystem::update() {
 	if (!immunity && timerGhost >= 100.0f && cantidadGhosts < 10) {
-		std::cout << "ENTRA IF" << std::endl;
 		spawnGhost();
 		timerGhost = 0.0f;
 		cantidadGhosts++;
@@ -53,7 +52,12 @@ void GhostSystem::update() {
 	auto pmTR = _mngr->getComponent<Transform>(pacman);
 	Vector2D pmPos = pmTR->getPos();
 	for (auto g : ghosts) {
-
+		if (immunity) {
+			_mngr->getComponent<Image>(g)->_tex = &sdlutils().images().at("ghostBlue");
+		}
+		else {
+			_mngr->getComponent<Image>(g)->_tex = &sdlutils().images().at("ghostRed");
+		}
 		auto tr = _mngr->getComponent<Transform>(g);
 
 		float r =(float) rand() / RAND_MAX;
@@ -75,8 +79,10 @@ void GhostSystem::update() {
 
 		if (y <= 0 || y >= h)
 			tr->_vel.setY(-(tr->_vel.getY()));
+		//cambio color fantasma cuando pacman es inmortal
+		
 	}
-	std::cout << "ANTES" << timerGhost << std::endl;
+	std::cout << immunity << std::endl;
 	timerGhost ++; 
 	
 }
@@ -98,6 +104,12 @@ void GhostSystem::recieve(const Message& m) {
 	switch (m.id) {
 	case _m_PACMAN_GHOST_COLLISION:
 		colisionPac(m.ghost_coll_data.e);
+		break;
+	case _m_IMMUNITY_START:
+		immunity = true;
+		break;
+	case _m_IMMUNITY_END:
+		immunity = false;
 		break;
 	default:
 		break;

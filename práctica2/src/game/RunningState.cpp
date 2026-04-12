@@ -9,6 +9,7 @@
 #include "../systems/RenderSystem.h"
 #include "../systems/GhostSystem.h"
 #include "../systems/StarsSystem.h"
+#include "../systems/ImmunitySystem.h"
 #include "../utils/Vector2D.h"
 #include "../utils/Collisions.h"
 
@@ -51,6 +52,7 @@ void RunningState::enter()
 	_gameCtrlSys = Game::Instance()->getMngr()->addSystem<GameCtrlSystem>();
 	_renderSys = Game::Instance()->getMngr()->addSystem<RenderSystem>();
 	_collisionSys = Game::Instance()->getMngr()->addSystem<CollisionsSystem>();
+	_immunitySys = Game::Instance()->getMngr()->addSystem<ImmunitySystem>();
 
 	systems.push_back(_pacmanSys);
 	systems.push_back(_starsSys);
@@ -58,6 +60,7 @@ void RunningState::enter()
 	systems.push_back(_renderSys);
 	systems.push_back(_gameCtrlSys);
 	systems.push_back(_collisionSys);
+	systems.push_back(_immunitySys);
 
 	Message m;
 	m.id = _m_CREATE_STARS;
