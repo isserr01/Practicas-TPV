@@ -11,7 +11,6 @@ struct ImageWithFrames : public ecs::Component {
 	const Texture* _tex;
 	int _frameWidth, _frameHeight;
 	int _cols, _rows;
-	int _currentFrame;
 	int _index;
 	int _totalFrames;
 	float _frameTime;

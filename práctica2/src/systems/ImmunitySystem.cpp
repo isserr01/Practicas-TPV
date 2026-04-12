@@ -41,7 +41,7 @@ void ImmunitySystem::activateImmunity() {
     m.id = _m_IMMUNITY_START;
     _mngr->send(m);
     
-   std::cout << "Inmunidad ACTIVADA\n";
+ 
 }
 
 void ImmunitySystem::deactivateImmunity() {
@@ -51,7 +51,7 @@ void ImmunitySystem::deactivateImmunity() {
 	m.id = _m_IMMUNITY_END;
 	_mngr->send(m);
 
-    std::cout << "Inmunidad FINALIZADA\n";
+ 
 }
 void ImmunitySystem::resetImmunity() {
     active = false;

@@ -7,7 +7,7 @@
 
 ImageWithFrames::ImageWithFrames(const Texture* tex, int cols, int rows, float frameTime)
 	: _tex(tex), _cols(cols), _rows(rows),
-	_currentFrame(0), _frameTime(frameTime),
+	 _frameTime(frameTime),
 	_index(0),
 	_elapsedTime(0.0f), _tr(nullptr),
 	_lastFrameTime(0),

@@ -21,20 +21,9 @@ void RunningState::update() {
 
 	sdlutils().clearRenderer();
 
-	//gm->update();
-	//game->checkCollisions();
-	//gm->render();
-	//gm->refresh();
-	//if (vt.currTime() - _lastAsteroidTime >= 5000) {
-	//	Game::Instance()->getAteroidsFacade()->create_asteroids(1);
-	//	_lastAsteroidTime = vt.currTime();
-	//}
-
 	if (ihdlr.keyDownEvent() && ihdlr.isKeyDown(SDL_SCANCODE_P)) {
 		Game::Instance()->setState(Game::PAUSED);
 	}
-
-	//Game::Instance()->getMngr()->render();
 
 	for (auto sys : systems) {
 		sys->update();
@@ -45,27 +34,31 @@ void RunningState::update() {
 
 void RunningState::enter()
 {
-	// add the systems
-	_pacmanSys = Game::Instance()->getMngr()->addSystem<PacManSystem>();
-	_starsSys = Game::Instance()->getMngr()->addSystem<StarsSystem>();
-	_ghostSys = Game::Instance()->getMngr()->addSystem<GhostSystem>();
-	_gameCtrlSys = Game::Instance()->getMngr()->addSystem<GameCtrlSystem>();
-	_renderSys = Game::Instance()->getMngr()->addSystem<RenderSystem>();
-	_collisionSys = Game::Instance()->getMngr()->addSystem<CollisionsSystem>();
-	_immunitySys = Game::Instance()->getMngr()->addSystem<ImmunitySystem>();
+	if (systems.empty()) {
+		_pacmanSys = Game::Instance()->getMngr()->addSystem<PacManSystem>();
+		_starsSys = Game::Instance()->getMngr()->addSystem<StarsSystem>();
+		_ghostSys = Game::Instance()->getMngr()->addSystem<GhostSystem>();
+		_gameCtrlSys = Game::Instance()->getMngr()->addSystem<GameCtrlSystem>();
+		_renderSys = Game::Instance()->getMngr()->addSystem<RenderSystem>();
+		_collisionSys = Game::Instance()->getMngr()->addSystem<CollisionsSystem>();
+		_immunitySys = Game::Instance()->getMngr()->addSystem<ImmunitySystem>();
 
-	systems.push_back(_pacmanSys);
-	systems.push_back(_starsSys);
-	systems.push_back(_ghostSys);
-	systems.push_back(_renderSys);
-	systems.push_back(_gameCtrlSys);
-	systems.push_back(_collisionSys);
-	systems.push_back(_immunitySys);
+		systems.push_back(_pacmanSys);
+		systems.push_back(_starsSys);
+		systems.push_back(_ghostSys);
+		systems.push_back(_renderSys);
+		systems.push_back(_gameCtrlSys);
+		systems.push_back(_collisionSys);
+		systems.push_back(_immunitySys);
+	}
 
-	Message m;
-	m.id = _m_CREATE_STARS;
-	m.create_stars_data.n = 5;
-	Game::Instance()->getMngr()->send(m);
+	auto stars = Game::Instance()->getMngr()->getEntities(ecs::grp::STARS);
+	if (stars.empty()) {
+		Message m;
+		m.id = _m_CREATE_STARS;
+		m.create_stars_data.n = 5;
+		Game::Instance()->getMngr()->send(m);
+	}
 		
 	
 
