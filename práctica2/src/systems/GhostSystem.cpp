@@ -57,11 +57,11 @@ void GhostSystem::update() {
 	Vector2D pmPos = pmTR->getPos();
 	for (auto g : ghosts) {
 		if (immunity) {
-			auto anim= _mngr->addComponent<ImageWithFrames>(g, &sdlutils().images().at("sprites"), 8, 8, 0.1f);
+			auto anim = _mngr->getComponent<ImageWithFrames>(g);
 			anim->setFrames({ 48, 49, 50, 51,52,53,54,55 });
 		}
 		else {
-			auto anim = _mngr->addComponent<ImageWithFrames>(g, &sdlutils().images().at("sprites"), 8, 8, 0.1f);
+			auto anim = _mngr->getComponent<ImageWithFrames>(g);
 			anim->setFrames({ 32, 33, 34, 35,36,37,38,39 });
 		}
 		auto tr = _mngr->getComponent<Transform>(g);
@@ -92,32 +92,25 @@ void GhostSystem::update() {
 }
 //colision entre pacman y fantasma (siendo inmortal)
 void GhostSystem::colisionPac(ecs::entity_t e) {
-	if (immunity) {
-		// Matar fantasma
-		_mngr->setAlive(e, false);
-		ghosts.erase(std::remove(ghosts.begin(), ghosts.end(), e), ghosts.end());
-		cantidadGhosts--;
-	}
-	else {
-		Health* health = _mngr->getComponent<Health>(_mngr->getHandler(ecs::hdlr::PACMAN));
-		if (health != nullptr) {
-			health->subLives(1);
 
-			// REPOSICIONAR PACMAN AL CENTRO (esto lo saca de los fantasmas)
-			auto pacman = _mngr->getHandler(ecs::hdlr::PACMAN);
-			auto pmTR = _mngr->getComponent<Transform>(pacman);
-			auto s = pmTR->_width;
-			pmTR->_pos = Vector2D((sdlutils().width() - s) / 2.0f,
-				(sdlutils().height() - s) / 2.0f);
-			pmTR->_vel = Vector2D(0, 0);
+	Health* health = _mngr->getComponent<Health>(_mngr->getHandler(ecs::hdlr::PACMAN));
+	if (health != nullptr) {
+		health->subLives(1);
 
-			if (health->getLives() <= 0) {
-				Message m;
-				m.id = _m_ROUND_OVER;
-				Game::Instance()->getMngr()->send(m);
-				Game::Instance()->setState(Game::GAMEOVER_LOST);
-			}
+		auto pacman = _mngr->getHandler(ecs::hdlr::PACMAN);
+		auto pmTR = _mngr->getComponent<Transform>(pacman);
+		auto s = pmTR->_width;
+		pmTR->_pos = Vector2D((sdlutils().width() - s) / 2.0f,
+			(sdlutils().height() - s) / 2.0f);
+		pmTR->_vel = Vector2D(0, 0);
+
+		if (health->getLives() <= 0) {
+			Message m;
+			m.id = _m_ROUND_OVER;
+			Game::Instance()->getMngr()->send(m);
+			Game::Instance()->setState(Game::GAMEOVER_LOST);
 		}
+		
 	}
 }
 
@@ -140,6 +133,12 @@ void GhostSystem::recieve(const Message& m) {
 		ghosts.clear();
 		cantidadGhosts = 0;
 		break;
+	case _m_GHOST_EATEN:
+			// Matar fantasma
+			_mngr->setAlive(m.ghost_coll_data.e, false);
+			ghosts.erase(std::remove(ghosts.begin(), ghosts.end(), m.ghost_coll_data.e), ghosts.end());
+			cantidadGhosts--;
+			break;
 	default:
 		break;
 	}

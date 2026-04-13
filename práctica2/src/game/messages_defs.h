@@ -12,7 +12,7 @@ enum msgId : msgId_type {
 	//messages to be used in final product
 	_m_NEW_GAME, _m_ROUND_START, _m_ROUND_OVER, _m_GAME_OVER,
 	_m_PACMAN_FOOD_COLLISION, _m_PACMAN_GHOST_COLLISION,
-	_m_IMMUNITY_START, _m_IMMUNITY_END
+	_m_IMMUNITY_START, _m_IMMUNITY_END, _m_GHOST_EATEN
 };
 
 

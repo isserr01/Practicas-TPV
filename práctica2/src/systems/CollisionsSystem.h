@@ -10,6 +10,9 @@ public:
 	virtual ~CollisionsSystem();
 	void initSystem() override;
 	void update() override;
+	void recieve(const Message& msg) override;
+private:
+	bool _isImmune;
 
 };
 

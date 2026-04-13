@@ -94,6 +94,17 @@ void StarsSystem::addStar(unsigned int n) {
 }
 
 void StarsSystem::onStarEaten(ecs::entity_t e) {
+
+	auto miracle = _mngr->getComponent<Miracle>(e);
+	bool isMiraculous = (miracle != nullptr);
+
+
+	if (isMiraculous) {
+		Message immunityMsg;
+		immunityMsg.id = _m_IMMUNITY_START;
+		_mngr->send(immunityMsg);
+	}
+
 	_mngr->setAlive(e, false);
 	_currNumOfStars--;
 
@@ -108,6 +119,7 @@ void StarsSystem::onStarEaten(ecs::entity_t e) {
 	// it will be cancelled
 	sdlutils().soundEffects().at("pacman_eat").play("se");
 }
+
 void StarsSystem::resetTimers() {
 	auto stars = _mngr->getEntities(ecs::grp::STARS);
 	Uint32 now = sdlutils().currRealTime();
