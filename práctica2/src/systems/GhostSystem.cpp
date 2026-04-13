@@ -40,7 +40,8 @@ void GhostSystem::spawnGhost() {
 	auto tr = _mngr->addComponent<Transform>(ghost);
 	tr->init(pos, Vector2D(), s, s, 0.0f);
 	//fantasma rojo
-	_mngr->addComponent<ImageWithFrames>(ghost, &sdlutils().images().at("sprites"),2,1,0.1f);
+	auto anim = _mngr->addComponent<ImageWithFrames>(ghost, &sdlutils().images().at("sprites"),8,8,0.1f);
+	anim->setFrames({ 32, 33, 34, 35,36,37,38,39 });
 	ghosts.push_back(ghost);
 }
 
@@ -55,10 +56,12 @@ void GhostSystem::update() {
 	Vector2D pmPos = pmTR->getPos();
 	for (auto g : ghosts) {
 		if (immunity) {
-			_mngr->getComponent<ImageWithFrames>(g)->_tex = &sdlutils().images().at("sprites"), 2, 1, 0.1f;
+			auto anim= _mngr->addComponent<ImageWithFrames>(g, &sdlutils().images().at("sprites"), 8, 8, 0.1f);
+			anim->setFrames({ 48, 49, 50, 51,52,53,54,55 });
 		}
 		else {
-			_mngr->getComponent<ImageWithFrames>(g)->_tex = &sdlutils().images().at("sprites"), 2, 1, 0.1f;
+			auto anim = _mngr->addComponent<ImageWithFrames>(g, &sdlutils().images().at("sprites"), 8, 8, 0.1f);
+			anim->setFrames({ 32, 33, 34, 35,36,37,38,39 });
 		}
 		auto tr = _mngr->getComponent<Transform>(g);
 
@@ -81,7 +84,6 @@ void GhostSystem::update() {
 
 		if (y <= 0 || y >= h)
 			tr->_vel.setY(-(tr->_vel.getY()));
-		//cambio color fantasma cuando pacman es inmortal
 		
 	}
 	timerGhost ++; 
@@ -112,6 +114,14 @@ void GhostSystem::recieve(const Message& m) {
 		break;
 	case _m_IMMUNITY_END:
 		immunity = false;
+		break;
+	case _m_ROUND_START:
+		immunity = false;
+		for (auto g : ghosts) {
+			_mngr->setAlive(g, false);
+		}
+		ghosts.clear();
+		cantidadGhosts = 0;
 		break;
 	default:
 		break;

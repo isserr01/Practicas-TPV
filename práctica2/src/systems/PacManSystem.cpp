@@ -102,3 +102,13 @@ void PacManSystem::update() {
 	}
 
 }
+void PacManSystem::recieve(const Message& m) {
+	switch (m.id) {
+	case _m_NEW_GAME:
+		_pmTR->_pos = Vector2D((sdlutils().width() - _pmTR->_width) / 2.0f,
+			(sdlutils().height() - _pmTR->_height) / 2.0f);
+		_pmTR->_vel = Vector2D();
+		_pmTR->_rot = 0.0f;
+		break;
+	}
+}
