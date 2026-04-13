@@ -6,9 +6,11 @@
 #include"../components/Miracle.h"
 
 void ImmunitySystem::update() {
-	if (!active) return;
-	float currTime = sdlutils().currRealTime();
-	if (currTime - startTime >= 10000.0f) { // Inmunidad dura 10 segundos
+    if (!active) return;
+    float currTime = sdlutils().currRealTime();
+    float elapsed = currTime - startTime;
+
+    if (elapsed >= 10000.0f) { // Ajusta según lo que veas en el debug
         deactivateImmunity();
     }
 }
