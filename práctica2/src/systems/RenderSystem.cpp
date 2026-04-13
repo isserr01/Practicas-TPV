@@ -4,6 +4,7 @@
 
 #include "../components/Image.h"
 #include "../components/Transform.h"
+#include "../components/Health.h"
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/macros.h"
 #include "../sdlutils/SDLUtils.h"
@@ -33,6 +34,7 @@ void RenderSystem::update() {
 	drawStars();
 	drawPacMan();
 	drawGhosts();
+	drawUI();
 }
 
 void RenderSystem::drawStars() {
@@ -81,9 +83,17 @@ void RenderSystem::drawMsgs() {
 
 	scoreTex.render(dest);
 
-	// draw add stars message
-	sdlutils().msgs().at("addstars").render(10, 10);
+}
 
+void RenderSystem::drawUI()
+{
+	auto pacman = _mngr->getHandler(ecs::hdlr::PACMAN);
+	if (pacman != nullptr) {
+		auto health = _mngr->getComponent<Health>(pacman);
+		if (health != nullptr) {
+			health->render();
+		}
+	}
 }
 
 void RenderSystem::draw(Transform* tr, const Texture* tex, ImageWithFrames* anim) {

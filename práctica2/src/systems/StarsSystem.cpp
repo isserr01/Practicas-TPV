@@ -31,22 +31,21 @@ void StarsSystem::update() {
 
 	for (auto e : stars) {
 		auto miracle = _mngr->getComponent<Miracle>(e);
-		auto anim = _mngr->getComponent<ImageWithFrames>(e);
 
-		int currentFrame = anim->_frames.empty() ? -1 : anim->_frames[0];
-		int newFrame = currentFrame;
+		// Si no tiene componente Miracle, es una estrella normal y nunca cambia
+		if (miracle == nullptr) {
+			continue;
+		}
+
+		auto anim = _mngr->getComponent<ImageWithFrames>(e);
 
 		if (miracle->switchState(currTime)) {
 			if (miracle->isMiraculous()) {
-				newFrame = 12;
+				anim->setFrames({ 12 });  // Frame para estado milagroso
 			}
 			else {
-				newFrame = 15;
+				anim->setFrames({ 15 });  // Frame para estado normal
 			}
-		}
-
-		if (newFrame != currentFrame && newFrame != -1) {
-			anim->setFrames({ newFrame });
 		}
 	}
 }
@@ -69,19 +68,18 @@ void StarsSystem::addStar(unsigned int n) {
 			// size and position
 			//
 			auto tr = _mngr->addComponent<Transform>(e);
-			tr->init(Vector2D(_starPosX, _starPosY), Vector2D(), 100, 100, 0.0f);
+			tr->init(Vector2D(_starPosX, _starPosY), Vector2D(), 30, 30, 0.0f);
 
 			// add an Image Component
 			//
 			auto tex = &sdlutils().images().at("sprites");
 			auto anim =_mngr->addComponent<ImageWithFrames>(e,tex,8,8,100);
-			anim->setFrames({ 4 });
+			anim->setFrames({ 12 });
 
 			// add a StarMotion component to resize/rotate the star
 			//
 			auto motion = _mngr->addComponent<StarMotion>(e);
-			//if (m == 1) _mngr->addComponent<Miracle>(e)
-			_mngr->addComponent<Miracle>(e);
+			if (m == 1) _mngr->addComponent<Miracle>(e);
 
 			auto pts = _mngr->addComponent<Points>(e);
 			pts->_points = rand.nextInt(1, 5);
@@ -116,7 +114,9 @@ void StarsSystem::resetTimers() {
 
 	for (auto e : stars) {
 		auto miracle = _mngr->getComponent<Miracle>(e);
-		miracle->reset(now);
+		if (miracle != nullptr) {  // Solo resetear las milagrosas
+			miracle->reset(now);
+		}
 	}
 }
 

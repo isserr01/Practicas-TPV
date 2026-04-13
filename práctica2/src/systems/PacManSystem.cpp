@@ -2,8 +2,8 @@
 
 #include "PacManSystem.h"
 
-#include "../components/Image.h"
 #include "../components/Transform.h"
+#include "../components/Health.h"
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
@@ -23,6 +23,7 @@ void PacManSystem::initSystem() {
 	_mngr->setHandler(ecs::hdlr::PACMAN, pacman);
 
 	_pmTR = _mngr->addComponent<Transform>(pacman);
+	_mngr->addComponent<Health>(pacman);
 	auto s = 50.0f;
 	auto x = (sdlutils().width() - s) / 2.0f;
 	auto y = (sdlutils().height() - s) / 2.0f;
@@ -35,7 +36,7 @@ void PacManSystem::initSystem() {
 
 void PacManSystem::update() {
 
-	auto &ihldr = ih();
+	auto& ihldr = ih();
 
 	if (ihldr.keyDownEvent()) {
 
@@ -46,14 +47,16 @@ void PacManSystem::update() {
 			// direction where it moves
 			//
 			_pmTR->_vel = _pmTR->_vel.rotate(90.0f);
-		} else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) { // rotate left
+		}
+		else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) { // rotate left
 			_pmTR->_rot = _pmTR->_rot - 90.0f;
 
 			// also rotate the PacMan so it looks in the same
 			// direction where it moves
 			//
 			_pmTR->_vel = _pmTR->_vel.rotate(-90.0f);
-		} else if (ihldr.isKeyDown(SDL_SCANCODE_UP)) { // increase speed
+		}
+		else if (ihldr.isKeyDown(SDL_SCANCODE_UP)) { // increase speed
 
 			// add 1.0f to the speed (respecting the limit 3.0f). Recall
 			// that speed is the length of the velocity vector
@@ -65,7 +68,8 @@ void PacManSystem::update() {
 			// is looking
 			//
 			_pmTR->_vel = Vector2D(0, -speed).rotate(_pmTR->_rot);
-		} else if (ihldr.isKeyDown(SDL_SCANCODE_DOWN)) { // decrease speed
+		}
+		else if (ihldr.isKeyDown(SDL_SCANCODE_DOWN)) { // decrease speed
 			// subtract 1.0f to the speed (respecting the limit 0.0f). Recall
 			// that speed is the length of the velocity vector
 			float speed = std::max(0.0f, _pmTR->_vel.magnitude() - 1.0f);
@@ -87,7 +91,8 @@ void PacManSystem::update() {
 	if (_pmTR->_pos.getX() < 0) {
 		_pmTR->_pos.setX(0.0f);
 		_pmTR->_vel.set(0.0f, 0.0f);
-	} else if (_pmTR->_pos.getX() + _pmTR->_width > sdlutils().width()) {
+	}
+	else if (_pmTR->_pos.getX() + _pmTR->_width > sdlutils().width()) {
 		_pmTR->_pos.setX(sdlutils().width() - _pmTR->_width);
 		_pmTR->_vel.set(0.0f, 0.0f);
 	}
@@ -96,12 +101,14 @@ void PacManSystem::update() {
 	if (_pmTR->_pos.getY() < 0) {
 		_pmTR->_pos.setY(0.0f);
 		_pmTR->_vel.set(0.0f, 0.0f);
-	} else if (_pmTR->_pos.getY() + _pmTR->_height > sdlutils().height()) {
+	}
+	else if (_pmTR->_pos.getY() + _pmTR->_height > sdlutils().height()) {
 		_pmTR->_pos.setY(sdlutils().height() - _pmTR->_height);
 		_pmTR->_vel.set(0.0f, 0.0f);
 	}
 
 }
+
 void PacManSystem::recieve(const Message& m) {
 	switch (m.id) {
 	case _m_NEW_GAME:
@@ -110,5 +117,18 @@ void PacManSystem::recieve(const Message& m) {
 		_pmTR->_vel = Vector2D();
 		_pmTR->_rot = 0.0f;
 		break;
+	case _m_PACMAN_GHOST_COLLISION:
+		Health* health = _mngr->getComponent<Health>(_mngr->getHandler(ecs::hdlr::PACMAN));
+		if (health != nullptr) {
+			health->subLives(1);
+			if (health->getLives() <= 0) {
+				Message m;
+				m.id = _m_ROUND_OVER;
+				Game::Instance()->getMngr()->send(m);
+				Game::Instance()->setState(Game::GAMEOVER_LOST);
+			}
+		}
 	}
+
+	
 }

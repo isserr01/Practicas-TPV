@@ -19,12 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\components\Immunity.cpp" />
     <ClCompile Include="src\components\Health.cpp" />
     <ClCompile Include="src\systems\GhostSystem.cpp" />
     <ClCompile Include="src\systems\ImmunitySystem.cpp" />
     <ClCompile Include="src\components\ImageWithFrames.cpp" />
-    <ClCompile Include="src\components\Miracle.cpp" />
     <ClCompile Include="src\ecs\EntityManager.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\GameOverState.cpp" />

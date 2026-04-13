@@ -18,6 +18,7 @@ private:
 	void drawStars();
 	void drawPacMan();
 	void drawMsgs();
+	void drawUI();
 	void drawGhosts();
 	void draw(Transform *tr, const Texture *tex, ImageWithFrames* anim);
 };

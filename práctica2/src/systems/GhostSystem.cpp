@@ -3,6 +3,7 @@
 #include "GhostSystem.h"
 
 #include "../components/ImageWithFrames.h"
+#include "../components/Health.h"
 #include "../components/Transform.h"
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/InputHandler.h"
@@ -97,10 +98,16 @@ void GhostSystem::colisionPac(ecs::entity_t e) {
 		cantidadGhosts--;
 	}
 	else {
-		Message m;
-		m.id = _m_ROUND_OVER;
-		Game::Instance()->getMngr()->send(m);
-		Game::Instance()->setState(Game::GAMEOVER_LOST);
+		Health* health = _mngr->getComponent<Health>(_mngr->getHandler(ecs::hdlr::PACMAN));
+		if (health != nullptr) {
+			health->subLives(1);
+			if (health->getLives() <= 0) {
+				Message m;
+				m.id = _m_ROUND_OVER;
+				Game::Instance()->getMngr()->send(m);
+				Game::Instance()->setState(Game::GAMEOVER_LOST);
+			}
+		}
 	}
 }
 

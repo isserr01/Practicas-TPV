@@ -3,6 +3,7 @@
 #include "CollisionsSystem.h"
 
 #include "../components/Transform.h"
+#include "../components/Health.h"
 #include "../ecs/EntityManager.h"
 #include "../utils/Collisions.h"
 #include "StarsSystem.h"
@@ -67,10 +68,12 @@ void CollisionsSystem::update() {
 				pTR->_pos, pTR->_width, pTR->_height, //
 				gTR->_pos, gTR->_width, gTR->_height)) {
 
+				Health* health = _mngr->getComponent<Health>(pm);
 				Message m;
 				m.id = _m_PACMAN_GHOST_COLLISION;
 				m.ghost_coll_data.e = e;
 				_mngr->send(m);
+
 
 			}
 		}

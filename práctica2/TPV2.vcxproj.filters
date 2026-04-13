@@ -87,9 +87,6 @@
     <ClCompile Include="src\game\RunningState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\Miracle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\components\ImageWithFrames.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -99,7 +96,7 @@
     <ClCompile Include="src\components\Health.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\Immunity.cpp">
+    <ClCompile Include="src\systems\GhostSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -279,6 +276,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ecs\ecs_defs_example.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\GhostSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

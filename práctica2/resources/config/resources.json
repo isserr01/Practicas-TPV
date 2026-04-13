@@ -56,7 +56,6 @@
   "messages" : [
     { "id" : "PressAnyKey", "text" : "Press Any Key", "font" : "ARIAL24", "color" : "0x112233ff", "bg" : "0xffffffff" },
     { "id" : "HelloSDL", "text" : "Hello SDL!", "font" : "ARIAL48", "color" : "0x0000ffff" },
-    { "id" : "addstars", "text" : "Press SPACE to add stars to eat!", "font" : "ARIAL16", "color" : "0x00ff00ff" },
     { "id" : "paused", "text" : "Press any key to continue", "font" : "ARIAL24", "color" : "0xffffffff" },
     { "id" : "newgame", "text" : "Press any key to start a new Game", "font" : "ARIAL24", "color" : "0x0000ffff" },
     { "id" : "newround", "text" : "Press ENTER to start a new Round", "font" : "ARIAL24", "color" : "0xffffffff" },
