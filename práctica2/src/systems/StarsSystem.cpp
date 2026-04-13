@@ -120,6 +120,26 @@ void StarsSystem::resetTimers() {
 	}
 }
 
+void StarsSystem::clearAllStars() {
+	auto stars = _mngr->getEntities(ecs::grp::STARS);
+
+	// Marcar todas las estrellas como muertas
+	for (auto e : stars) {
+		_mngr->setAlive(e, false);
+	}
+
+	// Limpiar el vector de estrellas (opcional, depende de tu ECS)
+	stars.clear();
+
+	// Reiniciar el contador
+	_currNumOfStars = 0;
+
+	// Reiniciar posiciones para que las nuevas estrellas se creen desde el principio
+	_starPosX = 10;
+	_starPosY = 10;
+
+}
+
 void StarsSystem::recieve(const Message &m) {
 	switch (m.id) {
 	case _m_STAR_EATEN:
@@ -129,6 +149,9 @@ void StarsSystem::recieve(const Message &m) {
 		addStar(m.create_stars_data.n);
 		break;
 	case _m_ROUND_START:
+		clearAllStars();
+		_mngr->refresh();
+		addStar(m.create_stars_data.n);
 		resetTimers();
 		break;
 	default:

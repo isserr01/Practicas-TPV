@@ -12,6 +12,7 @@ public:
 	void update() override;
 	void addStar(unsigned int n);
 	void onStarEaten(ecs::entity_t e);
+	void clearAllStars();
 	void recieve(const Message &m) override;
 	void resetTimers();
 private:

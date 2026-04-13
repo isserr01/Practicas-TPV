@@ -110,15 +110,17 @@ void PacManSystem::update() {
 }
 
 void PacManSystem::recieve(const Message& m) {
+	Health* health = _mngr->getComponent<Health>(_mngr->getHandler(ecs::hdlr::PACMAN));
 	switch (m.id) {
 	case _m_NEW_GAME:
+		health->resetLives();
 		_pmTR->_pos = Vector2D((sdlutils().width() - _pmTR->_width) / 2.0f,
 			(sdlutils().height() - _pmTR->_height) / 2.0f);
 		_pmTR->_vel = Vector2D();
 		_pmTR->_rot = 0.0f;
 		break;
 	case _m_PACMAN_GHOST_COLLISION:
-		Health* health = _mngr->getComponent<Health>(_mngr->getHandler(ecs::hdlr::PACMAN));
+		
 		if (health != nullptr) {
 			health->subLives(1);
 			if (health->getLives() <= 0) {
