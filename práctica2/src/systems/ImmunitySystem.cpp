@@ -10,7 +10,7 @@ void ImmunitySystem::update() {
     float currTime = sdlutils().currRealTime();
     float elapsed = currTime - startTime;
 
-    if (elapsed >= 10000.0f) { // Ajusta según lo que veas en el debug
+    if (elapsed >= 10000.0f) { 
         deactivateImmunity();
     }
 }
