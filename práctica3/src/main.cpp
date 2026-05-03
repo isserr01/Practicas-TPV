@@ -1,33 +1,41 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
-
+// main.cpp - versión que mantiene compatibilidad
 #include <iostream>
-#include <fstream>
-
+#include <cstring>
 #include "game/Game.h"
+#include "game/TCPServer.h"
 
+int main(int argc, char** argv) {
 
-int main(int, char**) {
+    // Si hay argumento "server", ejecutar servidor
+    if (argc > 1 && strcmp(argv[1], "server") == 0) {
+        int port = (argc > 2) ? atoi(argv[2]) : 2000;
+        std::cout << "LittleWolf Server on port " << port << std::endl;
+        TCPServer server(10);
+        if (server.connect(port)) {
+            server.listen();
+        }
+        return 0;
+    }
 
-	try {
-		if (Game::Init()) {
-			Game::Instance()->init_game("localhost", 2000, "Player");
-			Game::Instance()->start();
-		}
-		
-	}
-	catch (const std::string& e) { // catch exceptions thrown as strings
-		std::cerr << e << std::endl;
-	}
-	catch (const char* e) { // catch exceptions thrown as char*
-		std::cerr << e << std::endl;
-	}
-	catch (const std::exception& e) { // catch exceptions thrown as a sub-type of std::exception
-		std::cerr << e.what();
-	}
-	catch (...) {
-		std::cerr << "Caught an exception of unknown type ...";
-	}
+    // Si no, ejecutar cliente (como antes)
+    try {
+        if (Game::Init()) {
+            Game::Instance()->init_game("localhost", 2000, "Player");
+            Game::Instance()->start();
+        }
+    }
+    catch (const std::string& e) {
+        std::cerr << e << std::endl;
+    }
+    catch (const char* e) {
+        std::cerr << e << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what();
+    }
+    catch (...) {
+        std::cerr << "Caught an exception of unknown type ...";
+    }
 
-	return 0;
+    return 0;
 }
-

@@ -63,6 +63,7 @@ void TCPServer::handlerSIGINT(int) {
 
 bool TCPServer::connect(const Uint16 port) {
 
+	SDLNetUtils::init_SDLNet();
 	TCPServer::shutDownTriggetPort = port;
 	signal(SIGINT, TCPServer::handlerSIGINT);
 

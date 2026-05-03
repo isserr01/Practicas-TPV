@@ -13,7 +13,6 @@
 #include "../sdlutils/Texture.h"
 
 #include "Game.h"
-#include "Networking.h"
 
 Fighter::Fighter(BulletManager &bm) :
 		_players(), _local_player_id(0), //
@@ -68,8 +67,7 @@ void Fighter::update() {
 	}
 
 	// send player's state
-	Game::Instance()->get_networking().send_state(p.pos, p.width, p.height,
-			p.rot);
+	Game::Instance()->sendPlayerState();
 
 }
 
@@ -210,8 +208,7 @@ void Fighter::shoot(Player &p) {
 		Vector2D bv = Vector2D(0, -1).rotate(p.rot)
 				* (p.vel.magnitude() + 5.0f);
 
-		Game::Instance()->get_networking().send_shoot(bp, bv, bwidth, bheight,
-				Vector2D(0, -1).angle(bv));
+		Game::Instance()->checkAndSendShoot();
 
 	}
 }
@@ -281,6 +278,5 @@ void Fighter::update_player_info(Uint8 id, float x, float y, float w, float h,
 void Fighter::send_my_info() {
 	Player &p = _players[_local_player_id];
 
-	Game::Instance()->get_networking().send_my_info(p.pos, p.width, p.height,
-			p.rot, p.state);
+	Game::Instance()->sendPlayerState();
 }

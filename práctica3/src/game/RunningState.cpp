@@ -3,8 +3,6 @@
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
-#include "../systems/CollisionsSystem.h"
-#include "../systems/GameCtrlSystem.h"
 #include "../utils/Vector2D.h"
 #include "../utils/Collisions.h"
 

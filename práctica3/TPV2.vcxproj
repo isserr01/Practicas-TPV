@@ -22,7 +22,6 @@
     <ClCompile Include="src\game\Bullets.cpp" />
     <ClCompile Include="src\game\Fighter.cpp" />
     <ClCompile Include="src\game\LittleWolf.cpp" />
-    <ClCompile Include="src\game\Networking.cpp" />
     <ClCompile Include="src\game\TCPServer.cpp" />
     <ClCompile Include="src\ecs\EntityManager.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
@@ -41,8 +40,6 @@
     <ClCompile Include="src\sdlutils\sdlutils_demo.cpp" />
     <ClCompile Include="src\sdlutils\SoundEffect.cpp" />
     <ClCompile Include="src\sdlutils\Texture.cpp" />
-    <ClCompile Include="src\systems\CollisionsSystem.cpp" />
-    <ClCompile Include="src\systems\GameCtrlSystem.cpp" />
     <ClCompile Include="src\utils\Collisions.cpp" />
     <ClCompile Include="src\utils\Vector2D.cpp" />
   </ItemGroup>
@@ -55,7 +52,6 @@
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\game\LittleWolf.h" />
     <ClInclude Include="src\game\messages.h" />
-    <ClInclude Include="src\game\Networking.h" />
     <ClInclude Include="src\game\SDLNetUtils.h" />
     <ClInclude Include="src\game\TCPServer.h" />
     <ClInclude Include="src\ecs\Component.h" />
@@ -90,8 +86,6 @@
     <ClInclude Include="src\sdlutils\SoundManager.h" />
     <ClInclude Include="src\sdlutils\Texture.h" />
     <ClInclude Include="src\sdlutils\VirtualTimer.h" />
-    <ClInclude Include="src\systems\CollisionsSystem.h" />
-    <ClInclude Include="src\systems\GameCtrlSystem.h" />
     <ClInclude Include="src\utils\Collisions.h" />
     <ClInclude Include="src\utils\DynamicBitSet.h" />
     <ClInclude Include="src\utils\exceptions.h" />

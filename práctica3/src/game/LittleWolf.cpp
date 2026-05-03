@@ -2,6 +2,7 @@
 
 #include "LittleWolf.h"
 #include "../json/JSONValue.h"
+#include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/Texture.h"
 #include <iostream>
@@ -625,11 +626,8 @@ void LittleWolf::showRestartCountdown(int seconds) {
     _showRestartMessage = (seconds > 0);
 }
 
-void LittleWolf::setCurrentPlayer(Uint8 playerId) {
-    if (playerId < _max_player && _players[playerId].state != NOT_USED) {
-        _curr_player_id = playerId;
-        std::cout << "[LittleWolf] Switched to player " << (int)playerId << std::endl;
-    }
+void LittleWolf::setCurrentPlayer(Uint8 playerId)
+{
 }
 
 LittleWolf::Point LittleWolf::getLocalPosition() const {
