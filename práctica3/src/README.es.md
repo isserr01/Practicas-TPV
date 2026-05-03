@@ -1,6 +1,6 @@
 # Un ejemplo de programa cliente/servidor
 
-Un ejemplo de un juego multi-jugador usando SDL3_Net.
+Este es un servidor TCP para ser utilizado en juegos multijugador. Asigna identificadores a los jugadores y también elige a un cliente maestro.
 
 # Cómo ejecutar estos ejemplos
 

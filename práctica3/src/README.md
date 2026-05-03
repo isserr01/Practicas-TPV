@@ -1,7 +1,7 @@
 # An example of a client/server program
 
-An example of a mutli-palyer game using SDL3_Net.
-
+This is a TCP server to be used for multiplayer games. It assigns identifiers to players and also choose
+a master client.
 
 # How to executes these examples
 

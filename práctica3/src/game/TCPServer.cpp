@@ -4,6 +4,8 @@
 
 #include <cassert>
 #include <csignal>
+#include <thread>
+#include <chrono>
 
 #include "messages.h"
 
@@ -11,11 +13,11 @@ Uint16 TCPServer::shutDownTriggetPort = 0;
 bool TCPServer::done = true;
 
 TCPServer::TCPServer(Uint8 maxClients) :
-		maxClients(maxClients), //
-		serv(nullptr), //
-		usedConn(0) {
-	conn = new void*[maxClients + 1] { };
-	clients = new NET_StreamSocket*[maxClients] { };
+	maxClients(maxClients), //
+	serv(nullptr), //
+	usedConn(0) {
+	conn = new void* [maxClients + 1] {};
+	clients = new NET_StreamSocket * [maxClients] {};
 }
 
 TCPServer::~TCPServer() {
@@ -24,35 +26,27 @@ TCPServer::~TCPServer() {
 	delete[] clients;
 }
 
-// this just connects to the server to wake it up.
+// Versión corregida - sin NET_WaitUntilConnected
 void TCPServer::shutdownTrigger() {
-
 	if (done)
 		return;
 
-	std::cout << std::endl << "Shutting down  ..." << std::endl;
-
+	std::cout << std::endl << "Shutting down ..." << std::endl;
 	done = true;
 
 	if (shutDownTriggetPort != 0) {
-
 		// Resolve the localhost to an IP address
-		NET_Address *addr = NET_ResolveHostname("localhost");
-		if (NET_WaitUntilResolved(addr, 1000) != NET_SUCCESS) {
-			SDLNetUtils::print_SDLNet_error_and_exit(1);
+		NET_Address* addr = NET_ResolveHostname("localhost");
+		if (addr && NET_WaitUntilResolved(addr, 1000) == NET_SUCCESS) {
+			// Intentar conectar - puede fallar, no importa
+			NET_StreamSocket* conn = NET_CreateClient(addr, shutDownTriggetPort);
+			if (conn) {
+				// Pequeña espera para que se envíe el mensaje
+				std::this_thread::sleep_for(std::chrono::milliseconds(100));
+				NET_DestroyStreamSocket(conn);
+			}
+			NET_UnrefAddress(addr);
 		}
-
-		// Connect to the server, just to wake it up if it is sleeping
-		NET_StreamSocket *conn = NET_CreateClient(addr, shutDownTriggetPort);
-		if (NET_WaitUntilConnected(conn, 1000) != NET_SUCCESS) {
-			SDLNetUtils::print_SDLNet_error_and_exit(1);
-		}
-
-		// UnReference the address so it can be freed
-		NET_UnrefAddress(addr);
-
-		// Destroy the socket
-		NET_DestroyStreamSocket(conn);
 	}
 }
 
@@ -62,7 +56,6 @@ void TCPServer::handlerSIGINT(int) {
 }
 
 bool TCPServer::connect(const Uint16 port) {
-
 	TCPServer::shutDownTriggetPort = port;
 	signal(SIGINT, TCPServer::handlerSIGINT);
 
@@ -76,31 +69,23 @@ bool TCPServer::connect(const Uint16 port) {
 
 	conn[0] = serv;
 	++usedConn;
-
 	done = false;
 
 	std::cout << "The server is up and kicking ..." << std::endl;
-
 	return true;
 }
 
 void TCPServer::listen() {
-
 	while (!done) {
-		// Sleep for a long while, or until someone connects to the server
-		if (NET_WaitUntilInputAvailable(conn, usedConn, SDL_MAX_SINT32) > 0) {
+		// Usar timeout pequeño para permitir shutdown
+		int available = NET_WaitUntilInputAvailable(conn, usedConn, 100);
 
-			// in case of shutdown wake-up
-			if (done)
-				continue;
+		if (available > 0) {
+			if (done) continue;
 
-			// We don't know exactly in which socket we had activity, so we check
-			// them all.
-
-			// If we have activity in 'serv', we accept the connection
-			NET_StreamSocket *client = nullptr;
+			// Aceptar nuevos clientes
+			NET_StreamSocket* client = nullptr;
 			if (NET_AcceptClient(serv, &client) && client != nullptr) {
-
 				if (usedConn - 1 < maxClients) {
 					Uint8 j = 0;
 					while (j < maxClients && clients[j] != nullptr)
@@ -108,11 +93,8 @@ void TCPServer::listen() {
 
 					assert(j < maxClients);
 
-					// we must have found one, because (usedConn - 1 < maxClients)
-
 					conn[usedConn] = clients[j] = client;
-					std::cout << "New client assigned id " << (int) j
-							<< std::endl;
+					std::cout << "New client assigned id " << (int)j << std::endl;
 					++usedConn;
 
 					// Send acceptance message
@@ -123,102 +105,98 @@ void TCPServer::listen() {
 					SDLNetUtils::serialized_send(m, client);
 
 					// Tell all, except the new client, that there is a new client
-					m.type = _CLIENT_CONNECTED; // the rest of the message remain as before
+					m.type = _CLIENT_CONNECTED;
 					for (auto i = 1u; i < usedConn - 1; i++) {
 						if (client != static_cast<NET_StreamSocket*>(conn[i]))
 							SDLNetUtils::serialized_send(m,
-									static_cast<NET_StreamSocket*>(conn[i]));
+								static_cast<NET_StreamSocket*>(conn[i]));
 					}
-				} else {
+				}
+				else {
 					// Reject connection request
 					Msg m;
 					m.type = _CONN_REQUEST_REJECTED;
 					SDLNetUtils::serialized_send(m, client);
+					NET_DestroyStreamSocket(client);
 				}
 			}
 
 			// Check activity in the clients sockets
 			for (auto i = 1u; i < usedConn; i++) {
-
-				// Read a message
 				SDLNetUtils::buff_t buf = SDLNetUtils::receive(
-						static_cast<NET_StreamSocket*>(conn[i]));
+					static_cast<NET_StreamSocket*>(conn[i]));
 
-				if (!buf.error) { // if no error, we forward it to all (including the sender)
+				if (!buf.error) {
 					if (buf.size > 0) {
+						// Broadcast a todos los clientes
 						for (auto j = 1u; j < usedConn; j++) {
-							SDLNetUtils::send(
+							if (j != i) { // No enviar al emisor
+								SDLNetUtils::send(
 									static_cast<NET_StreamSocket*>(conn[j]),
 									buf.data, buf.size);
+							}
 						}
 					}
-				} else {
-					// the client has disconnected, or an error occurred, so we delete
-					// the corresponding socket form the clients array
-
-					// first we find the client id
+				}
+				else {
+					// Client disconnected
 					Uint8 j = 0;
-					while (j < maxClients
-							&& clients[j]
-									!= static_cast<NET_StreamSocket*>(conn[i]))
+					while (j < maxClients && clients[j] != static_cast<NET_StreamSocket*>(conn[i]))
 						j++;
 
 					assert(j < maxClients);
 
-					std::cout << "Client " << (int) j << " disconnected!"
-							<< std::endl;
+					std::cout << "Client " << (int)j << " disconnected!" << std::endl;
 
-					// We must have found it, so we remove it
 					clients[j] = nullptr;
+					NET_DestroyStreamSocket(static_cast<NET_StreamSocket*>(conn[i]));
 					conn[i] = conn[usedConn - 1];
 					conn[usedConn - 1] = nullptr;
 					--usedConn;
 
-					// Tell all clients, that client 'j' has disconnected
+					// Tell all clients that client 'j' has disconnected
 					MsgWithMasterId m;
 					m.type = _CLIENT_DISCONNECTED;
 					m.clientId = j;
 					m.masterId = whoIsTheMaster();
-					for (auto j = 1u; j < usedConn; j++) {
+					for (auto k = 1u; k < usedConn; k++) {
 						SDLNetUtils::serialized_send(m,
-								static_cast<NET_StreamSocket*>(conn[j]));
+							static_cast<NET_StreamSocket*>(conn[k]));
 					}
+					break; // Salir porque la lista cambió
 				}
 			}
 		}
 	}
 
 	shutdown();
-
 }
 
 void TCPServer::shutdown() {
-
 	if (serv == nullptr)
 		return;
 
 	Msg m;
-
 	m.type = _SERVER_SHUTDOWN;
+
 	// Dispose all client sockets
 	for (auto i = 1u; i < usedConn; i++) {
-		SDLNetUtils::serialized_send(m,
-				static_cast<NET_StreamSocket*>(conn[i]));
-		NET_DestroyStreamSocket(static_cast<NET_StreamSocket*>(conn[i]));
+		if (conn[i]) {
+			SDLNetUtils::serialized_send(m, static_cast<NET_StreamSocket*>(conn[i]));
+			NET_DestroyStreamSocket(static_cast<NET_StreamSocket*>(conn[i]));
+		}
 	}
 
 	// Close the server's master socket
 	NET_DestroyServer(serv);
-
 	serv = nullptr;
+	usedConn = 0;
 }
 
 int TCPServer::whoIsTheMaster() {
-	// the master is the one with the minimum id (the first non-null in the clients array)
 	for (auto i = 0u; i < maxClients; i++) {
 		if (clients[i] != nullptr)
 			return i;
 	}
-
 	return -1;
 }
