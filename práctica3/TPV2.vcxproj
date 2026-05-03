@@ -22,6 +22,7 @@
     <ClCompile Include="src\components\Health.cpp" />
     <ClCompile Include="src\game\Bullets.cpp" />
     <ClCompile Include="src\game\Fighter.cpp" />
+    <ClCompile Include="src\game\LittleWolf.cpp" />
     <ClCompile Include="src\game\Networking.cpp" />
     <ClCompile Include="src\game\TCPServer.cpp" />
     <ClCompile Include="src\systems\GhostSystem.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="src\game\Bullets.h" />
     <ClInclude Include="src\game\BulletsManager.h" />
     <ClInclude Include="src\game\Fighter.h" />
+    <ClInclude Include="src\game\LittleWolf.h" />
     <ClInclude Include="src\game\messages.h" />
     <ClInclude Include="src\game\Networking.h" />
     <ClInclude Include="src\game\SDLNetUtils.h" />

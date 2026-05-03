@@ -2,21 +2,16 @@
 
 #include "Game.h"
 
-#include "Bullets.h"
-#include "Fighter.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
-#include "../utils/Collisions.h"
+#include "LittleWolf.h"
 
 Game::Game() :
-		_bm(nullptr), //
-		_fighters(nullptr) //
+		_little_wolf() //
 {
 }
 
 Game::~Game() {
-	delete _fighters;
-	delete _bm;
 
 	// release InputHandler if the instance was created correctly.
 	if (InputHandler::HasInstance())
@@ -25,37 +20,45 @@ Game::~Game() {
 	// release SLDUtil if the instance was created correctly.
 	if (SDLUtils::HasInstance())
 		SDLUtils::Release();
+
+	delete _little_wolf;
 }
 
-bool Game::init() {
+void Game::init(const char *map) {
+
+
+	_little_wolf = new LittleWolf();
+
+	// load a map
+	_little_wolf->load(map);
 
 	// initialize the SDL singleton
-	if (!SDLUtils::Init("SDLNet Game", 900, 480,
-			"resources/config/asteroids.multiplayer.resources.json")) {
+	if (!SDLUtils::Init("[Little Wolf: " + std::string(map) + "]",
+			_little_wolf->get_xres(),
+			_little_wolf->get_yres(),
+			"resources/config/littlewolf.resources.json")) {
 
 		std::cerr << "Something went wrong while initializing SDLUtils"
 				<< std::endl;
-		return false;
+		return;
 	}
 
 	// initialize the InputHandler singleton
 	if (!InputHandler::Init()) {
 		std::cerr << "Something went wrong while initializing SDLHandler"
 				<< std::endl;
-		return false;
+		return;
 
 	}
 
-	_bm = new Bullets();
-	_fighters = new Fighter(*_bm);
+	_little_wolf->init(sdlutils().window(), sdlutils().renderer());
 
 	// add some players
-	_fighters->addPlayer(0);
-	_fighters->addPlayer(1);
-	_fighters->addPlayer(2);
-	_fighters->addPlayer(3);
+	_little_wolf->addPlayer(0);
+	_little_wolf->addPlayer(1);
+	_little_wolf->addPlayer(2);
+	_little_wolf->addPlayer(3);
 
-	return true;
 }
 
 void Game::start() {
@@ -65,14 +68,12 @@ void Game::start() {
 
 	auto &ihdlr = ih();
 
-	auto &vt = sdlutils().virtualTimer();
-	vt.resetTime();
-
 	while (!exit) {
-		Uint32 startTime = vt.regCurrTime();
+		Uint32 startTime = sdlutils().currRealTime();
 
 		// refresh the input handler
 		ihdlr.refresh();
+
 		if (ihdlr.keyDownEvent()) {
 
 			// ESC exists the game
@@ -83,19 +84,16 @@ void Game::start() {
 
 		}
 
-		_fighters->update();
-		_bm->update();
+		_little_wolf->update();
 
-		check_collisions();
+		// the clear is not necessary since the texture we copy to the window occupies the whole screen
+		// sdlutils().clearRenderer();
 
-		sdlutils().clearRenderer();
-
-		_fighters->render();
-		_bm->render();
+		_little_wolf->render();
 
 		sdlutils().presentRenderer();
 
-		Uint32 frameTime = vt.currRealTime() - startTime;
+		Uint32 frameTime = sdlutils().currRealTime() - startTime;
 
 		if (frameTime < 10)
 			SDL_Delay(10 - frameTime);
@@ -103,17 +101,3 @@ void Game::start() {
 
 }
 
-void Game::check_collisions() {
-	for (Bullets::Bullet &b : *_bm) {
-		if (b.used)
-			for (Fighter::Player &p : *_fighters) {
-				if (p.state == Fighter::ALIVE)
-					if (Collisions::collidesWithRotation(p.pos, p.width,
-							p.height, p.rot, b.pos, b.width, b.height, b.rot)) {
-						b.used = false;
-						_fighters->die(p);
-						continue;
-					}
-			}
-	}
-}

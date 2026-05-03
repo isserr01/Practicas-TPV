@@ -249,5 +249,5 @@ void Networking::handle_dead(const DeadMsg &m) {
 }
 
 void Networking::handle_restart() {
-	Game::Instance()->get_fighters().restart();
+	//Game::Instance()->get_fighters().restart();
 }

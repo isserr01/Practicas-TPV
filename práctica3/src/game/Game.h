@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include <vector>
 #include "../utils/Singleton.h"
+#include "../ecs/ecs.h"
 #include "GameState.h"
 #include "NewGameState.h"
 #include "PausedState.h"
@@ -11,13 +11,9 @@
 #include "NewRoundState.h" 
 #include "GameOverState.h"
 
-#include "../ecs/ecs.h"
+class LittleWolf;
 
-class Fighter;
-class Bullets;
-class Networking;
-
-class Game : public Singleton<Game> {
+class Game : public Singleton<Game>{
 	friend class Singleton<Game>;
 public:
 
@@ -31,10 +27,8 @@ public:
 	};
 
 	inline void setState(State s) {
-
 		assert(_state != nullptr);
 		_state->leave();
-
 		_currentState = s;
 		switch (s) {
 		case NEWGAME:
@@ -59,7 +53,6 @@ public:
 			break;
 		}
 		_state->enter();
-
 	}
 
 	inline void initGame() {
@@ -80,27 +73,13 @@ public:
 		return _mngr;
 	}
 
-	Fighter& get_fighters() {
-		return *_fighters;
-	}
-
-	Bullets& get_bullets() {
-		return *_bm;
-	}
-
-	inline Networking& get_networking() {
-		return *_net;
-	}
-
-	void start();
-	Game();
 	virtual ~Game();
+	void init(const char *map);
+	void start();
 private:
-	
-	
-	bool init();
-	void check_collisions();
+	Game();
 
+	LittleWolf *_little_wolf;
 	//entitymanager and systems
 	ecs::EntityManager* _mngr;
 
@@ -114,8 +93,5 @@ private:
 	GameState* _gameover_lost_state;
 	State _currentState;
 
-	Bullets* _bm;
-	Fighter* _fighters;
-	Networking* _net;
 };
 
