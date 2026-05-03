@@ -165,6 +165,8 @@ public:
     // Mostrar mensaje de cuenta regresiva
     void showRestartCountdown(int seconds);
 
+	void setCurrentPlayer(Uint8 playerId);
+
     // Establecer mi ID de jugador
     void setMyPlayerId(Uint8 id) { _myPlayerId = id; }
     Uint8 getMyPlayerId() const { return _myPlayerId; }

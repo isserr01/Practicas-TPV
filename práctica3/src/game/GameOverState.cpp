@@ -10,7 +10,7 @@ void GameOverState::update()
 	auto& inhdlr = ih();
 
 	if (inhdlr.keyDownEvent()) {
-		Game::Instance()->setState(Game::NEWGAME);
+		//Game::Instance()->setState(Game::NEWGAME);
 	}
 
 	sdlutils().clearRenderer();

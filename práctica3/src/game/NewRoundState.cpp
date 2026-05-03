@@ -16,8 +16,8 @@ void NewRoundState::update() {
 
 		Message m;
 		m.id = _m_ROUND_START;
-		Game::Instance()->getMngr()->send(m);
-		Game::Instance()->setState(Game::RUNNING);
+		//Game::Instance()->getMngr()->send(m);
+		//Game::Instance()->setState(Game::RUNNING);
 	}
 
 	sdlutils().clearRenderer();

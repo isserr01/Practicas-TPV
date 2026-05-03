@@ -12,9 +12,11 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/Texture.h"
 
+#include "Game.h"
+#include "Networking.h"
+
 Fighter::Fighter(BulletManager &bm) :
-		_players(),
-		_curr_player_id(0), //
+		_players(), _local_player_id(0), //
 		_fighter_img(sdlutils().images().at("fighter")), //
 		_ihdlr(ih()), //
 		_bm(bm), //
@@ -25,7 +27,7 @@ Fighter::~Fighter() {
 }
 
 void Fighter::update() {
-	Player &p = _players[_curr_player_id];
+	Player &p = _players[_local_player_id];
 
 	// dead player don't move/spin/shoot
 	if (p.state != ALIVE)
@@ -35,32 +37,25 @@ void Fighter::update() {
 	move(p);  // handle moving
 	shoot(p); // handle shooting
 
-	// update the state of all fighters -- we could also do it only for the current one
-	for (auto i = 0u; i < max_player; i++) {
+	// move
+	p.pos = p.pos + p.vel;
 
-		Player &p = _players[i];
-		if (p.state != ALIVE)
-			continue;
-		// move
-		p.pos = p.pos + p.vel;
+	// deaccelerate
+	p.vel = p.vel * 0.995f;
+	if (p.vel.magnitude() < 0.05f)
+		p.vel.set(0.0f, 0.0f);
 
-		// deaccelerate
-		p.vel = p.vel * 0.995f;
-		if (p.vel.magnitude() < 0.05f)
-			p.vel.set(0.0f, 0.0f);
+	// show at opposite side
+	if (p.pos.getY() + p.height < 0.0f) {
+		p.pos.setY(sdlutils().height() - 1);
+	} else if (p.pos.getY() > sdlutils().height()) {
+		p.pos.setY(-p.height + 1);
+	}
 
-		// show at opposite side
-		if (p.pos.getY() + p.height < 0.0f) {
-			p.pos.setY(sdlutils().height() - 1);
-		} else if (p.pos.getY() > sdlutils().height()) {
-			p.pos.setY(-p.height + 1);
-		}
-
-		if (p.pos.getX() + p.width < 0.0f) {
-			p.pos.setX(sdlutils().width() - 1);
-		} else if (p.pos.getX() > sdlutils().width()) {
-			p.pos.setX(-p.width + 1);
-		}
+	if (p.pos.getX() + p.width < 0.0f) {
+		p.pos.setX(sdlutils().width() - 1);
+	} else if (p.pos.getX() > sdlutils().width()) {
+		p.pos.setX(-p.width + 1);
 	}
 
 	if (_ihdlr.keyDownEvent()) {
@@ -70,16 +65,11 @@ void Fighter::update() {
 			_show_help = !_show_help;
 		}
 
-		// N switches to the next player view
-		if (_ihdlr.isKeyDown(SDL_SCANCODE_N)) {
-			switchToNextPlayer();
-		}
-
-		// R brings deads to life
-		if (_ihdlr.isKeyDown(SDL_SCANCODE_R)) {
-			restart();
-		}
 	}
+
+	// send player's state
+	Game::Instance()->get_networking().send_state(p.pos, p.width, p.height,
+			p.rot);
 
 }
 
@@ -90,6 +80,9 @@ bool Fighter::addPlayer(Uint8 id) {
 		return false;
 
 	resetPlayer(id);
+	_local_player_id = id;
+
+	send_my_info();
 
 	return true;
 }
@@ -102,8 +95,7 @@ void Fighter::resetPlayer(Uint8 id) {
 	int x = rand.nextInt(0, sdlutils().width() - 40);
 	int y = rand.nextInt(0, sdlutils().height() - 40);
 
-	_players[id] =
-			{ id, Vector2D(), Vector2D(x, y), 40, 40, 2.0f, 0.0f, ALIVE,
+	_players[id] = { id, Vector2D(), Vector2D(x, y), 40, 40, 2.0f, 0.0f, ALIVE,
 			0u };
 
 }
@@ -120,13 +112,14 @@ void Fighter::render() {
 	}
 
 	// draw a square around the current player
-	draw_limits(_players[_curr_player_id]);
+	if (_players[_local_player_id].state == ALIVE)
+		draw_limits(_players[_local_player_id]);
 
 	// show help
 	if (_show_help) {
 		int y = sdlutils().height();
 		for (const char *s : { "usage_1", "usage_2", "usage_3", "usage_4",
-				"usage_5", "usage_6" }) {
+				"usage_6" }) {
 			auto &t = sdlutils().msgs().at(s);
 			y = y - t.height();
 			t.render(0, y);
@@ -212,30 +205,31 @@ void Fighter::shoot(Player &p) {
 
 		Vector2D bp = c
 				- Vector2D(0.0f, p.height / 2.0f + bheight / 2).rotate(p.rot)
-				- Vector2D(bwidth / 2, bheight / 2);
+				- Vector2D(bwidth, bheight);
 
 		Vector2D bv = Vector2D(0, -1).rotate(p.rot)
 				* (p.vel.magnitude() + 5.0f);
 
-		_bm.shoot(bp, bv, bwidth, bheight, Vector2D(0, -1).angle(bv));
+		Game::Instance()->get_networking().send_shoot(bp, bv, bwidth, bheight,
+				Vector2D(0, -1).angle(bv));
+
 	}
 }
 
 void Fighter::switchToNextPlayer() {
 
-	// search the next player in the palyer's array
-	int j = (_curr_player_id + 1) % _players.size();
-	while (j != _curr_player_id && _players[j].state != ALIVE)
+// search the next player in the palyer's array
+	int j = (_local_player_id + 1) % _players.size();
+	while (j != _local_player_id && _players[j].state != ALIVE)
 		j = (j + 1) % _players.size();
 
-	// if all dead, bring them to life
-	if (j == _curr_player_id) {
+// if all dead, bring them to life
+	if (j == _local_player_id) {
 		restart();
 	}
 
-	// move to the next player view
-	_curr_player_id = j;
-	
+// move to the next player view
+	_local_player_id = j;
 
 }
 
@@ -243,8 +237,50 @@ void Fighter::restart() {
 	_bm.reset();
 	// bring all dead players to life -- all stay in the same position
 	for (auto i = 0u; i < _players.size(); i++) {
-		if (_players[i].state != NOT_USED) {
-			resetPlayer(i);
+		Player &p = _players[i];
+		if (p.state == DEAD) {
+			p.state = ALIVE;
+			p.vel.set(0.0f, 0.f);
 		}
 	}
+}
+
+void Fighter::removePlayer(Uint8 id) {
+	_players[id].state = Fighter::NOT_USED;
+}
+
+void Fighter::update_player_state(Uint8 id, float x, float y, float w, float h,
+		float rot) {
+
+	Player &p = _players[id];
+
+	p.pos.set(x, y);
+	p.id = id;
+	p.width = w;
+	p.height = h;
+	p.rot = rot;
+
+}
+
+void Fighter::killPlayer(Uint8 id) {
+	_players[id].state = Fighter::DEAD;
+}
+
+void Fighter::update_player_info(Uint8 id, float x, float y, float w, float h,
+		float rot, Uint8 state) {
+	Player &p = _players[id];
+
+	p.pos.set(x, y);
+	p.id = id;
+	p.width = w;
+	p.height = h;
+	p.rot = rot;
+	p.state = static_cast<PlayerState>(state);
+}
+
+void Fighter::send_my_info() {
+	Player &p = _players[_local_player_id];
+
+	Game::Instance()->get_networking().send_my_info(p.pos, p.width, p.height,
+			p.rot, p.state);
 }

@@ -12,7 +12,7 @@ Bullets::Bullets() :
 Bullets::~Bullets() {
 }
 
-void Bullets::shoot(Vector2D p, Vector2D v, int width, int height, float r) {
+void Bullets::shoot(Vector2D p, Vector2D v, int width, int height, float r, Uint8 shooter, Uint32 timestamp) {
 
 	int idx = (_lastUsed + 1) % max_bullets;
 	while (idx != _lastUsed && _bullets[idx].used) {
@@ -28,6 +28,7 @@ void Bullets::shoot(Vector2D p, Vector2D v, int width, int height, float r) {
 		b.width = width;
 		b.height = height;
 		b.rot = r;
+		b.shooter = shooter;
 	}
 }
 
@@ -55,6 +56,15 @@ void Bullets::render() {
 		if (b.used) {
 			SDL_FRect dest = build_sdlfrect(b.pos, b.width, b.height);
 			_img.render(dest, b.rot);
+		}
+	}
+}
+
+void Bullets::disable_bullet(Uint8 shooter, Uint32 timestamp) {
+	for (Bullet &b : _bullets) {
+		if (b.used && b.shooter == shooter && b.timestamp == timestamp) {
+			b.used = false;
+			return;
 		}
 	}
 }

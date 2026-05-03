@@ -2,102 +2,207 @@
 
 #include "Game.h"
 
+#include "Bullets.h"
+#include "LittleWolf.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
-#include "LittleWolf.h"
+#include "../utils/Collisions.h"
+#include "Networking.h"
 
 Game::Game() :
-		_little_wolf() //
-{
+	_bm(nullptr), //
+	_wolf(nullptr), //
+	_net(nullptr),
+	_clientId(0),
+	_masterId(0),
+	_running(true),
+	_lastStateSend(0),
+	_lastSentX(3.5f),
+	_lastSentY(3.5f),
+	_lastSentTheta(0) {
 }
 
 Game::~Game() {
+	delete _wolf;
+	delete _bm;
+	delete _net;
 
-	// release InputHandler if the instance was created correctly.
+	SDLNetUtils::close_SDLNet();
+
 	if (InputHandler::HasInstance())
 		InputHandler::Release();
-
-	// release SLDUtil if the instance was created correctly.
 	if (SDLUtils::HasInstance())
 		SDLUtils::Release();
-
-	delete _little_wolf;
 }
 
-void Game::init(const char *map) {
-
-
-	_little_wolf = new LittleWolf();
-
-	// load a map
-	_little_wolf->load(map);
-
-	// initialize the SDL singleton
-	if (!SDLUtils::Init("[Little Wolf: " + std::string(map) + "]",
-			_little_wolf->get_xres(),
-			_little_wolf->get_yres(),
+bool Game::init() {
+	if (!SDLUtils::HasInstance()) {
+		if (!SDLUtils::Init("LittleWolf Network", 800, 600,
 			"resources/config/littlewolf.resources.json")) {
-
-		std::cerr << "Something went wrong while initializing SDLUtils"
-				<< std::endl;
-		return;
+			std::cerr << "Error initializing SDLUtils" << std::endl;
+			return false;
+		}
 	}
 
-	// initialize the InputHandler singleton
 	if (!InputHandler::Init()) {
-		std::cerr << "Something went wrong while initializing SDLHandler"
-				<< std::endl;
-		return;
-
+		std::cerr << "Error initializing InputHandler" << std::endl;
+		return false;
 	}
 
-	_little_wolf->init(sdlutils().window(), sdlutils().renderer());
+	SDLNetUtils::init_SDLNet();
+	return true;
+}
 
-	// add some players
-	_little_wolf->addPlayer(0);
-	_little_wolf->addPlayer(1);
-	_little_wolf->addPlayer(2);
-	_little_wolf->addPlayer(3);
+bool Game::init_game(const char* host, Uint16 port, const char* playerName) {
+	_playerName = playerName;
 
+	if (!init()) return false;
+
+	// 1. Conectar al servidor
+	_net = new Networking();
+	if (!_net->init(host, port)) {
+		std::cerr << "Failed to connect to server" << std::endl;
+		return false;
+	}
+
+	_clientId = _net->get_client_id();
+	_masterId = _net->get_master_id();
+
+	// 2. Inicializar LittleWolf
+	_wolf = new LittleWolf();
+	_wolf->load("resources/maps/little_wolf/map_0.json");
+	_wolf->init(sdlutils().window(), sdlutils().renderer());
+
+	// 3. Configurar el jugador local
+	_wolf->setMyPlayerId(_clientId);
+	_wolf->setMaster(_clientId == _masterId);
+
+	// 4. Añadir el jugador local al juego
+	_wolf->addPlayer(_clientId);
+
+	// 5. Inicializar balas (opcional, para efectos visuales)
+	_bm = new Bullets();
+
+	std::cout << "Connected with id " << (int)_clientId
+		<< " (master is " << (int)_masterId << ")" << std::endl;
+
+	return true;
 }
 
 void Game::start() {
+	auto& ihdlr = ih();
+	auto& vt = sdlutils().virtualTimer();
+	vt.resetTime();
 
-	// a boolean to exit the loop
-	bool exit = false;
+	while (_running) {
+		Uint32 startTime = vt.regCurrTime();
 
-	auto &ihdlr = ih();
-
-	while (!exit) {
-		Uint32 startTime = sdlutils().currRealTime();
-
-		// refresh the input handler
 		ihdlr.refresh();
 
 		if (ihdlr.keyDownEvent()) {
-
-			// ESC exists the game
 			if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE)) {
-				exit = true;
+				_running = false;
 				continue;
 			}
-
+			// R para reiniciar (solo master)
+			if (ihdlr.isKeyDown(SDL_SCANCODE_R) && _net->is_master()) {
+				_net->send_restart();
+			}
 		}
 
-		_little_wolf->update();
+		// 1. Recibir mensajes de red
+		_net->update();
 
-		// the clear is not necessary since the texture we copy to the window occupies the whole screen
-		// sdlutils().clearRenderer();
+		// 2. Detectar inputs locales (sin mover todavía)
+		_wolf->update();  // Este método ya detecta inputs y los guarda en _pendingMoveX/Y/RotDelta
 
-		_little_wolf->render();
+		// 3. Enviar estado al servidor
+		sendPlayerState();
+		checkAndSendShoot();
 
+		// 4. Actualizar balas
+		_bm->update();
+
+		// 5. Verificar colisiones (solo el master)
+		check_collisions();
+
+		// 6. Renderizar
+		sdlutils().clearRenderer();
+		_wolf->render();
+		_bm->render();
 		sdlutils().presentRenderer();
 
-		Uint32 frameTime = sdlutils().currRealTime() - startTime;
-
-		if (frameTime < 10)
-			SDL_Delay(10 - frameTime);
+		Uint32 frameTime = vt.currRealTime() - startTime;
+		if (frameTime < 16) SDL_Delay(16 - frameTime);
 	}
 
+	_net->disconnect();
 }
 
+void Game::sendPlayerState() {
+	// Solo enviar si estamos vivos
+	if (_wolf->getLocalState() != LittleWolf::ALIVE) return;
+
+	Uint32 now = SDL_GetTicks();
+	if (now - _lastStateSend < 50) return;
+
+	// Obtener inputs pendientes (ya detectados por LittleWolf::update())
+	float moveX = _wolf->getPendingMoveX();
+	float moveY = _wolf->getPendingMoveY();
+	float rotDelta = _wolf->getPendingRotDelta();
+
+	float speed = 0.05f;
+	float rotSpeed = 0.05f;
+
+	// Calcular nueva posición (simulación local)
+	float newTheta = _lastSentTheta + rotDelta * rotSpeed;
+	float newX = _lastSentX + (moveY * cosf(_lastSentTheta) - moveX * sinf(_lastSentTheta)) * speed;
+	float newY = _lastSentY + (moveY * sinf(_lastSentTheta) + moveX * cosf(_lastSentTheta)) * speed;
+
+	// Solo enviar si hubo cambio significativo
+	if (fabs(newX - _lastSentX) > 0.01f || fabs(newY - _lastSentY) > 0.01f ||
+		fabs(newTheta - _lastSentTheta) > 0.01f) {
+
+		// Enviar estado al servidor
+		_net->send_state(Vector2D(newX, newY), 0, 0, newTheta);
+
+		// Actualizar posición local visual
+		_wolf->updatePlayerPosition(_clientId, newX, newY, newTheta);
+
+		_lastSentX = newX;
+		_lastSentY = newY;
+		_lastSentTheta = newTheta;
+		_lastStateSend = now;
+	}
+}
+
+void Game::checkAndSendShoot() {
+	if (_wolf->isShootRequested()) {
+		LittleWolf::Point origin = _wolf->getLocalPosition();
+		float theta = _wolf->getLocalTheta();
+
+		_net->send_shoot(Vector2D(origin.x, origin.y),
+			Vector2D(cosf(theta), sinf(theta)),
+			5, 5, theta);
+		_wolf->clearShootRequest();
+	}
+}
+
+void Game::check_collisions() {
+	// Solo el master verifica colisiones
+	if (!_net->is_master()) return;
+
+	for (Bullets::Bullet& b : *_bm) {
+		if (b.used) {
+			LittleWolf::Point origin(b.pos.getX(), b.pos.getY());
+			float dirX = b.vel.getX();
+			float dirY = b.vel.getY();
+
+			Uint8 hitId;
+			if (_wolf->checkCollision(origin, dirX, dirY, b.shooter, hitId)) {
+				b.used = false;
+				_net->send_dead(hitId, b.shooter, b.timestamp);
+			}
+		}
+	}
+}

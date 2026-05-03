@@ -19,6 +19,8 @@ public:
 		int width;
 		int height;
 		float rot;
+		Uint8 shooter;
+		Uint32 timestamp;
 	};
 
 	constexpr static auto max_bullets = 20;
@@ -34,9 +36,9 @@ public:
 		return _bullets.end();
 	}
 
-	void shoot(Vector2D p, Vector2D v, int width, int height, float r) override;
-
+	void shoot(Vector2D p, Vector2D v, int width, int height, float r, Uint8 shooter, Uint32 timestamp) override;
 	void reset() override;
+	void disable_bullet(Uint8 shooter, Uint32 timestamp) override;
 
 	void update();
 	void render();

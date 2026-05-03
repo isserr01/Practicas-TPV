@@ -18,7 +18,7 @@ void PausedState::update() {
 	sdlutils().clearRenderer();
 
 	if (ih().keyDownEvent()) {
-		Game::Instance()->setState(Game::RUNNING);
+		//Game::Instance()->setState(Game::RUNNING);
 	}
 
 	auto& msg = sdlutils().msgs().at("paused");

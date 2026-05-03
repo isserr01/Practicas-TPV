@@ -65,7 +65,7 @@ public:
 	//
 	void die(Player &p) {
 		p.state = Fighter::DEAD;
-		if (p.id == _curr_player_id) {
+		if (p.id == _local_player_id) {
 			switchToNextPlayer();
 		}
 	}
@@ -82,6 +82,14 @@ public:
 	// update the world, tec
 	void update();
 
+	void removePlayer(Uint8 id);
+	void update_player_state(Uint8 id, float x, float y, float w, float h,
+			float rot);
+	void killPlayer(Uint8 id);
+	void update_player_info(Uint8 id, float x, float y, float w, float h,
+			float rot, Uint8 state);
+	void send_my_info();
+
 private:
 	void resetPlayer(Uint8 id);
 	void shoot(Player &p);
@@ -89,17 +97,17 @@ private:
 	void move(Player &p);
 	void draw_limits(Player &p);
 
+
 	// array of players
 	std::array<Player, max_player> _players;
 
 	// id of the current player, used since we allows switching between players
-	Uint8 _curr_player_id;
+	Uint8 _local_player_id;
 
 	const Texture &_fighter_img;
 	InputHandler &_ihdlr;
 	BulletManager &_bm;
 	bool _show_help;
-
 
 };
 

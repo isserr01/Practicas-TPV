@@ -19,15 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\components\Health.cpp" />
     <ClCompile Include="src\game\Bullets.cpp" />
     <ClCompile Include="src\game\Fighter.cpp" />
     <ClCompile Include="src\game\LittleWolf.cpp" />
     <ClCompile Include="src\game\Networking.cpp" />
     <ClCompile Include="src\game\TCPServer.cpp" />
-    <ClCompile Include="src\systems\GhostSystem.cpp" />
-    <ClCompile Include="src\systems\ImmunitySystem.cpp" />
-    <ClCompile Include="src\components\ImageWithFrames.cpp" />
     <ClCompile Include="src\ecs\EntityManager.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\GameOverState.cpp" />
@@ -47,32 +43,21 @@
     <ClCompile Include="src\sdlutils\Texture.cpp" />
     <ClCompile Include="src\systems\CollisionsSystem.cpp" />
     <ClCompile Include="src\systems\GameCtrlSystem.cpp" />
-    <ClCompile Include="src\systems\PacManSystem.cpp" />
-    <ClCompile Include="src\systems\RenderSystem.cpp" />
-    <ClCompile Include="src\systems\FruitSystem.cpp" />
     <ClCompile Include="src\utils\Collisions.cpp" />
     <ClCompile Include="src\utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\uni\tpv2\ecs_5\usage_examples\pacman_eat_stars_w_msgs\game\messages_defs.h" />
-    <ClInclude Include="src\components\Immunity.h" />
-    <ClInclude Include="src\components\Health.h" />
     <ClInclude Include="src\ecs\ecs.h" />
     <ClInclude Include="src\game\Bullets.h" />
     <ClInclude Include="src\game\BulletsManager.h" />
     <ClInclude Include="src\game\Fighter.h" />
+    <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\game\LittleWolf.h" />
     <ClInclude Include="src\game\messages.h" />
     <ClInclude Include="src\game\Networking.h" />
     <ClInclude Include="src\game\SDLNetUtils.h" />
     <ClInclude Include="src\game\TCPServer.h" />
-    <ClInclude Include="src\systems\GhostSystem.h" />
-    <ClInclude Include="src\systems\ImmunitySystem.h" />
-    <ClInclude Include="src\components\Image.h" />
-    <ClInclude Include="src\components\ImageWithFrames.h" />
-    <ClInclude Include="src\components\Miracle.h" />
-    <ClInclude Include="src\components\Points.h" />
-    <ClInclude Include="src\components\Transform.h" />
     <ClInclude Include="src\ecs\Component.h" />
     <ClInclude Include="src\ecs\Entity.h" />
     <ClInclude Include="src\ecs\EntityManager.h" />
@@ -84,7 +69,6 @@
     <ClInclude Include="src\game\ecs_defs_example.h" />
     <ClInclude Include="src\game\FighterFacade.h" />
     <ClInclude Include="src\game\FighterUtils.h" />
-    <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\game\GameOverState.h" />
     <ClInclude Include="src\game\GameState.h" />
     <ClInclude Include="src\game\messages_defs.h" />
@@ -108,9 +92,6 @@
     <ClInclude Include="src\sdlutils\VirtualTimer.h" />
     <ClInclude Include="src\systems\CollisionsSystem.h" />
     <ClInclude Include="src\systems\GameCtrlSystem.h" />
-    <ClInclude Include="src\systems\PacManSystem.h" />
-    <ClInclude Include="src\systems\RenderSystem.h" />
-    <ClInclude Include="src\systems\FruitSystem.h" />
     <ClInclude Include="src\utils\Collisions.h" />
     <ClInclude Include="src\utils\DynamicBitSet.h" />
     <ClInclude Include="src\utils\exceptions.h" />

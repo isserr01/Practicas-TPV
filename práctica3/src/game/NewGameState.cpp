@@ -7,7 +7,6 @@
 #include "../sdlutils/Texture.h"
 #include "../game/Game.h"
 #include "../ecs/EntityManager.h"
-#include "../components/Image.h"
 
 NewGameState::NewGameState() :
 	_msg(sdlutils().msgs().at("newgame")) {
@@ -27,8 +26,8 @@ void NewGameState::update() {
 	if (inhdlr.keyDownEvent()) {
 		Message m;
 		m.id = _m_NEW_GAME;
-		Game::Instance()->getMngr()->send(m);
-		Game::Instance()->setState(Game::NEWROUND);
+		//Game::Instance()->getMngr()->send(m);
+		//Game::Instance()->setState(Game::NEWROUND);
 	}
 
 	sdlutils().clearRenderer();
