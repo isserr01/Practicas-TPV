@@ -5,7 +5,6 @@
 #include "../sdlutils/SDLUtils.h"
 Bullets::Bullets() :
 		_bullets(), //
-		_img(sdlutils().images().at("fire")), //
 		_lastUsed(-1) {
 }
 
@@ -55,7 +54,6 @@ void Bullets::render() {
 	for (Bullet &b : _bullets) {
 		if (b.used) {
 			SDL_FRect dest = build_sdlfrect(b.pos, b.width, b.height);
-			_img.render(dest, b.rot);
 		}
 	}
 }

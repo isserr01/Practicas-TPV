@@ -45,7 +45,6 @@ public:
 
 private:
 	bullets_array _bullets;
-	const Texture &_img;
 	int _lastUsed;
 
 };

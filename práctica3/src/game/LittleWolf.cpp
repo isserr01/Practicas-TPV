@@ -5,6 +5,7 @@
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/Texture.h"
+#include "Game.h"
 #include <iostream>
 #include <cstring>
 
@@ -294,12 +295,14 @@ void LittleWolf::render() {
     if (_show_help) {
         int y = sdlutils().height();
         std::vector<const char*> helpLines = {
-            "W/A/S/D - Move",
-            "H/L - Rotate",
-            "Space - Shoot",
-            "M - Mute sound",
-            "T - Hide help",
-            "ESC - Exit"
+            "usage_1",
+            "usage_2",
+            "usage_3",
+            "usage_4",
+            "usage_5",
+            "usage_6",
+            "usage_7",
+            "usage_8",
         };
 
         for (const char* line : helpLines) {
@@ -440,7 +443,7 @@ void LittleWolf::render_players_info() {
                 " SCR:" + std::to_string(_remotePlayers[i].score);
 
             Texture info(sdlutils().renderer(), msg,
-                sdlutils().fonts().at("MFR18"),
+                sdlutils().fonts().at("MFR48"),
                 build_sdlcolor(color_rgba(i + 10)));
 
             SDL_FRect dest = { 10.0f, (float)y, (float)info.width(), (float)info.height() };
@@ -686,3 +689,41 @@ bool LittleWolf::checkCollision(const Point& origin, float dirX, float dirY,
     }
     return false;
 }
+
+void LittleWolf::removePlayer(Uint8 id) {
+    _players[id].state = LittleWolf::NOT_USED;
+}
+
+void LittleWolf::update_player_state(Uint8 id, float x, float y, float w, float h,
+    float rot) {
+
+    Player& p = _players[id];
+
+    p.where.x = x;
+	p.where.y = y;
+    p.id = id;
+    p.theta = rot;
+
+}
+
+void LittleWolf::killPlayer(Uint8 id) {
+    _players[id].state = LittleWolf::DEAD;
+}
+
+void LittleWolf::update_player_info(Uint8 id, float x, float y, float w, float h,
+    float rot, Uint8 state) {
+    Player& p = _players[id];
+
+    p.where.x = x;
+	p.where.y = y;
+    p.id = id;
+    p.theta = rot;
+    p.state = static_cast<PlayerState>(state);
+}
+
+void LittleWolf::send_my_info() {
+    Player& p = _players[_myPlayerId];
+
+    Game::Instance()->sendPlayerState();
+}
+

@@ -1,41 +1,70 @@
-// main.cpp - versión que mantiene compatibilidad
+// This file is part of the course TPV2@UCM - Samir Genaim
+
 #include <iostream>
-#include <cstring>
+#include <fstream>
+
 #include "game/Game.h"
+#include "game/SDLNetUtils.h"
 #include "game/TCPServer.h"
+
+void server(Uint16 port) {
+
+	// initialize SDLNet
+	SDLNetUtils::init_SDLNet();
+
+	TCPServer server(10);
+
+	if (server.connect(port)) {
+		server.listen();
+	}
+
+	// close SDLNet
+	SDLNetUtils::close_SDLNet();
+}
+
+void client(const char* host, Uint16 port) {
+
+	try {
+		if (Game::Init()) {
+			Game& g = *Game::Instance();
+			if (g.init_game(host, port, "Player")) {
+				g.start();
+			}
+			Game::Release();
+		}
+	}
+	catch (const std::string& e) { // catch exceptions thrown as strings
+		std::cerr << e << std::endl;
+	}
+	catch (const char* e) { // catch exceptions thrown as char*
+		std::cerr << e << std::endl;
+	}
+	catch (const std::exception& e) { // catch exceptions thrown as a sub-type of std::exception
+		std::cerr << e.what();
+	}
+	catch (...) {
+		std::cerr << "Caught an exception of unknown type ...";
+	}
+
+}
 
 int main(int argc, char** argv) {
 
-    // Si hay argumento "server", ejecutar servidor
-    if (argc > 1 && strcmp(argv[1], "server") == 0) {
-        int port = (argc > 2) ? atoi(argv[2]) : 2000;
-        std::cout << "LittleWolf Server on port " << port << std::endl;
-        TCPServer server(10);
-        if (server.connect(port)) {
-            server.listen();
-        }
-        return 0;
-    }
+	if (argc == 3 && strcmp(argv[1], "server") == 0) {
+		server(static_cast<Uint16>(atoi(argv[2]))); // start in server mode
+	}
+	else if (argc == 4 && strcmp(argv[1], "client") == 0) {
+		client(argv[2], static_cast<Uint16>(atoi(argv[3]))); // start in client mode
+	}
+	else {
+		std::cout << "Usage: " << std::endl;
+		std::cout << "  " << argv[0] << " client host port " << std::endl;
+		std::cout << "  " << argv[0] << " server port " << std::endl;
+		std::cout << std::endl;
+		std::cout << "Example:" << std::endl;
+		std::cout << "  " << argv[0] << " server 2000" << std::endl;
+		std::cout << "  " << argv[0] << " client localhost 2000" << std::endl;
+	}
 
-    // Si no, ejecutar cliente (como antes)
-    try {
-        if (Game::Init()) {
-            Game::Instance()->init_game("localhost", 2000, "Player");
-            Game::Instance()->start();
-        }
-    }
-    catch (const std::string& e) {
-        std::cerr << e << std::endl;
-    }
-    catch (const char* e) {
-        std::cerr << e << std::endl;
-    }
-    catch (const std::exception& e) {
-        std::cerr << e.what();
-    }
-    catch (...) {
-        std::cerr << "Caught an exception of unknown type ...";
-    }
-
-    return 0;
+	return 0;
 }

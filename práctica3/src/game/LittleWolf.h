@@ -199,6 +199,13 @@ public:
     // Verificar colisión para el master
     bool checkCollision(const Point& origin, float dirX, float dirY, Uint8 shooterId, Uint8& hitPlayerId) const;
 
+    // Métodos para Networking (equivalentes a los de Fighter)
+    void send_my_info();
+    void removePlayer(Uint8 id);
+    void update_player_state(Uint8 id, float x, float y, float w, float h, float rot);
+    void update_player_info(Uint8 id, float x, float y, float w, float h, float rot, Uint8 state);
+    void killPlayer(Uint8 id);
+
 private:
     // ========== MÉTODOS DE RENDERIZADO ==========
     void render_map(const Player& p);

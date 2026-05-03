@@ -22,6 +22,7 @@
     <ClCompile Include="src\game\Bullets.cpp" />
     <ClCompile Include="src\game\Fighter.cpp" />
     <ClCompile Include="src\game\LittleWolf.cpp" />
+    <ClCompile Include="src\game\Networking.cpp" />
     <ClCompile Include="src\game\TCPServer.cpp" />
     <ClCompile Include="src\ecs\EntityManager.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\game\LittleWolf.h" />
     <ClInclude Include="src\game\messages.h" />
+    <ClInclude Include="src\game\Networking.h" />
     <ClInclude Include="src\game\SDLNetUtils.h" />
     <ClInclude Include="src\game\TCPServer.h" />
     <ClInclude Include="src\ecs\Component.h" />
