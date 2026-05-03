@@ -156,8 +156,11 @@ void LittleWolf::init(SDL_Window* window, SDL_Renderer* render) {
 bool LittleWolf::addPlayer(Uint8 id) {
     assert(id < _max_player);
 
-    if (_players[id].state != NOT_USED)
-        return false;
+    _players[id].state = ALIVE;  
+    if (id == _myPlayerId) {
+        _myState = ALIVE; 
+        _curr_player_id = id;
+    }
 
     auto& rand = sdlutils().rand();
 
@@ -198,6 +201,8 @@ bool LittleWolf::addPlayer(Uint8 id) {
 
 void LittleWolf::update() {
     auto& ihdlr = ih();
+
+    _myState = _players[_myPlayerId].state;
 
     // Procesar teclas de UI (no juego)
     if (ihdlr.keyDownEvent()) {
@@ -526,17 +531,6 @@ void LittleWolf::updatePlayerRemote(Uint8 playerId, float x, float y, float thet
 
     // Si es mi ID, actualizar mi estado local
     if (playerId == _myPlayerId) {
-        _myHealth = health;
-        _myScore = score;
-        _myState = state;
-
-        if (_players[playerId].state == NOT_USED && state != NOT_USED) {
-            addPlayer(playerId);
-        }
-
-        _players[playerId].state = static_cast<PlayerState>(state);
-        _players[playerId].where = { x, y };
-        _players[playerId].theta = theta;
         return;
     }
 
@@ -551,30 +545,37 @@ void LittleWolf::updatePlayerRemote(Uint8 playerId, float x, float y, float thet
     remote.name = std::string(name);
     remote.active = true;
 
-    // Si el jugador no existe en el juego, crearlo
     if (_players[playerId].state == NOT_USED && state != NOT_USED) {
         addPlayer(playerId);
-    }
 
-    _players[playerId].state = static_cast<PlayerState>(state);
-    // No actualizar posición directamente, usar interpolación
+        _players[playerId].where = { x, y };
+        _players[playerId].theta = theta;
+    }
 }
 
 void LittleWolf::updatePlayerPosition(Uint8 playerId, float x, float y, float theta) {
-    if (playerId >= _max_player || playerId == _myPlayerId) return;
-    if (playerId == _myPlayerId) {
-        // Actualizar mi posición local
-        _players[playerId].where.x = x;
-        _players[playerId].where.y = y;
-        _players[playerId].theta = theta;
-        std::cout << "MY POSITION UPDATED: " << x << ", " << y << std::endl;  // Log
+   if (playerId >= _max_player) return;
+    if (_players[playerId].state == NOT_USED) {
+        addPlayer(playerId);
+        return; // addPlayer ya posiciona al jugador
     }
-    else {
-        // Actualizar posición remota
-        _remotePlayers[playerId].targetX = x;
-        _remotePlayers[playerId].targetY = y;
-        _remotePlayers[playerId].targetTheta = theta;
+    Player& p = _players[playerId];
+    
+    // Limpiar tile antiguo (solo si era un tile de jugador)
+    int oldTileX = (int)p.where.x;
+    int oldTileY = (int)p.where.y;
+    if (_map.walling[oldTileY][oldTileX] == player_to_tile(playerId)) {
+        _map.walling[oldTileY][oldTileX] = 0;
     }
+    
+    // Actualizar posición
+    p.where = { x, y };
+    p.theta = theta;
+    
+    // Colocar tile nuevo
+    int newTileX = (int)p.where.x;
+    int newTileY = (int)p.where.y;
+    _map.walling[newTileY][newTileX] = player_to_tile(playerId);
 }
 
 void LittleWolf::updatePlayerHealth(Uint8 playerId, Uint8 health) {

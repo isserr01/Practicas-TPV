@@ -69,8 +69,13 @@ bool Game::init_game(const char* host, Uint16 port, const char* playerName) {
 	_wolf->init(sdlutils().window(), sdlutils().renderer());
 
 	// add the local player
-	_wolf->addPlayer(_net->get_client_id());
 	_wolf->setMyPlayerId(_net->get_client_id());
+	_wolf->addPlayer(_net->get_client_id());
+
+	_wolf->updatePlayerPosition(_net->get_client_id(), _wolf->getLocalPosition().x, _wolf->getLocalPosition().y, 0);
+
+	LittleWolf::Point pos = _wolf->getLocalPosition();
+	_net->send_my_info(Vector2D(pos.x, pos.y), 0, 0, 0, 1);
 
 	std::cout << "Connected with id " << (int)_net->get_client_id()
 		<< " (master is " << (int)_net->get_master_id() << ")" << std::endl;
@@ -154,16 +159,20 @@ void Game::sendPlayerState() {
 	LittleWolf::Point pos = _wolf->getLocalPosition();
 	float theta = _wolf->getLocalTheta();
 
-	float speed = 0.50f;
-	float rotSpeed = 0.1f;
+	// Calcular nueva posición
+	float speed = 0.5f;
+	float rotSpeed = 0.05f;
 
 	float newTheta = theta + rotDelta * rotSpeed;
 	float newX = pos.x + (moveY * cosf(theta) - moveX * sinf(theta)) * speed;
 	float newY = pos.y + (moveY * sinf(theta) + moveX * cosf(theta)) * speed;
 
+	// 1. Actualizar posición local AHORA MISMO
 	_wolf->updatePlayerPosition(_net->get_client_id(), newX, newY, newTheta);
 
+	// 2. Enviar al servidor
 	_net->send_state(Vector2D(newX, newY), 0, 0, newTheta);
+
 }
 
 void Game::checkAndSendShoot() {

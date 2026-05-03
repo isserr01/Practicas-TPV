@@ -218,7 +218,6 @@ private:
 
     // ========== MÉTODOS AUXILIARES ==========
     void applyRemoteInterpolation();
-    void switchToNextPlayer();
     void muteSound();
 
     // ========== FUNCIONES MATEMÁTICAS ==========

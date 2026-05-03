@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+﻿// This file is part of the course TPV2@UCM - Samir Genaim
 
 #include "Networking.h"
 
@@ -215,26 +215,40 @@ void Networking::send_restart() {
 	SDLNetUtils::serialized_send(m, sock);
 }
 
+void Networking::handle_player_state(const PlayerStateMsg& m) {
+	if (m.clientId == _client_Id) return;
+
+	Game::Instance()->get_littlewolf().updatePlayerPosition(m.clientId, m.x, m.y, m.rot);
+}
+
+void Networking::handle_player_info(const PlayerInfoMsg& m) {
+	if (m.clientId == _client_Id) return;
+	Game::Instance()->get_littlewolf().updatePlayerRemote(
+		m.clientId, m.x, m.y, m.rot, m.state, 100, 0, "Player"); 
+}
+
+void Networking::handle_dead(const DeadMsg& m) {
+	// Usar onPlayerDied en lugar de killPlayer
+	Game::Instance()->get_littlewolf().onPlayerDied(m.clientId, m.shooter);
+	Game::Instance()->get_bullets().disable_bullet(m.shooter, m.timestamp);
+}
+
+void Networking::handle_restart() {
+	Game::Instance()->get_littlewolf().restartGame();
+}
+
 void Networking::handle_new_client(Uint8 id) {
-	if (id != _client_Id)
-		Game::Instance()->get_littlewolf().send_my_info();
+	if (id != _client_Id) {
+		// Enviar mi información al nuevo cliente
+		LittleWolf::Point pos = Game::Instance()->get_littlewolf().getLocalPosition();
+		float theta = Game::Instance()->get_littlewolf().getLocalTheta();
+		send_my_info(Vector2D(pos.x, pos.y), 0, 0, theta, 1);
+	}
 }
 
 void Networking::handle_disconnet(Uint8 id) {
+	// Marcar como not used (opcional)
 	Game::Instance()->get_littlewolf().removePlayer(id);
-}
-
-void Networking::handle_player_state(const PlayerStateMsg &m) {
-	Game::Instance()->get_littlewolf().update_player_state(m.clientId, m.x,
-			m.y,m.w,m.h, m.rot);
-	
-}
-
-void Networking::handle_player_info(const PlayerInfoMsg &m) {
-	if (m.clientId != _client_Id) {
-		Game::Instance()->get_littlewolf().update_player_info(m.clientId, m.x,
-				m.y, m.w, m.h, m.rot, m.state);
-	}
 }
 
 void Networking::handle_shoot(const ShootMsg &m) {
@@ -248,16 +262,4 @@ void Networking::handle_shoot(const ShootMsg &m) {
 	float volume = std::max(0.0f, std::min(1.0f, 1.0f - distance / 20.0f));
 
 	sdlutils().soundEffects().at("gunshot").play("se", volume);
-}
-
-void Networking::handle_dead(const DeadMsg &m) {
-	Game::Instance()->get_littlewolf().killPlayer(m.clientId);
-	Game::Instance()->get_bullets().disable_bullet(m.shooter,m.timestamp);
-
-	LittleWolf::Point localPos = Game::Instance()->get_littlewolf().getLocalPosition();
-	sdlutils().soundEffects().at("pain").play("se", 1.0f);
-}
-
-void Networking::handle_restart() {
-	Game::Instance()->get_littlewolf().restartGame();
 }
