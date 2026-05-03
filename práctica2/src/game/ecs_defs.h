@@ -24,7 +24,7 @@ struct Health;
 // Groups list - must have at least one element
 //
 #define _GRPS_LIST_ \
-	STARS, \
+	FRUITS, \
 	GHOSTS
 
 // Handlers list - must have at least one element
@@ -34,7 +34,7 @@ struct Health;
 
 // Systems list - must have at least one element
 //
-class StarsSystem;
+class FruitSystem;
 class RenderSystem;
 class PacManSystem;
 class GhostSystem;
@@ -43,7 +43,7 @@ class CollisionsSystem;
 class ImmunitySystem;
 
 #define _SYS_LIST_ \
-    StarsSystem, \
+    FruitSystem, \
 	RenderSystem, \
 	PacManSystem, \
 	GhostSystem, \

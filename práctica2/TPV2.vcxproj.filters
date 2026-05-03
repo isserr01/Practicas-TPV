@@ -66,7 +66,7 @@
     <ClCompile Include="src\systems\RenderSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\systems\StarsSystem.cpp">
+    <ClCompile Include="src\systems\FruitSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\game\GameState.cpp">
@@ -200,13 +200,7 @@
     <ClInclude Include="src\components\Points.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\components\StarMotion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\ecs\messages.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ecs\messages_defs_example.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ecs\System.h">
@@ -224,7 +218,7 @@
     <ClInclude Include="src\systems\RenderSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\systems\StarsSystem.h">
+    <ClInclude Include="src\systems\FruitSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\GameState.h">
@@ -273,9 +267,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ecs\ecs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ecs\ecs_defs_example.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\systems\GhostSystem.h">

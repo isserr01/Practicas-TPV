@@ -41,5 +41,5 @@ void NewGameState::update() {
 }
 
 void NewGameState::enter() {
-
+	sdlutils().soundEffects().at("pacman_intro").play("se");
 }

@@ -39,7 +39,7 @@ void RenderSystem::update() {
 
 void RenderSystem::drawStars() {
 	// draw stars
-	for (auto e : _mngr->getEntities(ecs::grp::STARS)) {
+	for (auto e : _mngr->getEntities(ecs::grp::FRUITS)) {
 
 		auto tr = _mngr->getComponent<Transform>(e);
 		auto anim = _mngr->getComponent<ImageWithFrames>(e);

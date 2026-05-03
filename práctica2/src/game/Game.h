@@ -13,6 +13,8 @@
 
 #include "../ecs/ecs.h"
 
+
+
 class Game : public Singleton<Game> {
 	friend class Singleton<Game>;
 public:
@@ -93,6 +95,7 @@ private:
 	GameState* _gameover_won_state;
 	GameState* _gameover_lost_state;
 	State _currentState;
+
 
 };
 

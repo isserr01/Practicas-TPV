@@ -17,8 +17,8 @@ void ImmunitySystem::update() {
 
 void ImmunitySystem:: recieve(const Message& m) {
     switch (m.id) {
-        case _m_STAR_EATEN:
-            onFruitEaten(m.star_eaten_data.e);
+        case _m_PACMAN_FOOD_COLLISION:
+            onFruitEaten(m.fruit_eaten_data.e);
             break;
         case _m_ROUND_START:
             resetImmunity();

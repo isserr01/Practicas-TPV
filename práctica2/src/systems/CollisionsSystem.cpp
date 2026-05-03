@@ -6,7 +6,7 @@
 #include "../components/Health.h"
 #include "../ecs/EntityManager.h"
 #include "../utils/Collisions.h"
-#include "StarsSystem.h"
+#include "FruitSystem.h"
 
 CollisionsSystem::CollisionsSystem() : _isImmune(false) {}
 
@@ -32,7 +32,7 @@ void CollisionsSystem::update() {
     auto pTR = _mngr->getComponent<Transform>(pm);
 
     // Colisiones con estrellas
-    auto& stars = _mngr->getEntities(ecs::grp::STARS);
+    auto& stars = _mngr->getEntities(ecs::grp::FRUITS);
     auto n = stars.size();
     for (auto i = 0u; i < n; i++) {
         auto e = stars[i];
@@ -41,8 +41,8 @@ void CollisionsSystem::update() {
             if (Collisions::collides(pTR->_pos, pTR->_width, pTR->_height,
                 eTR->_pos, eTR->_width, eTR->_height)) {
                 Message m;
-                m.id = _m_STAR_EATEN;
-                m.star_eaten_data.e = e;
+                m.id = _m_PACMAN_FOOD_COLLISION;
+                m.fruit_eaten_data.e = e;
                 _mngr->send(m);
             }
         }

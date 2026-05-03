@@ -108,6 +108,7 @@ void GhostSystem::colisionPac(ecs::entity_t e) {
 			Message m;
 			m.id = _m_ROUND_OVER;
 			Game::Instance()->getMngr()->send(m);
+			sdlutils().soundEffects().at("pacman_lost").play("se");
 			Game::Instance()->setState(Game::GAMEOVER_LOST);
 		}
 		
@@ -137,6 +138,7 @@ void GhostSystem::recieve(const Message& m) {
 			// Matar fantasma
 			_mngr->setAlive(m.ghost_coll_data.e, false);
 			ghosts.erase(std::remove(ghosts.begin(), ghosts.end(), m.ghost_coll_data.e), ghosts.end());
+			sdlutils().soundEffects().at("pacman_chomp").play("se");
 			cantidadGhosts--;
 			break;
 	default:

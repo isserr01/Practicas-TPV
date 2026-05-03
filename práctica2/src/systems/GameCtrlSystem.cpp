@@ -5,7 +5,7 @@
 #include "../components/Points.h"
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/InputHandler.h"
-#include "StarsSystem.h"
+#include "FruitSystem.h"
 GameCtrlSystem::GameCtrlSystem() :
 		_score() {
 	// TODO Auto-generated constructor stub
@@ -26,8 +26,8 @@ void GameCtrlSystem::update() {
 		if (ihldr.isKeyDown(SDL_SCANCODE_SPACE)) {
 
 			Message m;
-			m.id = _m_CREATE_STARS;
-			m.create_stars_data.n = 5;
+			m.id = _m_PACMAN_FOOD_COLLISION;
+			m.create_fruits_data.n = 5;
 			_mngr->send(m);
 		}
 	}
@@ -35,8 +35,8 @@ void GameCtrlSystem::update() {
 
 void GameCtrlSystem::recieve(const Message &m) {
 	switch (m.id) {
-	case _m_STAR_EATEN:
-		_score += _mngr->getComponent<Points>(m.star_eaten_data.e)->_points;
+	case _m_PACMAN_FOOD_COLLISION:
+		_score += _mngr->getComponent<Points>(m.fruit_eaten_data.e)->_points;
 		break;
 	default:
 		break;

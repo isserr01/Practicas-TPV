@@ -8,7 +8,7 @@
 #include "../systems/PacManSystem.h"
 #include "../systems/RenderSystem.h"
 #include "../systems/GhostSystem.h"
-#include "../systems/StarsSystem.h"
+#include "../systems/FruitSystem.h"
 #include "../systems/ImmunitySystem.h"
 #include "../utils/Vector2D.h"
 #include "../utils/Collisions.h"
@@ -36,7 +36,7 @@ void RunningState::enter()
 {
 	if (systems.empty()) {
 		_pacmanSys = Game::Instance()->getMngr()->addSystem<PacManSystem>();
-		_starsSys = Game::Instance()->getMngr()->addSystem<StarsSystem>();
+		_starsSys = Game::Instance()->getMngr()->addSystem<FruitSystem>();
 		_ghostSys = Game::Instance()->getMngr()->addSystem<GhostSystem>();
 		_gameCtrlSys = Game::Instance()->getMngr()->addSystem<GameCtrlSystem>();
 		_renderSys = Game::Instance()->getMngr()->addSystem<RenderSystem>();
@@ -52,11 +52,11 @@ void RunningState::enter()
 		systems.push_back(_immunitySys);
 	}
 
-	auto stars = Game::Instance()->getMngr()->getEntities(ecs::grp::STARS);
-	if (stars.empty()) {
+	auto fruits = Game::Instance()->getMngr()->getEntities(ecs::grp::FRUITS);
+	if (fruits.empty()) {
 		Message m;
-		m.id = _m_CREATE_STARS;
-		m.create_stars_data.n = 5;
+		m.id = _m_CREATE_FRUIT;
+		m.create_fruits_data.n = 5;
 		Game::Instance()->getMngr()->send(m);
 	}
 		
