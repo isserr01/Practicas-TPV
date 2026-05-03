@@ -226,10 +226,9 @@ void Networking::handle_disconnet(Uint8 id) {
 }
 
 void Networking::handle_player_state(const PlayerStateMsg &m) {
-	if (m.clientId != _client_Id) {
-		Game::Instance()->get_littlewolf().update_player_state(m.clientId, m.x,
-				m.y, m.w, m.h, m.rot);
-	}
+	Game::Instance()->get_littlewolf().update_player_state(m.clientId, m.x,
+			m.y,m.w,m.h, m.rot);
+	
 }
 
 void Networking::handle_player_info(const PlayerInfoMsg &m) {

@@ -251,6 +251,7 @@ void LittleWolf::update() {
         // Si estoy muerto, buscar cualquier jugador vivo para la cámara en vista aérea
         // Pero la vista aérea se maneja en render()
     }
+
 }
 
 void LittleWolf::applyRemoteInterpolation() {
@@ -562,10 +563,19 @@ void LittleWolf::updatePlayerRemote(Uint8 playerId, float x, float y, float thet
 
 void LittleWolf::updatePlayerPosition(Uint8 playerId, float x, float y, float theta) {
     if (playerId >= _max_player || playerId == _myPlayerId) return;
-
-    _remotePlayers[playerId].targetX = x;
-    _remotePlayers[playerId].targetY = y;
-    _remotePlayers[playerId].targetTheta = theta;
+    if (playerId == _myPlayerId) {
+        // Actualizar mi posición local
+        _players[playerId].where.x = x;
+        _players[playerId].where.y = y;
+        _players[playerId].theta = theta;
+        std::cout << "MY POSITION UPDATED: " << x << ", " << y << std::endl;  // Log
+    }
+    else {
+        // Actualizar posición remota
+        _remotePlayers[playerId].targetX = x;
+        _remotePlayers[playerId].targetY = y;
+        _remotePlayers[playerId].targetTheta = theta;
+    }
 }
 
 void LittleWolf::updatePlayerHealth(Uint8 playerId, Uint8 health) {
@@ -697,12 +707,16 @@ void LittleWolf::removePlayer(Uint8 id) {
 void LittleWolf::update_player_state(Uint8 id, float x, float y, float w, float h,
     float rot) {
 
-    Player& p = _players[id];
-
-    p.where.x = x;
-	p.where.y = y;
-    p.id = id;
-    p.theta = rot;
+    if (id == _myPlayerId) {
+        // Actualizar mi posición (la que el servidor validó)
+        _players[id].where.x = x;
+        _players[id].where.y = y;
+        _players[id].theta = rot;
+    }
+    else {
+        // Actualizar posición de otro jugador
+        updatePlayerPosition(id, x, y, rot);
+    }
 
 }
 

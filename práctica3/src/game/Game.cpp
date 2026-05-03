@@ -142,11 +142,25 @@ void Game::start() {
 void Game::sendPlayerState() {
 	if (_wolf->getLocalState() != LittleWolf::ALIVE) return;
 
+	// Obtener inputs
+	float moveX = _wolf->getPendingMoveX();
+	float moveY = _wolf->getPendingMoveY();
+	float rotDelta = _wolf->getPendingRotDelta();
+
+	// Obtener posición actual
 	LittleWolf::Point pos = _wolf->getLocalPosition();
 	float theta = _wolf->getLocalTheta();
 
-	// Enviar estado a través de Networking
-	_net->send_state(Vector2D(pos.x, pos.y), 0, 0, theta);
+	float speed = 0.50f;
+	float rotSpeed = 0.1f;
+
+	float newTheta = theta + rotDelta * rotSpeed;
+	float newX = pos.x + (moveY * cosf(theta) - moveX * sinf(theta)) * speed;
+	float newY = pos.y + (moveY * sinf(theta) + moveX * cosf(theta)) * speed;
+
+	_wolf->updatePlayerPosition(_net->get_client_id(), newX, newY, newTheta);
+
+	_net->send_state(Vector2D(newX, newY), 0, 0, newTheta);
 }
 
 void Game::checkAndSendShoot() {
