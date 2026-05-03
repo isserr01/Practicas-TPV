@@ -7,7 +7,7 @@
 
 #include "../utils/Singleton.h"
 
-class LittleWolf;  // ← Cambiar Fighter por LittleWolf
+class LittleWolf; 
 class Bullets;
 class Networking;
 
@@ -18,7 +18,7 @@ public:
 	bool init_game(const char* host, Uint16 port, const char* playerName);
 	void start();
 
-	LittleWolf& get_littlewolf() {  // ← Cambiar get_fighters por get_littlewolf
+	LittleWolf& get_littlewolf() {
 		return *_wolf;
 	}
 
@@ -41,6 +41,6 @@ private:
 	void check_collisions();
 
 	Bullets* _bm;
-	LittleWolf* _wolf;  // ← Cambiar _fighters por _wolf
+	LittleWolf* _wolf;
 	Networking* _net;
 };

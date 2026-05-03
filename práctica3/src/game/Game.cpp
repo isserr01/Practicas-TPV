@@ -104,6 +104,7 @@ void Game::start() {
 			if (ihdlr.isKeyDown(SDL_SCANCODE_R) && _net->is_master()) {
 				_net->send_restart();
 			}
+
 		}
 
 		// update networking (receive messages)
@@ -135,6 +136,8 @@ void Game::start() {
 		if (frameTime < 10)
 			SDL_Delay(10 - frameTime);
 	}
+
+
 
 	_net->disconnect();
 }

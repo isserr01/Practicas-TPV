@@ -275,11 +275,10 @@ void LittleWolf::applyRemoteInterpolation() {
 
 void LittleWolf::render() {
     // Si el jugador local está muerto, mostrar vista aérea
-    bool isLocalDead = (_myState == DEAD);
 
-    if (isLocalDead) {
+    if (_players[_curr_player_id].state == DEAD)
         render_upper_view();
-    }
+
     else {
         // Buscar el jugador local en _players
         for (int i = 0; i < _max_player; i++) {
@@ -733,6 +732,10 @@ void LittleWolf::update_player_info(Uint8 id, float x, float y, float w, float h
     p.id = id;
     p.theta = rot;
     p.state = static_cast<PlayerState>(state);
+
+    if (_players[id].state == NOT_USED && state != NOT_USED) {
+        addPlayer(id);  
+    }
 }
 
 void LittleWolf::send_my_info() {

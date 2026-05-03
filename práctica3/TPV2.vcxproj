@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game\Bullets.cpp" />
-    <ClCompile Include="src\game\Fighter.cpp" />
     <ClCompile Include="src\game\LittleWolf.cpp" />
     <ClCompile Include="src\game\Networking.cpp" />
     <ClCompile Include="src\game\TCPServer.cpp" />
@@ -49,7 +48,7 @@
     <ClInclude Include="src\ecs\ecs.h" />
     <ClInclude Include="src\game\Bullets.h" />
     <ClInclude Include="src\game\BulletsManager.h" />
-    <ClInclude Include="src\game\Fighter.h" />
+    <ClInclude Include="src\game\ecs_defs.h" />
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\game\LittleWolf.h" />
     <ClInclude Include="src\game\messages.h" />
@@ -63,7 +62,6 @@
     <ClInclude Include="src\ecs\System.h" />
     <ClInclude Include="src\game\AsteroidsFacade.h" />
     <ClInclude Include="src\game\AsteroidsUtils.h" />
-    <ClInclude Include="src\game\ecs_defs.h" />
     <ClInclude Include="src\game\ecs_defs_example.h" />
     <ClInclude Include="src\game\FighterFacade.h" />
     <ClInclude Include="src\game\FighterUtils.h" />

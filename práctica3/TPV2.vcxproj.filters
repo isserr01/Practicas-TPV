@@ -75,9 +75,6 @@
     <ClCompile Include="src\game\Bullets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\Fighter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\game\TCPServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -164,9 +161,6 @@
     <ClInclude Include="src\ecs\EntityManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\ecs_defs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\game\AsteroidsFacade.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -221,9 +215,6 @@
     <ClInclude Include="src\game\BulletsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\Fighter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\game\messages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -240,6 +231,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\Networking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\ecs_defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

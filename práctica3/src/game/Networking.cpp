@@ -6,7 +6,6 @@
 
 #include "../sdlutils/SDLUtils.h"
 #include "Game.h"
-#include "Fighter.h"
 #include "LittleWolf.h"
 #include "Bullets.h"
 
@@ -241,11 +240,22 @@ void Networking::handle_player_info(const PlayerInfoMsg &m) {
 void Networking::handle_shoot(const ShootMsg &m) {
 	Game::Instance()->get_bullets().shoot(Vector2D(m.x, m.y),
 			Vector2D(m.vx, m.vy), m.w, m.h, m.rot, m.clientId, m.timestamp);
+
+	LittleWolf::Point localPos = Game::Instance()->get_littlewolf().getLocalPosition();
+	float dx = m.x - localPos.x;
+	float dy = m.y - localPos.y;
+	float distance = sqrt(dx * dx + dy * dy);
+	float volume = std::max(0.0f, std::min(1.0f, 1.0f - distance / 20.0f));
+
+	sdlutils().soundEffects().at("gunshot").play("se", volume);
 }
 
 void Networking::handle_dead(const DeadMsg &m) {
 	Game::Instance()->get_littlewolf().killPlayer(m.clientId);
 	Game::Instance()->get_bullets().disable_bullet(m.shooter,m.timestamp);
+
+	LittleWolf::Point localPos = Game::Instance()->get_littlewolf().getLocalPosition();
+	sdlutils().soundEffects().at("pain").play("se", 1.0f);
 }
 
 void Networking::handle_restart() {
