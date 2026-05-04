@@ -234,7 +234,7 @@ void Networking::handle_dead(const DeadMsg& m) {
 }
 
 void Networking::handle_restart() {
-	Game::Instance()->get_littlewolf().restartGame();
+	Game::Instance()->get_littlewolf().startRestartSequence();
 }
 
 void Networking::handle_new_client(Uint8 id) {

@@ -5,6 +5,7 @@
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/Texture.h"
+#include "Networking.h"
 #include "Game.h"
 #include <iostream>
 #include <cstring>
@@ -200,6 +201,19 @@ bool LittleWolf::addPlayer(Uint8 id) {
 }
 
 void LittleWolf::update() {
+    if (_isRestarting) {
+        Uint32 elapsed = SDL_GetTicks() - _restartTimerStart;
+        int secondsLeft = 5 - (elapsed / 1000);
+
+        if (secondsLeft <= 0) {
+            _isRestarting = false;
+            restartGame(); // Aquí es donde el máster decide las posiciones aleatorias
+        }
+        else {
+            _lastRestartSeconds = secondsLeft;
+            return;
+        }
+    }
     auto& ihdlr = ih();
 
     _myState = _players[_myPlayerId].state;
@@ -279,6 +293,15 @@ void LittleWolf::applyRemoteInterpolation() {
 }
 
 void LittleWolf::render() {
+    if (_showRestartMessage) {
+        std::string msg = "The game will restart in " + std::to_string(_restartCountdown) + " seconds";
+        auto& text = sdlutils().msgs().at(msg.c_str());
+        int x = (sdlutils().width() - text.width()) / 2;
+        int y = (sdlutils().height() - text.height()) / 2;
+
+        text.render(x, y);
+    
+    }
     // Si el jugador local está muerto, mostrar vista aérea
 
     if (_players[_curr_player_id].state == DEAD)
@@ -622,7 +645,7 @@ void LittleWolf::restartGame() {
     _myState = ALIVE;
     _myHealth = 100;
     // El servidor reposicionará a los jugadores
-
+    /*
     for (int i = 0; i < _max_player; i++) {
         if (_players[i].state != NOT_USED) {
             _players[i].state = ALIVE;
@@ -631,7 +654,25 @@ void LittleWolf::restartGame() {
         }
     }
 
-    _showRestartMessage = false;
+    _showRestartMessage = false;*/
+    //Revivir jugadores
+    for (int i = 0; i < _max_player; i++) {
+        if (_players[i].state == DEAD) {
+            _players[i].state = ALIVE;
+            if (i == _myPlayerId) _myHealth = 100;
+        }
+    }
+
+    //Posiciones aleatorias
+    if (_isMaster) {
+        for (int i = 0; i < _max_player; i++) {
+            if (_players[i].state != NOT_USED) {
+                float newX = 2.0f + (rand() % 5); // Ejemplo de posición aleatoria
+                float newY = 2.0f + (rand() % 5);
+                update_player_state(i, newX, newY, 0, 0, 0);
+            }
+        }
+    }
 }
 
 void LittleWolf::showRestartCountdown(int seconds) {
@@ -744,4 +785,24 @@ void LittleWolf::send_my_info() {
 
     Game::Instance()->sendPlayerState();
 }
+void LittleWolf::checkRestartCondition() {
+    if (!_isMaster || _isRestarting) return;
 
+    int aliveCount = 0;
+    for (int i = 0; i < _max_player; i++) {
+        if (_players[i].state == ALIVE) {
+            aliveCount++;
+        }
+    }
+    // Si queda menos de 2 jugadores vivos, el máster inicia el reinicio
+    if (aliveCount < 2) {
+        Game::Instance()->get_networking().send_restart(); // Avisa a todos
+        startRestartSequence();
+    }
+}
+
+void LittleWolf::startRestartSequence() {
+    _isRestarting = true;
+    _restartTimerStart = SDL_GetTicks();
+    _lastRestartSeconds = 5;
+}

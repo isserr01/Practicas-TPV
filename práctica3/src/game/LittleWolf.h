@@ -206,6 +206,9 @@ public:
     void update_player_info(Uint8 id, float x, float y, float w, float h, float rot, Uint8 state);
     void killPlayer(Uint8 id);
 
+    //Metodos restart
+    void checkRestartCondition(); 
+    void startRestartSequence();  
 private:
     // ========== MÉTODOS DE RENDERIZADO ==========
     void render_map(const Player& p);
@@ -343,4 +346,7 @@ private:
     // Mensaje de reinicio
     int _restartCountdown;
     bool _showRestartMessage;
+    bool _isRestarting = false;
+    Uint32 _restartTimerStart = 0;
+    int _lastRestartSeconds = 5;
 };
