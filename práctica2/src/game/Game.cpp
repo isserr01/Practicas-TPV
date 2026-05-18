@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+ï»¿// This file is part of the course TPV2@UCM - Samir Genaim
 
 #include "Game.h"
 
@@ -30,7 +30,7 @@ Game::~Game() {
 bool Game::init() {
 
 	// initialize the SDL singleton
-	if (!SDLUtils::Init("PacMan, Stars, ...", 800, 600,
+	if (!SDLUtils::Init("PacMan", 800, 600,
 			"resources/config/resources.json")) {
 
 		std::cerr << "Something went wrong while initializing SDLUtils"
@@ -63,9 +63,11 @@ void Game::start() {
 
 	while (!exit) {
 		// Registrar el tiempo actual y calcular deltaTime
-		sdlutils().regCurrTime();  // <-- ¡Esto es crucial!
+		sdlutils().regCurrTime();  
 
-		Uint32 startTime = sdlutils().currRealTime();  // O puedes eliminar esto si usas regCurrTime()
+		sdlutils().virtualTimer().regCurrTime();
+
+		Uint32 startTime = sdlutils().currRealTime();  
 
 		// refresh the input handler
 		ihdlr.refresh();

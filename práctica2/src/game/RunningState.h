@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <SDL_rect.h>
 
 #include "GameState.h"
@@ -16,11 +16,8 @@ public:
 	void leave() override {};
 	void update() override;
 	void enter() override;
-	void receive(const Message& m) override;
 private:
 	ecs::EntityManager* _gm;
-	Transform* _fighter;
-	float _lastAsteroidTime = 0;
 
 	//systems
 	ecs::System* _pacmanSys;

@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+﻿// This file is part of the course TPV2@UCM - Samir Genaim
 
 #include "CollisionsSystem.h"
 
@@ -64,7 +64,7 @@ void CollisionsSystem::update() {
                    
                 }
                 else {
-                    // Pacman no es inmune - Pacman recibe da�o
+                    // Pacman no es inmune - Pacman recibe daño
                     m.id = _m_PACMAN_GHOST_COLLISION;
                    
                 }

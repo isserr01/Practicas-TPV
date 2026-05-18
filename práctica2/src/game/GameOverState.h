@@ -1,4 +1,4 @@
-#ifndef GAMEOVERSTATE_H
+﻿#ifndef GAMEOVERSTATE_H
 #define GAMEOVERSTATE_H
 
 #include "GameState.h"
@@ -13,7 +13,6 @@ public:
 	void leave() override {};
 	void update() override;
 	void enter() override;
-	void receive(const Message& m) override {};
 private:
 	bool _won;
 

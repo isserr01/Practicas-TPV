@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+﻿// This file is part of the course TPV2@UCM - Samir Genaim
 
 #pragma once
 #include <cstdint>
@@ -9,7 +9,7 @@ enum msgId : msgId_type {
 	_m_CREATE_FRUIT,
 	_m_NEW_GAME, _m_ROUND_START, _m_ROUND_OVER, _m_GAME_OVER,
 	_m_PACMAN_FOOD_COLLISION, _m_PACMAN_GHOST_COLLISION,
-	_m_IMMUNITY_START, _m_IMMUNITY_END, _m_GHOST_EATEN
+	_m_IMMUNITY_START, _m_IMMUNITY_END, _m_GHOST_EATEN, 
 };
 
 

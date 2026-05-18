@@ -1,4 +1,4 @@
-#include "NewRoundState.h"
+﻿#include "NewRoundState.h"
 
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
@@ -32,9 +32,5 @@ void NewRoundState::update() {
 	sdlutils().presentRenderer();
 }
 
-void NewRoundState::receive(const Message& m)
-{
-
-}
 
 

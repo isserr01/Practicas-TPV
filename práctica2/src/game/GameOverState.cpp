@@ -1,4 +1,4 @@
-#include "GameOverState.h"
+﻿#include "GameOverState.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
 #include "../game/Game.h"
@@ -15,8 +15,7 @@ void GameOverState::update()
 
 	sdlutils().clearRenderer();
 
-	auto& msg = sdlutils().msgs().at("gameover");
-
+	const Texture& msg = _won ? sdlutils().msgs().at("won") : sdlutils().msgs().at("gameover");
 	msg.render(
 		(sdlutils().width() - msg.width()) / 2,
 		sdlutils().height() / 2 + msg.height() * 2

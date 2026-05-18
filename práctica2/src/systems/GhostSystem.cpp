@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+﻿// This file is part of the course TPV2@UCM - Samir Genaim
 
 #include "GhostSystem.h"
 
@@ -43,7 +43,7 @@ void GhostSystem::spawnGhost() {
 	//fantasma rojo
 	auto anim = _mngr->addComponent<ImageWithFrames>(ghost, &sdlutils().images().at("sprites"),8,8,0.1f);
 	anim->setFrames({ 32, 33, 34, 35,36,37,38,39 });
-	ghosts.push_back(ghost);
+
 }
 
 void GhostSystem::update() {
@@ -54,7 +54,12 @@ void GhostSystem::update() {
 	}
 	auto pacman = _mngr->getHandler(ecs::hdlr::PACMAN);
 	auto pmTR = _mngr->getComponent<Transform>(pacman);
+
+
 	Vector2D pmPos = pmTR->getPos();
+
+	auto& ghosts = _mngr->getEntities(ecs::grp::GHOSTS);
+
 	for (auto g : ghosts) {
 		if (immunity) {
 			auto anim = _mngr->getComponent<ImageWithFrames>(g);
@@ -108,7 +113,7 @@ void GhostSystem::colisionPac(ecs::entity_t e) {
 			Message m;
 			m.id = _m_ROUND_OVER;
 			Game::Instance()->getMngr()->send(m);
-			sdlutils().soundEffects().at("pacman_lost").play("se");
+			sdlutils().soundEffects().at("pacman_death").play("se");
 			Game::Instance()->setState(Game::GAMEOVER_LOST);
 		}
 		
@@ -127,20 +132,24 @@ void GhostSystem::recieve(const Message& m) {
 		immunity = false;
 		break;
 	case _m_ROUND_START:
-		immunity = false;
-		for (auto g : ghosts) {
-			_mngr->setAlive(g, false);
+		{
+			immunity = false;
+			auto& ghosts = _mngr->getEntities(ecs::grp::GHOSTS);
+			for (auto g : ghosts) {
+				_mngr->setAlive(g, false);
+			}
+			cantidadGhosts = 0;
+			break;
 		}
-		ghosts.clear();
-		cantidadGhosts = 0;
-		break;
-	case _m_GHOST_EATEN:
+	case _m_GHOST_EATEN: 
+		{
 			// Matar fantasma
 			_mngr->setAlive(m.ghost_coll_data.e, false);
-			ghosts.erase(std::remove(ghosts.begin(), ghosts.end(), m.ghost_coll_data.e), ghosts.end());
 			sdlutils().soundEffects().at("pacman_chomp").play("se");
 			cantidadGhosts--;
 			break;
+
+		}
 	default:
 		break;
 	}

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <SDL_rect.h>
 
@@ -14,7 +14,7 @@ public:
 	void leave() override {};
 	void update() override;
 	void enter() override {};
-	void receive(const Message& m) override;
+
 
 };
 

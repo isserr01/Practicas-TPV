@@ -1,4 +1,4 @@
-#include "RunningState.h"
+﻿#include "RunningState.h"
 #include "../game/Game.h"
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/InputHandler.h"
@@ -52,26 +52,12 @@ void RunningState::enter()
 		systems.push_back(_immunitySys);
 	}
 
-	auto fruits = Game::Instance()->getMngr()->getEntities(ecs::grp::FRUITS);
-	if (fruits.empty()) {
-		Message m;
-		m.id = _m_CREATE_FRUIT;
-		m.create_fruits_data.n = 5;
-		Game::Instance()->getMngr()->send(m);
-	}
-		
-	
+
+	Message m;
+	m.id = _m_CREATE_FRUIT;
+	m.create_fruits_data.n = 6;
+	Game::Instance()->getMngr()->send(m);
 
 }
 
-void RunningState::receive(const Message& m)
-{
-	switch (m.id) {
-	case _m_ROUND_OVER:
-		Game::Instance()->setState(Game::PAUSED);
-		break;
-	default:
-		break;
-	}
-}
 

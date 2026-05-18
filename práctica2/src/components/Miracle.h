@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <SDL_stdinc.h>
 #include "../sdlutils/SDLUtils.h"
@@ -14,15 +14,15 @@ struct Miracle : public ecs::Component {
 
     State state;
     Uint32 lastSwitchTime; // tiempo del último cambio
-    int N; // duración normal
-    int M; // duración milagrosa
+    Uint32 N; // duración normal
+    Uint32 M; // duración milagrosa
 
     Miracle() {
         auto& rand = sdlutils().rand();
         state = NORMAL;
         N = rand.nextInt(10, 20);   // duración normal
         M = 0;                      // se asigna al entrar en milagroso
-        lastSwitchTime = sdlutils().currRealTime()/500.0f;
+		lastSwitchTime = sdlutils().virtualTimer().currTime()/500.0f;
     }
 
     bool isMiraculous() const {

@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+﻿// This file is part of the course TPV2@UCM - Samir Genaim
 
 #include "PacManSystem.h"
 
@@ -119,17 +119,9 @@ void PacManSystem::recieve(const Message& m) {
 		_pmTR->_vel = Vector2D();
 		_pmTR->_rot = 0.0f;
 		break;
-	case _m_PACMAN_GHOST_COLLISION:
-		
-		if (health != nullptr) {
-			health->subLives(1);
-			if (health->getLives() <= 0) {
-				Message m;
-				m.id = _m_ROUND_OVER;
-				Game::Instance()->getMngr()->send(m);
-				Game::Instance()->setState(Game::GAMEOVER_LOST);
-			}
-		}
+	case _m_PACMAN_GHOST_COLLISION:		
+		Game::Instance()->setState(Game::NEWROUND);
+		break;
 	}
 
 	

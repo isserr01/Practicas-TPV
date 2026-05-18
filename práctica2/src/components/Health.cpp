@@ -1,4 +1,4 @@
-#include "Health.h"
+﻿#include "Health.h"
 
 Health::Health() :
 	_lives(3)
@@ -22,7 +22,6 @@ void Health::subLives(int n) {
 	if (_lives < 0) {
 		_lives = 0;
 	}
-	std::cout << "Vidas restantes: " << _lives << std::endl;
 }
 
 //resetea vidas (a 3)

@@ -1,4 +1,4 @@
-#include "ImmunitySystem.h"
+﻿#include "ImmunitySystem.h"
 #include "../game/messages_defs.h"
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/SDLUtils.h"
@@ -6,19 +6,19 @@
 #include"../components/Miracle.h"
 
 void ImmunitySystem::update() {
-    if (!active) return;
-    float currTime = sdlutils().currRealTime();
+
+	auto currTime = sdlutils().virtualTimer().currTime() / 1000.0f; 
     float elapsed = currTime - startTime;
 
-    if (elapsed >= 10000.0f) { 
+    if (elapsed >= 10.0f) { 
         deactivateImmunity();
     }
 }
 
 void ImmunitySystem:: recieve(const Message& m) {
     switch (m.id) {
-        case _m_PACMAN_FOOD_COLLISION:
-            onFruitEaten(m.fruit_eaten_data.e);
+	    case _m_IMMUNITY_START:
+		    activateImmunity();
             break;
         case _m_ROUND_START:
             resetImmunity();
@@ -26,23 +26,10 @@ void ImmunitySystem:: recieve(const Message& m) {
     }
 }
 
-void ImmunitySystem::onFruitEaten(ecs::entity_t fruit) {
-   auto miracle = _mngr->getComponent<Miracle>(fruit);
-
-    if (miracle!=nullptr && miracle->isMiraculous()) {
-        activateImmunity();
-    }
-}
 
 void ImmunitySystem::activateImmunity() {
-   if(active) return; // Si ya está activa, no hacer nada
     active = true;
-    startTime = sdlutils().currRealTime();
-    
-	Message m;
-    m.id = _m_IMMUNITY_START;
-    _mngr->send(m);
-    
+	startTime = sdlutils().virtualTimer().currTime() / 1000.0f; 
  
 }
 

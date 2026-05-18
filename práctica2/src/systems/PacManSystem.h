@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+﻿// This file is part of the course TPV2@UCM - Samir Genaim
 
 #pragma once
 
@@ -16,5 +16,6 @@ public:
 	void recieve(const Message&) override;	
 private:
 	Transform *_pmTR;
+
 };
 

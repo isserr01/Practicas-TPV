@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <vector>
 #include "../ecs/System.h"
 #include "../game/messages_defs.h"
@@ -17,7 +17,6 @@ public:
 	void recieve(const Message& msg) override;
 	void colisionPac(ecs::entity_t e);
 private:
-	std::vector<ecs::Entity*> ghosts;
 	Transform* gmTR;
 	int timerGhost;
 	bool immunity;

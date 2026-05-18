@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+﻿// This file is part of the course TPV2@UCM - Samir Genaim
 
 #include "FruitSystem.h"
 
@@ -26,7 +26,7 @@ void FruitSystem::initSystem() {
 }
 
 void FruitSystem::update() {
-	auto currTime = sdlutils().currRealTime() / 1000.0f;
+	auto currTime = sdlutils().virtualTimer().currTime()/1000.0f;
 	auto stars = _mngr->getEntities(ecs::grp::FRUITS);
 
 	for (auto e : stars) {
@@ -108,12 +108,9 @@ void FruitSystem::onFruitEaten(ecs::entity_t e) {
 	_mngr->setAlive(e, false);
 	_currNumOfStars--;
 
-	if(_currNumOfStars == 0) {
-		Message m;
-		m.id = _m_ROUND_OVER;
-		Game::Instance()->getMngr()->send(m);
-		sdlutils().soundEffects().at("pacman_won").play("se");
+	if(_currNumOfStars <= 0) {
 		Game::Instance()->setState(Game::GAMEOVER_WON);
+		sdlutils().soundEffects().at("pacman_won").play("se");
 	}
 
 	// play sound on channel 1 (if there is something playing there
@@ -123,7 +120,7 @@ void FruitSystem::onFruitEaten(ecs::entity_t e) {
 
 void FruitSystem::resetTimers() {
 	auto stars = _mngr->getEntities(ecs::grp::FRUITS);
-	Uint32 now = sdlutils().currRealTime();
+	Uint32 now = sdlutils().virtualTimer().currTime();
 
 	for (auto e : stars) {
 		auto miracle = _mngr->getComponent<Miracle>(e);
@@ -162,6 +159,9 @@ void FruitSystem::recieve(const Message &m) {
 		addFruit(m.create_fruits_data.n);
 		break;
 	case _m_ROUND_START:
+		resetTimers();
+		break;
+	case _m_NEW_GAME:
 		clearAllFruit();
 		_mngr->refresh();
 		addFruit(m.create_fruits_data.n);
