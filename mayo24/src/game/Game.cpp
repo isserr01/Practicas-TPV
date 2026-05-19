@@ -1,0 +1,92 @@
+﻿// This file is part of the course TPV2@UCM - Samir Genaim
+
+#include "Game.h"
+
+#include "../ecs/EntityManager.h"
+#include "../sdlutils/InputHandler.h"
+#include "../sdlutils/SDLUtils.h"
+
+
+using ecs::EntityManager;
+
+Game::Game() :
+	_mngr(nullptr), //
+	_state(nullptr) {
+}
+
+
+Game::~Game() {
+	delete _mngr;
+
+	// release InputHandler if the instance was created correctly.
+	if (InputHandler::HasInstance())
+		InputHandler::Release();
+
+	// release SLDUtil if the instance was created correctly.
+	if (SDLUtils::HasInstance())
+		SDLUtils::Release();
+}
+
+bool Game::init() {
+
+	// initialize the SDL singleton
+	if (!SDLUtils::Init("PacMan", 800, 600,
+			"resources/config/resources.json")) {
+
+		std::cerr << "Something went wrong while initializing SDLUtils"
+				<< std::endl;
+		return false;
+	}
+
+	// initialize the InputHandler singleton
+	if (!InputHandler::Init()) {
+		std::cerr << "Something went wrong while initializing SDLHandler"
+				<< std::endl;
+		return false;
+
+	}
+
+	// Create the manager
+	_mngr = new EntityManager();
+
+	
+
+	return true;
+}
+
+void Game::start() {
+
+	// a boolean to exit the loop
+	bool exit = false;
+
+	auto &ihdlr = ih();
+
+	while (!exit) {
+		// Registrar el tiempo actual y calcular deltaTime
+		sdlutils().regCurrTime();  
+
+		sdlutils().virtualTimer().regCurrTime();
+
+		Uint32 startTime = sdlutils().currRealTime();  
+
+		// refresh the input handler
+		ihdlr.refresh();
+
+		if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE)) {
+			exit = true;
+			continue;
+		}
+
+		_mngr->refresh();
+
+		assert(_state != nullptr);
+		_state->update();
+
+		Uint32 frameTime = sdlutils().currRealTime() - startTime;
+
+		if (frameTime < 10)
+			SDL_Delay(10 - frameTime);
+	}
+
+}
+
