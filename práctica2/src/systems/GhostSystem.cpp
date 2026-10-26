@@ -5,6 +5,7 @@
 #include "../components/ImageWithFrames.h"
 #include "../components/Health.h"
 #include "../components/Transform.h"
+#include "../components/Mortal.h"
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../game/Game.h"
@@ -14,6 +15,8 @@
 
 #include <cstdlib>
 
+const int P = 10.0f;
+
 GhostSystem::GhostSystem() :
 	gmTR(nullptr),timerGhost(5.0f),immunity(false), cantidadGhosts(0) {
 }
@@ -22,6 +25,10 @@ GhostSystem::~GhostSystem() {
 }
 
 void GhostSystem::spawnGhost() {
+
+	auto& randm = sdlutils().rand();
+	int m = randm.nextInt(1, P);
+
 	// create the Ghost entity
 	auto ghost = _mngr->addEntity(ecs::grp::GHOSTS);
 
@@ -43,6 +50,12 @@ void GhostSystem::spawnGhost() {
 	//fantasma rojo
 	auto anim = _mngr->addComponent<ImageWithFrames>(ghost, &sdlutils().images().at("sprites"),8,8,0.1f);
 	anim->setFrames({ 32, 33, 34, 35,36,37,38,39 });
+
+	if (m == 1) {
+		_mngr->addComponent<Mortal>(ghost,tr->getPos());
+		std::cout << "Ghost mortal creado" << std::endl;
+	}
+	
 
 }
 
@@ -132,24 +145,37 @@ void GhostSystem::recieve(const Message& m) {
 		immunity = false;
 		break;
 	case _m_ROUND_START:
-		{
-			immunity = false;
-			auto& ghosts = _mngr->getEntities(ecs::grp::GHOSTS);
-			for (auto g : ghosts) {
-				_mngr->setAlive(g, false);
-			}
-			cantidadGhosts = 0;
-			break;
+	{
+		immunity = false;
+		auto& ghosts = _mngr->getEntities(ecs::grp::GHOSTS);
+		for (auto g : ghosts) {
+			_mngr->setAlive(g, false);
 		}
+		cantidadGhosts = 0;
+		break;
+	}
 	case _m_GHOST_EATEN: 
-		{
+	{
+		auto mortal = _mngr->getComponent<Mortal>(m.ghost_coll_data.e);
+
+		if (mortal) {
+			mortal->crash();
+			auto tr = _mngr->getComponent<Transform>(m.ghost_coll_data.e);
+			tr->_pos = mortal->getBirthPos();
+			if(mortal->T <= 0) {
+				_mngr->setAlive(m.ghost_coll_data.e, false);
+				sdlutils().soundEffects().at("pacman_chomp").play("se");
+				cantidadGhosts--;
+			}
+		}
+		else {
 			// Matar fantasma
 			_mngr->setAlive(m.ghost_coll_data.e, false);
 			sdlutils().soundEffects().at("pacman_chomp").play("se");
-			cantidadGhosts--;
-			break;
-
+			cantidadGhosts--;						
 		}
+		break;
+	}
 	default:
 		break;
 	}

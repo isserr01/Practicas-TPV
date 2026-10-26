@@ -1,4 +1,4 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
+﻿// This file is part of the course TPV2@UCM - Samir Genaim
 
 #pragma once
 
@@ -11,6 +11,7 @@ struct StarMotion;
 struct Points;
 struct Miracle;
 struct Health;
+struct Mortal;
 
 #define _CMPS_LIST_ \
 	Transform, \
@@ -19,13 +20,15 @@ struct Health;
 	StarMotion, \
 	Points, \
 	Miracle, \
-	Health
+	Health, \
+	Mortal
 
 // Groups list - must have at least one element
 //
 #define _GRPS_LIST_ \
 	FRUITS, \
-	GHOSTS
+	GHOSTS, \
+	HELPERS
 
 // Handlers list - must have at least one element
 //

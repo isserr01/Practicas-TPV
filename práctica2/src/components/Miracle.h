@@ -2,10 +2,6 @@
 
 #include <SDL_stdinc.h>
 #include "../sdlutils/SDLUtils.h"
-#pragma once
-
-#include <SDL_stdinc.h>
-#include "../sdlutils/SDLUtils.h"
 #include "../ecs/Component.h"
 
 struct Miracle : public ecs::Component {

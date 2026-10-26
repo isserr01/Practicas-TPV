@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\systems\HelpersSystem.cpp" />
     <ClCompile Include="src\components\Health.cpp" />
     <ClCompile Include="src\systems\GhostSystem.cpp" />
     <ClCompile Include="src\systems\ImmunitySystem.cpp" />
@@ -50,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\uni\tpv2\ecs_5\usage_examples\pacman_eat_stars_w_msgs\game\messages_defs.h" />
+    <ClInclude Include="src\systems\HelpersSystem.h" />
+    <ClInclude Include="src\components\Mortal.h" />
     <ClInclude Include="src\components\Immunity.h" />
     <ClInclude Include="src\components\Health.h" />
     <ClInclude Include="src\ecs\ecs.h" />
